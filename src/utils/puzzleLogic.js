@@ -40,9 +40,10 @@ export function isSolvable(tiles, gridSize) {
 }
 
 /**
- * Shuffle tiles using Fisher-Yates, ensuring solvability and non-trivial state.
+ * Shuffle tiles using Fisher-Yates.
+ * If skipSolvabilityCheck is false, it ensures the slider is solvable.
  */
-export function shuffleTiles(gridSize) {
+export function shuffleTiles(gridSize, skipSolvabilityCheck = false) {
   const total = gridSize * gridSize;
   let tiles;
   do {
@@ -52,7 +53,10 @@ export function shuffleTiles(gridSize) {
       const j = Math.floor(Math.random() * (i + 1));
       [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
     }
-  } while (!isSolvable(tiles, gridSize) || checkWin(tiles));
+  } while (
+    (!skipSolvabilityCheck && (!isSolvable(tiles, gridSize) || checkWin(tiles))) ||
+    (skipSolvabilityCheck && checkWin(tiles))
+  );
   return tiles;
 }
 

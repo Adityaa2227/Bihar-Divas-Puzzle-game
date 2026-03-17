@@ -27,3 +27,8 @@ export const GRID_SIZES = {
 export const LS_KEYS = {
   bestScore: 'bihar-puzzle-best-score',
 };
+
+export const GAME_MODES = {
+  SLIDER: 'slider',
+  DRAG_DROP: 'drag_drop',
+};

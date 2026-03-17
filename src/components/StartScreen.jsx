@@ -1,12 +1,14 @@
 import Header from './Header';
 import ImageSelector from './ImageSelector';
-import { GRID_SIZES } from '../utils/constants';
+import { GRID_SIZES, GAME_MODES } from '../utils/constants';
 
 export default function StartScreen({
   selectedImage,
   onImageSelect,
   difficulty,
   onDifficultyChange,
+  gameMode,
+  onGameModeChange,
   onStart,
   bestScore,
   volume,
@@ -29,8 +31,28 @@ export default function StartScreen({
       <div className="start-screen__welcome">
         <h2 className="start-screen__subtitle">Welcome to Bihar!</h2>
         <p className="start-screen__text">
-          Test your skills with our culture-themed sliding puzzles. Choose an image and difficulty to begin your journey.
+          Select your puzzle style and challenge your skills with Bihar's icons.
         </p>
+      </div>
+
+      <div className="start-screen__mode-selection">
+        <h3 className="section-title">Select Game Style</h3>
+        <div className="start-screen__modes">
+          <button
+            className={`btn btn--mode ${gameMode === GAME_MODES.SLIDER ? 'btn--level-active' : ''}`}
+            onClick={() => onGameModeChange(GAME_MODES.SLIDER)}
+          >
+            🧩 Slider Puzzle
+            <span className="mode-desc">Standard sliding logic</span>
+          </button>
+          <button
+            className={`btn btn--mode ${gameMode === GAME_MODES.DRAG_DROP ? 'btn--level-active' : ''}`}
+            onClick={() => onGameModeChange(GAME_MODES.DRAG_DROP)}
+          >
+            🖱️ Drag & Drop
+            <span className="mode-desc">Swap any two pieces</span>
+          </button>
+        </div>
       </div>
 
       <ImageSelector selectedImage={selectedImage} onSelect={onImageSelect} />

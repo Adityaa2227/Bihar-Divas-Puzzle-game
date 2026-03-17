@@ -1,15 +1,13 @@
 import { memo } from 'react';
 
 function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
-  const tileSize = 100 / gridSize;
-
   if (isEmpty) {
     return (
       <div
         className="tile tile--empty"
         style={{
-          width: `${tileSize}%`,
-          height: `${tileSize}%`,
+          width: '100%',
+          height: '100%',
         }}
       />
     );
@@ -26,8 +24,8 @@ function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
       className="tile"
       onClick={() => onClick(index)}
       style={{
-        width: `${tileSize}%`,
-        height: `${tileSize}%`,
+        width: '100%',
+        height: '100%',
         backgroundImage: `url(${imageSrc})`,
         backgroundSize: `${gridSize * 100}%`,
         backgroundPosition: `${bgPosX}% ${bgPosY}%`,

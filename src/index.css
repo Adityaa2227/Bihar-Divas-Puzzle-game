@@ -370,6 +370,7 @@ body {
 .puzzle-wrapper {
   position: relative;
   width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -648,8 +649,56 @@ body {
   gap: 12px;
 }
 
-.modal__btn {
-  width: 100%;
+/* ===== Mode Selection ===== */
+.start-screen__mode-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.start-screen__modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn--mode {
+  flex-direction: column;
+  padding: 16px;
+  height: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.mode-desc {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+.btn--level-active .mode-desc {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* ===== Drag & Drop Board ===== */
+.puzzle-wrapper--jigsaw {
+  border-style: dashed;
+  border-color: var(--accent);
+}
+
+.drag-tile-wrapper {
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.drag-tile-wrapper:active {
+  cursor: grabbing;
+}
+
+.drag-tile-wrapper.dragging {
+  opacity: 0.4;
+  transform: scale(0.9);
 }
 
 /* ===== Animations ===== */
