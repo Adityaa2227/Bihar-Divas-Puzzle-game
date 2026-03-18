@@ -1,305 +1,106 @@
 export const CATEGORIES = [
-  { 
-    id: 'heritage', 
-    label: 'Historical Places', 
-    icon: '🏛️', 
-    image: 'https://imgs.search.brave.com/BNKx-UFzUuinGhZTMweMK0-sWOBNfw2CTIPDSqaIlv0/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9oYmxp/bWcubW10Y2RuLmNv/bS9jb250ZW50L2h1/YmJsZS9pbWcvcGF0/bmEvbW10L2FjdGl2/aXRpZXMvbV9Hb2xn/aGFyLTFfbF80ODBf/NjQwLmpwZw', 
-    desc: 'Explore the ancient wonders and monuments of Bihar' 
-  },
-  { 
-    id: 'modern', 
-    label: 'Modern Bihar', 
-    icon: '🏙️', 
-    image: 'https://imgs.search.brave.com/Vo08sfiBWyIU5mJiCF8BLMcv3guKUUTX17Q_eXRbMA4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMubmF0aXZlcGxh/bmV0LmNvbS9oaS9p/bWcvMjAyNC8wNi9w/dGkxMC0wOS0yMDIz/LTAwMDIxN2ItMTcx/OTA0NDI0MS5qcGc', 
-    desc: 'Discover the contemporary side of the state' 
-  },
-  { 
-    id: 'food', 
-    label: 'Local Cuisines', 
-    icon: '🍲', 
-    image: 'https://imgs.search.brave.com/FjyE0J4Kr8Oq_trm3FdKPms2k8Nuv8O5To8wdA2xsWo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9saXR0/aS1jaG9raGEtbGl0/aS1jaG9rYS1zdHVm/ZmVkLWNoYW5hLXNh/dHR1LWluZGlhbi1k/aXNoLWJpaGFyLXNl/cnZlZC1naW5nZXIt/Z2FybGljLW1pbnQt/Y2h1dG5leS1iYWlu/Z2FuLTIxNjg5MjM4/OS5qcGc', 
-    desc: 'Taste the traditional, authentic flavors' 
-  },
-  { 
-    id: 'culture', 
-    label: 'Rich Art & Culture', 
-    icon: '🎨', 
-    image: 'https://imgs.search.brave.com/0ZCjBlzYz5kgO2fglyzOPU6wWT0NanXWC8T2c4n0ILM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9yZW5k/ZXIuZmluZWFydGFt/ZXJpY2EuY29tL2lt/YWdlcy9pbWFnZXMt/cHJvZmlsZS1mbG93/LzQwMC9pbWFnZXMv/YXJ0d29ya2ltYWdl/cy9tZWRpdW1sYXJn/ZS8xL3dlbGNvbWlu/Zy1lbGVwaGFudC1z/aGlscGEtYWRhdmF0/a2FyLmpwZw', 
-    desc: 'Immerse in Madhubani art and local traditions' 
-  }
+  { id: 'heritage', label: 'Historical Places', icon: '🏛️', image: 'src/assets/photos/golghar.webp' },
+  { id: 'modern', label: 'Modern Bihar', icon: '🏙️', image: 'src/assets/photos/modern_bihar.webp' },
+  { id: 'food', label: 'Local Cuisines', icon: '🍲', image: 'src/assets/photos/local_cuisine.webp' },
+  { id: 'culture', label: 'Rich Art & Culture', icon: '🎨', image: 'src/assets/photos/rich art culture.webp' }
 ];
 
 export const IMAGES = [
-  // --- HERITAGE ---
-  {
-    id: 'golghar',
-    categoryId: 'heritage',
-    name: 'Golghar, Patna',
-    src: 'https://imgs.search.brave.com/BNKx-UFzUuinGhZTMweMK0-sWOBNfw2CTIPDSqaIlv0/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9oYmxp/bWcubW10Y2RuLmNv/bS9jb250ZW50L2h1/YmJsZS9pbWcvcGF0/bmEvbW10L2FjdGl2/aXRpZXMvbV9Hb2xn/aGFyLTFfbF80ODBf/NjQwLmpwZw',
-    fact: 'Built in 1786 by Captain John Garstin, Golghar is a massive granary without pillars and offers a panoramic view of Patna and the Ganges.',
-  },
-  {
-    id: 'nalanda',
-    categoryId: 'heritage',
-    name: 'Nalanda University',
-    src: 'https://imgs.search.brave.com/emkX3SnE0lzFxSMu8PP054HuM8ITGa-u80F9ctX-TWk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudHJhdmVsYW5k/bGVpc3VyZWFzaWEu/Y29tL3dwLWNvbnRl/bnQvdXBsb2Fkcy9z/aXRlcy8yLzIwMjQv/MDYvMTgxMzE1NTIv/bmFsYW5kYS0yLmpw/Zw',
-    fact: 'Nalanda was ancient India\'s first residential university, hosting thousands of students and teachers from across the world.',
-  },
-  {
-    id: 'mahabodhi',
-    categoryId: 'heritage',
-    name: 'Mahabodhi Temple',
-    src: 'https://imgs.search.brave.com/ucOOrGCFVqZKxQGxv-cce4E6-rtZtAexqu_AQE6khQw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NTFHaklXNmRxMUwu/anBn',
-    fact: 'A UNESCO World Heritage site, it marks the location where Lord Buddha attained Enlightenment under the Bodhi tree.',
-  },
-  {
-    id: 'vikramshila',
-    categoryId: 'heritage',
-    name: 'Vikramshila University',
-    src: 'https://imgs.search.brave.com/ooqCkiQL_csUSkctKBeRQm6F50ADCTg-4rsxa9bEJ7s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9oaXN0/b3JpZmllZC5pbi93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NS9TY3JlZW5zaG90/XzIwMjAwNTMxLTE1/MzUzNi03MjB4NTYw/LmpwZw',
-    fact: 'Vikramshila was another premier Buddhist university of ancient India, founded by King Dharmapala.',
-  },
-  {
-    id: 'sher-shah-tomb',
-    categoryId: 'heritage',
-    name: 'Sher Shah Suri Tomb',
-    src: 'https://imgs.search.brave.com/P6ElWm0FlD3fFJ5Bd-yOK5WxNiBbpIUW5tWJ0v7_-3s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9zaGVy/LXNoYWgtc3VyaS10/b21iLWluZG8taXNs/YW1pYy1hcmNoaXRl/Y3R1cmUtZGVjLXNo/ZXItc2hhaC1zdXJp/LXRvbWItaW5kby1p/c2xhbWljLWFyY2hp/dGVjdHVyZS1zYXNh/cmFtLWJpaGFyLWlu/ZGlhLTI3ODk4NzA0/My5qcGc',
-    fact: 'Located in Sasaram, this tomb is an Indo-Islamic architectural marvel standing in the middle of an artificial lake.',
-  },
-  {
-    id: 'barabar-caves',
-    categoryId: 'heritage',
-    name: 'Barabar Caves',
-    src: 'https://imgs.search.brave.com/gNS9wl8pwN04xRxHVgrXVTmOmZo1lHt2F8RRDNOhxHY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Z29zYWhpbi5jb20v/Z28vcC9mL3QxLzE1/NDYxODQ5NDRfYmFy/YWJhci1jYXZlcy1z/dWx0YW5wdXIyLmpw/Zw',
-    fact: 'These are the oldest surviving rock-cut caves in India, dating back to the Maurya Empire.',
-  },
-  {
-    id: 'kesaria-stupa',
-    categoryId: 'heritage',
-    name: 'Kesaria Stupa',
-    src: 'https://imgs.search.brave.com/Fgv7Xrw8mXOJlGuSJ7UC-cu_x3dosJdra0Y_Jyw0qRY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9wd29u/bHlpYXMuY29tL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDI0LzA0/L3VudGl0bGVkLTIw/MjQtMDQtMjB0MTIx/NjI5MTU1LTEtNjYy/MzhkYjlhYTJhOS53/ZWJw',
-    fact: 'Kesaria Stupa is world\'s largest Buddhist stupa, even larger than the one in Sanchi.',
-  },
-  {
-    id: 'rohtasgarh-fort',
-    categoryId: 'heritage',
-    name: 'Rohtasgarh Fort',
-    src: 'https://imgs.search.brave.com/2Hh7QJZfF7osTlyGOCtORHMxYsPL6RnTW7yiyDErA2E/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMudGVsZWdyYXBo/aW5kaWEuY29tL3Rl/bGVncmFwaC8yMDIz/L05vdi8xNjk5MTQz/OTUwX2ZvcnQuZ2lm.jpeg',
-    fact: 'One of the most ancient and strongest forts in India, situated atop the Kaimur hills.',
-  },
-  {
-    id: 'agam-kuan',
-    categoryId: 'heritage',
-    name: 'Agam Kuan',
-    src: 'https://imgs.search.brave.com/-WEwBH7ZZ2gg58odjjyFKAdPH-XQToSXbXo7NC-R4rE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zN2Fw/MS5zY2VuZTcuY29t/L2lzL2ltYWdlL2lu/Y3JlZGlibGVpbmRp/YS9hZ2FtLWt1YW4t/cGF0bmEtYmloYXIt/Mi1tdXN0aGVhZC1o/ZXJvP3FsdD04MiZ0/cz0xNzQyMTYyNTk1/MjMy',
-    fact: 'An ancient well associated with Maurya Emperor Ashoka, believed to have unplumbed depth.',
-  },
-  {
-    id: 'patna-sahib',
-    categoryId: 'heritage',
-    name: 'Patna Sahib Gurudwara',
-    src: 'https://imgs.search.brave.com/U1X-8Uv-XXMaLKc2_t2mb7hoC5n-tSz42GbmfEp1rkc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4x/LnRyaXBvdG8uY29t/L21lZGlhL2ZpbHRl/ci9ubC9pbWcvMjM4/MDI5MS9JbWFnZS8x/NzA4MDc1ODc3X3Rh/a2hhdF9zcmlfaGFy/aW1hbmRpcl9qaV9w/YXRuYV9zYWhpYl8x/M2FuZ2xlLmpwZy53/ZWJw',
-    fact: 'Birthplace of Guru Gobind Singh Ji, it is one of the five Takhts of the Sikh Religion.',
-  },
+  // --- UNDER 15 ---
+  { id: 'mahabodhi', categoryId: 'heritage', name: 'Mahabodhi Temple', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: 'Place where Buddha attained enlightenment.' },
+  { id: 'nalanda-u', categoryId: 'heritage', name: 'Nalanda University', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Ancient world-renowned learning center.' },
+  { id: 'golghar', categoryId: 'heritage', name: 'Golghar', src: 'src/assets/photos/golghar.webp' },
+  { id: 'buddha-statue', categoryId: 'heritage', name: 'Buddha Statue', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: '80-foot Bodh Gaya landmark.' },
+  { id: 'rajgir-hills', categoryId: 'heritage', name: 'Rajgir Hills', src: 'https://picxy.com/images/high_res_files/stock-photo/IA282723-1579246101.jpg', fact: 'Sacred hills of Rajgir.' },
+  { id: 'patna-metro', categoryId: 'modern', name: 'Patna Metro', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/IIT_Patna_Campus.jpg/1280px-IIT_Patna_Campus.jpg', fact: 'Modern transit project of Bihar.' },
+  { id: 'gandhi-maidan', categoryId: 'modern', name: 'Gandhi Maidan', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Gandhi_maidan_patna.jpg', fact: 'Epicenter of events in Patna.' },
+  { id: 'ecopark', categoryId: 'modern', name: 'Eco Park', src: 'https://imgs.search.brave.com/v-ycMUUAfMNKg9-58Zx9v1vEbN7ytCqiDhx6x4OPVG4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS1jZG4udHJpcGFk/dmlzb3IuY29tL21l/ZGlhL3Bob3RvLW8v/MDgvOWQvNmMvYjgv/ZWNvLXBhcmstcmFq/ZGhhbmktdmF0aWth/LmpwZw', fact: ' Rajdhani Vatika urban oasis.' },
+  { id: 'ganga-riverfront', categoryId: 'modern', name: 'Ganga Riverfront', src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Ganga_Aarti_at_Patna.jpg', fact: 'Developing bank of sacred Ganges.' },
+  { id: 'jp-path', categoryId: 'modern', name: 'JP Ganga Path', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rajendra_Setu.jpg/1280px-Rajendra_Setu.jpg', fact: 'Marine Drive of Bihar.' },
+  { id: 'litti-chokha', categoryId: 'food', name: 'Litti Chokha', src: 'src/assets/photos/local_cuisine.webp' },
+  { id: 'sattu-drink', categoryId: 'food', name: 'Sattu Drink', src: 'https://imgs.search.brave.com/6qxhZBEGvpA7KlMwTmbeO9UFKlgfGp8QLzjxpvJBwXY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9zYXR0dS1z/dW1tZXItZHJpbmst/cHJlcGFyZWQtYnkt/MjYwbnctMTM2NTI5/MDQ5NS5qcGc', fact: 'Protein-rich desi energy drink.' },
+  { id: 'thekua', categoryId: 'food', name: 'Thekua', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Traditional Chhath Puja cookie.' },
+  { id: 'khaja', categoryId: 'food', name: 'Khaja', src: 'https://imgs.search.brave.com/sey1lLs1sae3PG7hAQWmUuM64TRHUYcjBYdLS81IB5g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9BTkRST0lEL0Rl/ZmF1bHQvMjAyMS8x/L0tCL1VML01ZLzIz/MTI4Njg2L3Byb2Qt/MjAyMTAxMDYtMTI1/NzQwNDE3NzA4NjIy/MTgxOTI5NzAxNC1q/cGctNTAweDUwMC5q/cGc', fact: 'Crispy layered sweet from Silao.' },
+  { id: 'chana-ghugni', categoryId: 'food', name: 'Chana Ghugni', src: 'https://imgs.search.brave.com/Cf8e3M1xmkKkRdVM-1Wu9oe9A6XZLZDu98qocaf2SBU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmVnYW5yaWNoYS5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjMvMDUvS2FsYS1D/aGFuYS1HaHVnbmkt/NzY0NC0zMDB4MzAw/LmpwZw', fact: 'Spicy chickpea street delicacy.' },
+  { id: 'madhubani', categoryId: 'culture', name: 'Madhubani Art', src: 'https://imgs.search.brave.com/TzrHJ_bcPDi2Oe7kAkF3lwMmbNKdJrRHztzqZ0uCtfc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQx/OTU2MjE5Ni9waG90/by90cmFkaXRpb25h/bC1tYWRodWJhbmkt/cGFudGluZy1vZi1s/YWRpZXMuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPXdwU0hp/LVNqY0lWeFoxQlh4/a1hlOXMyb0dUYmp2/WVExNnlSVmNxb0RI/X0E9', fact: 'Mithila colorful geometric art.' },
+  { id: 'chhath', categoryId: 'culture', name: 'Chhath Puja', src: 'https://imgs.search.brave.com/zcPc4Ucz2X3LGlBqwghZEdA1NHw_XxMl9g7iksch8Hs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzE4LzcxLzE1Lzk0/LzM2MF9GXzE4NzEx/NTk0MTFfSzZzbWlY/bUdjMlRvbjF4TW1l/NlgxUVlwSkN0RzRv/MEouanBn', fact: 'Ancient Vedic Sun festival.' },
+  { id: 'folk-dance', categoryId: 'culture', name: 'Bihar Folk Dance', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Bihar_Focal_Dance-.jpg', fact: 'Rural vibrant dance traditions.' },
+  { id: 'ganga-aarti', categoryId: 'culture', name: 'Ganga Aarti', src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Ganga_Aarti_at_Patna.jpg', fact: 'Spiritual evening prayer on River banks.' },
+  { id: 'village-life', categoryId: 'culture', name: 'Village Life', src: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Rural_Bihar.jpg', fact: 'Rooted and simple Bihar lifestyle.' },
 
-  // --- MODERN ---
-  {
-    id: 'patna-skyline',
-    categoryId: 'modern',
-    name: 'Patna Skyline',
-    src: 'https://imgs.search.brave.com/uOQdOfEURz_1KqrOa42m1nHV5jQk1WPJKs8taCI2nt0/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hczEu/ZnRjZG4ubmV0L2pw/Zy8wMS81OC84Mi8y/Ni8xMDAwX0ZfMTU4/ODIyNjQ0X1VmN3pQ/MEh6Uzc4NXR5aWM1/ZFE3NUx6RkR6eW5N/eWZoLmpwZw',
-    fact: 'Patna is one of the fastest growing cities in India with a booming infrastructure.',
-  },
-  {
-    id: 'sabhyata-dwar',
-    categoryId: 'modern',
-    name: 'Sabhyata Dwar',
-    src: 'https://imgs.search.brave.com/dwCDGmungdjaGzJ49qNTeUteJqZtRb2CMDC9DRlaBP8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zZWF3/YXRlcnNwb3J0cy5j/b20vaW1hZ2VzL3Bs/YWNlcy9zYWJoeWF0/YS1kd2FyLnBuZw',
-    fact: 'The Civilization Gate symbolizes the rich history and cultural heritage of Bihar.',
-  },
-  {
-    id: 'ganga-riverfront',
-    categoryId: 'modern',
-    name: 'Ganga Riverfront',
-    src: 'https://imgs.search.brave.com/Kyi0pfvqXYw9GtniOMj7y8DRC087nF_mxZVQsZW7Eco/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zN2Fw/MS5zY2VuZTcuY29t/L2lzL2ltYWdlL2lu/Y3JlZGlibGVpbmRp/YS9kYW1hbi1nYW5n/YS1yaXZlcmZyb250/LXNpbHZhc3NhLWRh/bWFuLSYtZGl1LTIt/YXR0ci1oZXJvP3Fs/dD04MiZ0cz0xNzI2/ODE2MzY5Mjg5',
-    fact: 'A modern development along the Ganges with walkways, ghats, and leisure spots.',
-  },
-  {
-    id: 'aiims-patna',
-    categoryId: 'modern',
-    name: 'AIIMS Patna',
-    src: 'https://imgs.search.brave.com/HEUILIt4W5_VpzcvTyCfd1IE0fJsgEzwBbOeCaxu41U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/LnJtZ29lLm9yZy93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/Ny9BSUlNUy1QYXRu/YS0xLndlYnA',
-    fact: 'A premier medical institute and hospital representing Bihar\'s healthcare advancement.',
-  },
-  {
-    id: 'patna-metro',
-    categoryId: 'modern',
-    name: 'Patna Metro',
-    src: 'https://imgs.search.brave.com/FzCjMW6AX0lMJbkYYIjA86w7tuWaezd0syi9LS17-6g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/bXlwYXRuYW1ldHJv/LmNvbS9pbWFnZXMv/cGF0bmFtZXRyb2lt/Zy5qcGc',
-    fact: 'Upcoming metro network that will transform Bihar\'s capital connectivity.',
-  },
-  {
-    id: 'ecopark',
-    categoryId: 'modern',
-    name: 'Eco Park Patna',
-    src: 'https://imgs.search.brave.com/v-ycMUUAfMNKg9-58Zx9v1vEbN7ytCqiDhx6x4OPVG4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS1jZG4udHJpcGFk/dmlzb3IuY29tL21l/ZGlhL3Bob3RvLW8v/MDgvOWQvNmMvYjgv/ZWNvLXBhcmstcmFq/ZGhhbmktdmF0aWth/LmpwZw',
-    fact: 'A large green lung in the heart of the city with lakes and lush gardens.',
-  },
-  {
-    id: 'bihar-museum',
-    categoryId: 'modern',
-    name: 'Bihar Museum',
-    src: 'https://imgs.search.brave.com/J04teGGNvPqJ1v7x5Pp--0ELKHdzhq743lOJpfjPDGk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zd2Fy/YWp5YS5ndW1sZXQu/aW8vc3dhcmFqeWEv/MjAyNS0wNC0yMy9z/ZGQ1bm85bS9pbWFn/ZS0xMjAweDgwMC5q/cGc_dz0xMjIwJnE9/MTAwJmNvbXByZXNz/PXRydWUmZm9ybWF0/PWF1dG8',
-    fact: 'World-class museum showcasing the history and culture of Bihar across millennia.',
-  },
-  {
-    id: 'jp-path',
-    categoryId: 'modern',
-    name: 'JP Ganga Path',
-    src: 'https://imgs.search.brave.com/Dsi1_mWQPrL19iHRuR8DU3k2tpgzVfLT3yMsynTlGyI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/bmV3czRuYXRpb24u/Y29tL0Nsb3VkL25l/d3MvY292ZXJpbWFn/ZS8yME5vdjIwMjUv/Y2RmYTFiYjUtYTRi/ZC00ODFlLTkwNzkt/ZjZkMDNmMmU5NDI5/LmpwZz93aWR0aD03/MzI',
-    fact: 'Popularly known as the "Marine Drive of Patna", it\'s a stunning expressway along the Ganges.',
-  },
+  // --- 16-30 YEARS ---
+  { id: 'barabar-caves', categoryId: 'heritage', name: 'Barabar Caves', src: 'https://imgs.search.brave.com/gNS9wl8pwN04xRxHVgrXVTmOmZo1lHt2F8RRDNOhxHY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/Z29zYWhpbi5jb20v/Z28vcC9mL3QxLzE1/NDYxODQ5NDRfYmFy/YWJhci1jYXZlcy1z/dWx0YW5wdXIyLmpw/Zw', fact: 'Ancient Maurya rock-cut caves.' },
+  { id: 'sher-shah-tomb', categoryId: 'heritage', name: 'Sher Shah Tomb', src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Ashoka%27s_Pillar%2C_Vaishali.jpg', fact: 'Lake-monument of Sasaram.' },
+  { id: 'ashoka-pillar', categoryId: 'heritage', name: 'Vaishali Pillar', src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Ashoka%27s_Pillar%2C_Vaishali.jpg', fact: 'Emperor Ashoka\'s lion pillar.' },
+  { id: 'rajgir-ropeway', categoryId: 'heritage', name: 'Rajgir Ropeway', src: 'https://picxy.com/images/high_res_files/stock-photo/IA282723-1579246101.jpg', fact: 'India\'s oldest cable car.' },
+  { id: 'kesaria-stupa', categoryId: 'heritage', name: 'Kesaria Stupa', src: 'https://imgs.search.brave.com/Fgv7Xrw8mXOJlGuSJ7UC-cu_x3dosJdra0Y_Jyw0qRY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9wd29u/bHlpYXMuY29tL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDI0LzA0/L3VudGl0bGVkLTIw/MjQtMDQtMjB0MTIx/NjI5MTU1LTEtNjYy/MzhkYjlhYTJhOS53/ZWJw', fact: 'World\'s mammoth-sized stupa.' },
+  { id: 'iit-patna', categoryId: 'modern', name: 'IIT Patna', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/IIT_Patna_Campus.jpg/1280px-IIT_Patna_Campus.jpg', fact: 'National institute of tech.' },
+  { id: 'nit-patna', categoryId: 'modern', name: 'NIT Patna', src: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Patna_Museum_%28cropped%29.jpg', fact: 'Historic technical college.' },
+  { id: 'aiims-patna', categoryId: 'modern', name: 'AIIMS Patna', src: 'https://imgs.search.brave.com/HEUILIt4W5_VpzcvTyCfd1IE0fJsgEzwBbOeCaxu41U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/LnJtZ29lLm9yZy93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/Ny9BSUlNUy1QYXRu/YS0xLndlYnA', fact: 'Top medical hub of the state.' },
+  { id: 'patna-museum', categoryId: 'modern', name: 'Patna Museum', src: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Patna_Museum_%28cropped%29.jpg', fact: 'Artifacts of ancient history.' },
+  { id: 'bihar-museum', categoryId: 'modern', name: 'Bihar Museum', src: 'https://imgs.search.brave.com/J04teGGNvPqJ1v7x5Pp--0ELKHdzhq743lOJpfjPDGk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zd2Fy/YWp5YS5ndW1sZXQu/aW8vc3dhcmFqeWEv/MjAyNS0wNC0yMy9z/ZGQ1bm85bS9pbWFn/ZS0xMjAweDgwMC5q/cGc_dz0xMjIwJnE9/MTAwJmNvbXByZXNz/PXRydWUmZm9ybWF0/PWF1dG8', fact: 'State-of-the-art museum.' },
+  { id: 'sattu-paratha', categoryId: 'food', name: 'Sattu Paratha', src: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Sattu_Paratha_with_Chokha.jpg', fact: 'Lentil-stuffed nutritious flatbread.' },
+  { id: 'dal-pitha', categoryId: 'food', name: 'Dal Pitha', src: 'https://gastronomesjournal.com/wp-content/uploads/2017/01/Dal-Pitha-Bihar-Style-5.jpg', fact: 'Nutritious steamed dumplings.' },
+  { id: 'champaran-mutton', categoryId: 'food', name: 'Champaran Mutton', src: 'https://thumbs.dreamstime.com/b/champaran-mutton-handi-ahuna-popular-dish-bihar-state-india-253105610.jpg', fact: 'Handi-cooked spicy mutton.' },
+  { id: 'kadhi-bari', categoryId: 'food', name: 'Kadhi Bari', src: 'https://imgs.search.brave.com/FjyE0J4Kr8Oq_trm3FdKPms2k8Nuv8O5To8wdA2xsWo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9saXR0/aS1jaG9raGEtbGl0/aS1jaG9rYS1zdHVm/ZmVkLWNoYW5hLXNh/dHR1LWluZGlhbi1k/aXNoLWJpaGFyLXNl/cnZlZC1naW5nZXIt/Z2FybGljLW1pbnQt/Y2h1dG5leS1iYWlu/Z2FuLTIxNjg5MjM4/OS5qcGc', fact: 'Gram flour dumplings in gravy.' },
+  { id: 'tilkut', categoryId: 'food', name: 'Tilkut', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Sesame and jaggery winter snack.' },
+  { id: 'sonepur-mela', categoryId: 'culture', name: 'Sonepur Mela', src: 'https://thumbs.dreamstime.com/b/sonepur-mela-bihar-india-november-horse-racing-asia-s-largest-cattle-fair-133596767.jpg', fact: 'Grand historic cattle fair.' },
+  { id: 'shrawani-mela', categoryId: 'culture', name: 'Shrawani Mela', src: 'https://www.gettyimages.co.uk/gi-resources/images/Homepage/Hero/UK/Hero-Images-Sultanganj-Bihar-India-August-18-2010.jpg', fact: 'Longest pilgrimage route.' },
+  { id: 'mithila-art', categoryId: 'culture', name: 'Mithila Art', src: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Didarganj_Yakshi_Patna_Museum.jpg', fact: 'Heritage foundation of Madhubani.' },
+  { id: 'bhojpuri-songs', categoryId: 'culture', name: 'Bhojpuri Songs', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Bihar_Focal_Dance-.jpg', fact: 'Soulful folk melodies of Bihar.' },
+  { id: 'bidesia', categoryId: 'culture', name: 'Bidesia Folk', src: 'https://imgs.search.brave.com/xFYt4-1aajk2ojeSZCib_vO0cJ-5jb-nVOdsoJld4p8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jYWxl/aWRvc2NvcGUuaW4v/d3AtY29udGVudC91/cGxvYWRzLzIwMjMv/MDEvRm9say1EYW5j/ZXMtb2YtQmloYXIt/QmlkZXNpYS1EYW5j/ZS0uanBn', fact: 'Theatrical folk play form.' },
 
-  // --- FOOD ---
-  {
-    id: 'litti-chokha',
-    categoryId: 'food',
-    name: 'Litti Chokha',
-    src: 'https://imgs.search.brave.com/FjyE0J4Kr8Oq_trm3FdKPms2k8Nuv8O5To8wdA2xsWo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9saXR0/aS1jaG9raGEtbGl0/aS1jaG9rYS1zdHVm/ZmVkLWNoYW5hLXNh/dHR1LWluZGlhbi1k/aXNoLWJpaGFyLXNl/cnZlZC1naW5nZXIt/Z2FybGljLW1pbnQt/Y2h1dG5leS1iYWlu/Z2FuLTIxNjg5MjM4/OS5qcGc',
-    fact: 'Iconic Bihar fuel: roasted dough balls stuffed with spiced sattu, served with mashed veg side.',
-  },
-  {
-    id: 'thekua',
-    categoryId: 'food',
-    name: 'Thekua',
-    src: 'https://imgs.search.brave.com/EOJ2u2dDZ7wxmw16_I38ITLffIvaBxb4L2CW9X_69ho/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by90aGVrdWEt/aW5kaWFuLXN3ZWV0/LWRpc2gtc25hY2tz/LTI2MG53LTIyMDk2/MDEzMjUuanBn',
-    fact: 'Signature Bihar cookie made of whole wheat flour and jaggery, famous for Chhath Puja.',
-  },
-  {
-    id: 'sattu-drink',
-    categoryId: 'food',
-    name: 'Sattu Drink',
-    src: 'https://imgs.search.brave.com/6qxhZBEGvpA7KlMwTmbeO9UFKlgfGp8QLzjxpvJBwXY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9zYXR0dS1z/dW1tZXItZHJpbmst/cHJlcGFyZWQtYnkt/MjYwbnctMTM2NTI5/MDQ5NS5qcGc',
-    fact: 'Natural protein cooler made from roasted gram flour, a refreshing staple of Bihar.',
-  },
-  {
-    id: 'khaja',
-    categoryId: 'food',
-    name: 'Khaja',
-    src: 'https://imgs.search.brave.com/sey1lLs1sae3PG7hAQWmUuM64TRHUYcjBYdLS81IB5g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9BTkRST0lEL0Rl/ZmF1bHQvMjAyMS8x/L0tCL1VML01ZLzIz/MTI4Njg2L3Byb2Qt/MjAyMTAxMDYtMTI1/NzQwNDE3NzA4NjIy/MTgxOTI5NzAxNC1q/cGctNTAweDUwMC5q/cGc',
-    fact: 'Multilayered, crispy sweet pastry that melts in your mouth, traditionally from Silao.',
-  },
-  {
-    id: 'malpua',
-    categoryId: 'food',
-    name: 'Malpua',
-    src: 'https://imgs.search.brave.com/Pqh1uQIByVUKrmmmxClBPXpJiIwrZ9FTi0WdWpjyK0U/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9keTNy/bWE3M2tvd2xwLmNs/b3VkZnJvbnQubmV0/L3VwbG9hZHMvMjAy/NS8wMy9NYWxwdWEt/UmVjaXBlLmpwZw',
-    fact: 'Syrup-soaked pancakes made from flour, milk, and bananas, a festive Bihar favorite.',
-  },
-  {
-    id: 'ghugni',
-    categoryId: 'food',
-    name: 'Chana Ghugni',
-    src: 'https://imgs.search.brave.com/Cf8e3M1xmkKkRdVM-1Wu9oe9A6XZLZDu98qocaf2SBU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmVnYW5yaWNoYS5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjMvMDUvS2FsYS1D/aGFuYS1HaHVnbmkt/NzY0NC0zMDB4MzAw/LmpwZw',
-    fact: 'Spicy black chickpea curry, a popular street food and breakfast item in Bihar.',
-  },
-  {
-    id: 'balushahi',
-    categoryId: 'food',
-    name: 'Balushahi',
-    src: 'https://imgs.search.brave.com/WVg7Ln5K5BH4y283puYW0gPICqMfdFgEnafKW-rLL08/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzE4LzMwLzAwLzY1/LzM2MF9GXzE4MzAw/MDY1MzVfVGpmWkxB/VWY5U1pSSkR0MXp2/T3JwcVRqVDgyU0I4/a2IuanBn',
-    fact: 'Puff pastry doughnuts made of refined flour and deep-fried in ghee.',
-  },
+  // --- 30-55 YEARS ---
+  { id: 'vikramshila-u', categoryId: 'heritage', name: 'Vikramshila University', src: 'https://imgs.search.brave.com/ooqCkiQL_csUSkctKBeRQm6F50ADCTg-4rsxa9bEJ7s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9oaXN0/b3JpZmllZC5pbi93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NS9TY3JlZW5zaG90/XzIwMjAwNTMxLTE1/MzUzNi03MjB4NTYw/LmpwZw', fact: 'Ancient Buddhist university ruins.' },
+  { id: 'rohtasgarh', categoryId: 'heritage', name: 'Rohtasgarh Fort', src: 'https://imgs.search.brave.com/2Hh7QJZfF7osTlyGOCtORHMxYsPL6RnTW7yiyDErA2E/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMudGVsZWdyYXBo/aW5kaWEuY29tL3Rl/bGVncmFwaC8yMDIz/L05vdi8xNjk5MTQz/OTUwX2ZvcnQuZ2lm.jpeg', fact: 'Ancient and powerful hill fort.' },
+  { id: 'agam-kuan', categoryId: 'heritage', name: 'Agam Kuan', src: 'https://imgs.search.brave.com/-WEwBH7ZZ2gg58odjjyFKAdPH-XQToSXbXo7NC-R4rE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zN2Fw/MS5zY2VuZTcuY29t/L2lzL2ltYWdlL2lu/Y3JlZGlibGVpbmRp/YS9hZ2FtLWt1YW4t/cGF0bmEtYmloYXIt/Mi1tdXN0aGVhZC1o/ZXJvP3FsdD04MiZ0/cz0xNzQyMTYyNTk1/MjMy', fact: 'Maurya-era mysterious well.' },
+  { id: 'pawapuri', categoryId: 'heritage', name: 'Pawapuri Temple', src: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Mundeshwari_temple.jpg', fact: 'Place of Mahavira\'s Nirvana.' },
+  { id: 'ajatshatru', categoryId: 'heritage', name: 'Ajatshatru Fort', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Ancient fortification area.' },
+  { id: 'vidhan-sabha', categoryId: 'modern', name: 'Vidhan Sabha', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Bihar_Vidhan_Sabha_Building.jpg', fact: 'Democracy focal point.' },
+  { id: 'high-court', categoryId: 'modern', name: 'Patna High Court', src: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Patna_High_Court_building.jpg', fact: 'Seat of judgment in Bihar.' },
+  { id: 'nalanda-new', categoryId: 'modern', name: 'Nalanda New Campus', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Modern rebirth of Nalanda.' },
+  { id: 'rajendra-setu', categoryId: 'modern', name: 'Rajendra Setu', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rajendra_Setu.jpg/1280px-Rajendra_Setu.jpg', fact: 'First Ganges bridge.' },
+  { id: 'gaya-airport', categoryId: 'modern', name: 'Gaya Airport', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/IIT_Patna_Campus.jpg/1280px-IIT_Patna_Campus.jpg', fact: 'International gateway for pilgrims.' },
+  { id: 'makhana-kheer', categoryId: 'food', name: 'Makhana Kheer', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Makhana_Kheer.jpg/1280px-Makhana_Kheer.jpg', fact: 'Sweet dish made of fox nuts.' },
+  { id: 'bihari-kebab', categoryId: 'food', name: 'Bihari Kebab', src: 'https://thumbs.dreamstime.com/b/champaran-mutton-handi-ahuna-popular-dish-bihar-state-india-253105610.jpg', fact: 'Soft-marinated spicy skewers.' },
+  { id: 'fish-curry', categoryId: 'food', name: 'Bihari Fish Curry', src: 'https://imgs.search.brave.com/FjyE0J4Kr8Oq_trm3FdKPms2k8Nuv8O5To8wdA2xsWo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9saXR0/aS1jaG9raGEtbGl0/aS1jaG9rYS1zdHVm/ZmVkLWNoYW5hLXNh/dHR1LWluZGlhbi1k/aXNoLWJpaGFyLXNl/cnZlZC1naW5nZXIt/Z2FybGljLW1pbnQt/Y2h1dG5leS1iYWlu/Z2FuLTIxNjg5MjM4/OS5qcGc', fact: 'Mustard-based traditional preparation.' },
+  { id: 'aloo-chana', categoryId: 'food', name: 'Aloo Chana Curry', src: 'https://imgs.search.brave.com/Cf8e3M1xmkKkRdVM-1Wu9oe9A6XZLZDu98qocaf2SBU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/dmVnYW5yaWNoYS5j/b20vd3AtY29udGVu/dC91cGxvYWRzLzIw/MjMvMDUvS2FsYS1D/aGFuYS1HaHVnbmkt/NzY0NC0zMDB4MzAw/LmpwZw', fact: 'Staple flavorful veggie curry.' },
+  { id: 'chura-dahi', categoryId: 'food', name: 'Chura Dahi', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Traditional breakfast pair.' },
+  { id: 'chanakya', categoryId: 'culture', name: 'Chanakya', src: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Aryabhata.jpg', fact: 'The great Mauryan strategist.' },
+  { id: 'aryabhatta', categoryId: 'culture', name: 'Aryabhatta', src: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Aryabhata.jpg', fact: 'Inventor of Zero from Bihar.' },
+  { id: 'dashrath', categoryId: 'culture', name: 'Dashrath Manjhi', src: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Dashrath_Manjhi.jpg', fact: 'Famous mountain carver.' },
+  { id: 'magadh', categoryId: 'culture', name: 'Magadh History', src: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Didarganj_Yakshi_Patna_Museum.jpg', fact: 'Imperial glory of ancient India.' },
+  { id: 'jain-buddha', categoryId: 'culture', name: 'Buddhism Traditions', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: 'Roots of world religions in Bihar.' },
 
-  // --- CULTURE ---
-  {
-    id: 'madhubani',
-    categoryId: 'culture',
-    name: 'Madhubani Painting',
-    src: 'https://imgs.search.brave.com/TzrHJ_bcPDi2Oe7kAkF3lwMmbNKdJrRHztzqZ0uCtfc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQx/OTU2MjE5Ni9waG90/by90cmFkaXRpb25h/bC1tYWRodWJhbmkt/cGFudGluZy1vZi1s/YWRpZXMuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPXdwU0hp/LVNqY0lWeFoxQlh4/a1hlOXMyb0dUYmp2/WVExNnlSVmNxb0RI/X0E9',
-    fact: 'Mithila art style characterized by geometric patterns and vibrant herbal colors.',
-  },
-  {
-    id: 'sikki-art',
-    categoryId: 'culture',
-    name: 'Sikki Art',
-    src: 'https://imgs.search.brave.com/gsEmqvpEvZlouu2ILXqfGTnZ3hD450gJcq52txiApEE/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly80Lmlt/aW1nLmNvbS9kYXRh/NC9YVy9IVS9NWS00/MjYwNDczL3Npa2tp/LWdyYXNzLXByb2R1/Y3RzLTUwMHg1MDAu/anBn',
-    fact: 'Ancient golden grass weaving craft from Mithila used for baskets and ornaments.',
-  },
-  {
-    id: 'bamboo-craft',
-    categoryId: 'culture',
-    name: 'Bamboo Craft',
-    src: 'https://imgs.search.brave.com/TqM183pHSMfqznnpCHxgpYiNVm-DKp99A1e6C66qg9A/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTM5/OTgwNDMzNi9waG90/by90cmFkaXRpb25h/bC13b3Zlbi1iYW1i/b28tY3JhZnQuanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPUJp/SEl2NUNEdV9kcXlH/SkZ5aGhCRUhOVGVi/OWRIb3o0SDk5MmUx/b2l4akU9',
-    fact: 'Eco-friendly intricate handicrafts made from bamboo and cane surplus in Bihar.',
-  },
-  {
-    id: 'jatjatin',
-    categoryId: 'culture',
-    name: 'Jat Jatin Dance',
-    src: 'https://imgs.search.brave.com/XyFs6rUwosqR1TC6mZdrHqxnAAZEDRkHBOWlUl6M8Js/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4t/aW1hZ2VzLnByZXBw/LmluL3B1YmxpYy9p/bWFnZS9mYjJlNjA4/Zjc2OTA5ZWI5YjE5/YzE4YjExYThiZDcz/OS5qcGVnP3RyPXct/NTEyLGgtMzEyLGMt/Zm9yY2U',
-    fact: 'Famous folk dance of Mithila region depicting the romantic life of Jat and Jatin.',
-  },
-  {
-    id: 'bidesia',
-    categoryId: 'culture',
-    name: 'Bidesia Dance',
-    src: 'https://imgs.search.brave.com/xFYt4-1aajk2ojeSZCib_vO0cJ-5jb-nVOdsoJld4p8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jYWxl/aWRvc2NvcGUuaW4v/d3AtY29udGVudC91/cGxvYWRzLzIwMjMv/MDEvRm9say1EYW5j/ZXMtb2YtQmloYXIt/QmlkZXNpYS1EYW5j/ZS0uanBn',
-    fact: 'Powerful folk theatre style created by Bhikhari Thakur, capturing migrant emotions.',
-  },
-  {
-    id: 'sama_chakeva',
-    categoryId: 'culture',
-    name: 'Sama Chakeva',
-    src: 'https://imgs.search.brave.com/AG9ildkTsjsSjsjx4RBskW5XnOSpj9s95ReHOMKxXYQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9keTNy/bWE3M2tvd2xwLmNs/b3VkZnJvbnQubmV0/L3VwbG9hZHMvMjAy/NS8xMC9TYW1hLUNo/YWtldmEtU2lnbmlm/aWNhbmNlLmpwZw',
-    fact: 'Festival celebrating the bond between brothers and sisters in Rural Bihar.',
-  },
-  {
-    id: 'chhath',
-    categoryId: 'culture',
-    name: 'Chhath Puja',
-    src: 'https://imgs.search.brave.com/zcPc4Ucz2X3LGlBqwghZEdA1NHw_XxMl9g7iksch8Hs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzE4LzcxLzE1Lzk0/LzM2MF9GXzE4NzEx/NTk0MTFfSzZzbWlY/bUdjMlRvbjF4TW1l/NlgxUVlwSkN0RzRv/MEouanBn',
-    fact: 'Ancient Vedic festival dedicated to Surya Dev, the only festival where setting sun is worshiped.',
-  }
+  // --- 55+ YEARS ---
+  { id: 'lauria', categoryId: 'heritage', name: 'Lauria Nandangarh', src: 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Ashoka%27s_Pillar%2C_Vaishali.jpg', fact: 'Maurya Ashokan pillar site.' },
+  { id: 'mundeshwari', categoryId: 'heritage', name: 'Mundeshwari Temple', src: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Mundeshwari_temple.jpg', fact: 'Oldest functional Hindu temple.' },
+  { id: 'v-ruins', categoryId: 'heritage', name: 'Vikramshila Ruins', src: 'https://imgs.search.brave.com/ooqCkiQL_csUSkctKBeRQm6F50ADCTg-4rsxa9bEJ7s/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9oaXN0/b3JpZmllZC5pbi93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NS9TY3JlZW5zaG90/XzIwMjAwNTMxLTE1/MzUzNi03MjB4NTYw/LmpwZw', fact: 'Deep monastic university remains.' },
+  { id: 'layout', categoryId: 'heritage', name: 'Old Nalanda Layout', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Ancient archaeological grid.' },
+  { id: 'telhara', categoryId: 'heritage', name: 'Telhara University', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Excavated ancient education site.' },
+  { id: 'old-patna', categoryId: 'modern', name: 'Old Patna City', src: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Patna_Museum_%28cropped%29.jpg', fact: 'Heritage architecture of old town.' },
+  { id: 'sonpur-jnc', categoryId: 'modern', name: 'Sonpur Junction', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/IIT_Patna_Campus.jpg/1280px-IIT_Patna_Campus.jpg', fact: 'Historic railway hub.' },
+  { id: 'barauni', categoryId: 'modern', name: 'Barauni Refinery', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rajendra_Setu.jpg/1280px-Rajendra_Setu.jpg', fact: 'Pillar of Bihar industry.' },
+  { id: 'hajipur', categoryId: 'modern', name: 'Hajipur Industrial', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rajendra_Setu.jpg/1280px-Rajendra_Setu.jpg', fact: 'Industrial development zone.' },
+  { id: 'haats', categoryId: 'modern', name: 'Traditional Haats', src: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Rural_Bihar.jpg', fact: 'Classic village marketplaces.' },
+  { id: 'malpua', categoryId: 'food', name: 'Malpua', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Bihar\'s own sweet pancakes.' },
+  { id: 'gur-sweets', categoryId: 'food', name: 'Gur Sweets', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Jaggery-based healthy desserts.' },
+  { id: 'khichdi', categoryId: 'food', name: 'Traditional Khichdi', src: 'https://imgs.search.brave.com/FjyE0J4Kr8Oq_trm3FdKPms2k8Nuv8O5To8wdA2xsWo/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9saXR0/aS1jaG9raGEtbGl0/aS1jaG9rYS1zdHVm/ZmVkLWNoYW5hLXNh/dHR1LWluZGlhbi1k/aXNoLWJpaGFyLXNl/cnZlZC1naW5nZXIt/Z2FybGljLW1pbnQt/Y2h1dG5leS1iYWlu/Z2FuLTIxNjg5MjM4/OS5qcGc', fact: 'Bihar Saturday special meal.' },
+  { id: 'saag-bhaat', categoryId: 'food', name: 'Saag Bhaat', src: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Rural_Bihar.jpg', fact: 'Classic rural nutritional meal.' },
+  { id: 'handia', categoryId: 'food', name: 'Local Drinks', src: 'https://imgs.search.brave.com/6qxhZBEGvpA7KlMwTmbeO9UFKlgfGp8QLzjxpvJBwXY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9zYXR0dS1z/dW1tZXItZHJpbmst/cHJlcGFyZWQtYnkt/MjYwbnctMTM2NTI5/MDQ5NS5qcGc', fact: 'Traditional fermented beverages.' },
+  { id: 'angika', categoryId: 'culture', name: 'Angika Culture', src: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Didarganj_Yakshi_Patna_Museum.jpg', fact: 'Roots of Anga region heritage.' },
+  { id: 'magahi', categoryId: 'culture', name: 'Magahi Traditions', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Bihar_Focal_Dance-.jpg', fact: 'Language and customs of Magadh.' },
+  { id: 'mauryan-e', categoryId: 'culture', name: 'Mauryan Empire', src: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Didarganj_Yakshi_Patna_Museum.jpg', fact: 'Golden era of Bihar\'s past.' },
+  { id: 'gupta-e', categoryId: 'culture', name: 'Gupta Empire', src: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Didarganj_Yakshi_Patna_Museum.jpg', fact: 'Era of science and mathematics.' },
+  { id: 'buddhist-c', categoryId: 'culture', name: 'Buddhist Circuits', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: 'Deep holy exploration routes.' }
 ];
 
 export const AGE_GROUPS = {
-  under_15: { 
-    id: 'under_15',
-    size: 3, 
-    label: 'Under 15', 
-    tag: ' Young Minds', 
-    allowedImages: ['golghar', 'malpua', 'ecopark'] 
-  },
-  age_16_30: { 
-    id: 'age_16_30',
-    size: 3, 
-    label: '16-30 Years', 
-    tag: ' Youth', 
-    allowedImages: ['sabhyata-dwar', 'nalanda', 'patna-metro', 'litti-chokha', 'jp-path', 'vikramshila']
-  },
-  age_30_55: { 
-    id: 'age_30_55',
-    size: 3, 
-    label: '30-55 Years', 
-    tag: ' Adults', 
-    allowedImages: ['mahabodhi', 'madhubani', 'chhath', 'sattu-drink', 'sher-shah-tomb', 'bidesia']
-  },
-  age_55_plus: { 
-    id: 'age_55_plus',
-    size: 3, 
-    label: '55+ Years', 
-    tag: ' Seniors', 
-    allowedImages: ['patna-sahib', 'khaja', 'thekua', 'sikki-art', 'rohtasgarh-fort', 'barabar-caves']
-  },
+  under_15: { id: 'under_15', size: 3, label: 'Under 15', tag: '🧒 Young Minds', allowedImages: ['mahabodhi', 'nalanda-u', 'golghar', 'buddha-statue', 'rajgir-hills', 'patna-metro', 'gandhi-maidan', 'ecopark', 'ganga-riverfront', 'jp-path', 'litti-chokha', 'sattu-drink', 'thekua', 'khaja', 'chana-ghugni', 'madhubani', 'chhath', 'folk-dance', 'ganga-aarti', 'village-life'] },
+  age_16_30: { id: 'age_16_30', size: 3, label: '16-30 Years', tag: '⚡ Youth', allowedImages: ['barabar-caves', 'sher-shah-tomb', 'ashoka-pillar', 'rajgir-ropeway', 'kesaria-stupa', 'iit-patna', 'nit-patna', 'aiims-patna', 'patna-museum', 'bihar-museum', 'sattu-paratha', 'dal-pitha', 'champaran-mutton', 'kadhi-bari', 'tilkut', 'sonepur-mela', 'shrawani-mela', 'mithila-art', 'bhojpuri-songs', 'bidesia'] },
+  age_30_55: { id: 'age_30_55', size: 3, label: '30-55 Years', tag: '🌟 Adults', allowedImages: ['vikramshila-u', 'rohtasgarh', 'agam-kuan', 'pawapuri', 'ajatshatru', 'vidhan-sabha', 'high-court', 'nalanda-new', 'rajendra-setu', 'gaya-airport', 'makhana-kheer', 'bihari-kebab', 'fish-curry', 'aloo-chana', 'chura-dahi', 'chanakya', 'aryabhatta', 'dashrath', 'magadh', 'jain-buddha'] },
+  age_55_plus: { id: 'age_55_plus', size: 3, label: '55+ Years', tag: '🧠 Seniors', allowedImages: ['lauria', 'mundeshwari', 'v-ruins', 'layout', 'telhara', 'old-patna', 'sonpur-jnc', 'barauni', 'hajipur', 'haats', 'malpua', 'gur-sweets', 'khichdi', 'saag-bhaat', 'handia', 'angika', 'magahi', 'mauryan-e', 'gupta-e', 'buddhist-c'] }
 };
 
-export const LS_KEYS = {
-  bestScore: 'bihar-puzzle-best-score',
-};
-
-export const GAME_MODES = {
-  SLIDER: 'slider',
-  DRAG_DROP: 'drag_drop',
-  JIGSAW: 'jigsaw',
-};
+export const LS_KEYS = { bestScore: 'bihar-puzzle-best-score' };
+export const GAME_MODES = { SLIDER: 'slider', DRAG_DROP: 'drag_drop', JIGSAW: 'jigsaw' };
