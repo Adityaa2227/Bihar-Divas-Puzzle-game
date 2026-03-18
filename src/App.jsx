@@ -251,78 +251,81 @@ export default function App() {
           }
           showBack={view !== 'landing'}
           showStats={view === 'game'}
+          showTitle={view !== 'landing'}
           theme={theme}
           onToggleTheme={toggleTheme}
         />
 
-        {view === 'landing' ? (
-          <LandingPage 
-            onStart={handleGoToCategories} 
-          />
-        ) : view === 'categories' ? (
-          <CategorySelection 
-            onSelectCategory={handleCategorySelect}
-          />
-        ) : view === 'gallery' ? (
-          <GameGallery
-            images={categoryImages}
-            selectedImage={selectedImage}
-            onImageSelect={handleImageChange}
-            difficulty={difficulty}
-            onDifficultyChange={handleDifficultyChange}
-            gameMode={gameMode}
-            onGameModeChange={handleGameModeChange}
-            onStart={handleStartGame}
-            bestScore={bestScore}
-          />
-        ) : (
-          <>
-            <Controls
-              onRestart={handleRestart}
-              onHint={handleHint}
-              showingHint={showHint}
+        <div className="app__content">
+          {view === 'landing' ? (
+            <LandingPage 
+              onStart={handleGoToCategories} 
             />
-
-            <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
-              {showHint && (
-                <div className="hint-overlay">
-                  <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
-                </div>
-              )}
-              {gameMode === GAME_MODES.SLIDER ? (
-                <PuzzleBoard
-                  tiles={tiles}
-                  gridSize={gridSize}
-                  imageSrc={selectedImage.src}
-                  onTileClick={handleTileClick}
-                />
-              ) : gameMode === GAME_MODES.DRAG_DROP ? (
-                <DragDropBoard
-                  tiles={tiles}
-                  gridSize={gridSize}
-                  imageSrc={selectedImage.src}
-                  onSwap={handleSwap}
-                />
-              ) : (
-                <JigsawBoard
-                  imageSrc={selectedImage.src}
-                  gridSize={gridSize}
-                  onSolve={handleJigsawWin}
-                />
-              )}
-            </div>
-
-            <Modal
-              show={hasWon}
-              moves={moves}
-              time={time}
-              fact={selectedImage.fact}
-              imageName={selectedImage.name}
-              onPlayAgain={handlePlayAgain}
-              onGoHome={handleGameOverGoHome}
+          ) : view === 'categories' ? (
+            <CategorySelection 
+              onSelectCategory={handleCategorySelect}
             />
-          </>
-        )}
+          ) : view === 'gallery' ? (
+            <GameGallery
+              images={categoryImages}
+              selectedImage={selectedImage}
+              onImageSelect={handleImageChange}
+              difficulty={difficulty}
+              onDifficultyChange={handleDifficultyChange}
+              gameMode={gameMode}
+              onGameModeChange={handleGameModeChange}
+              onStart={handleStartGame}
+              bestScore={bestScore}
+            />
+          ) : (
+            <>
+              <Controls
+                onRestart={handleRestart}
+                onHint={handleHint}
+                showingHint={showHint}
+              />
+
+              <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
+                {showHint && (
+                  <div className="hint-overlay">
+                    <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
+                  </div>
+                )}
+                {gameMode === GAME_MODES.SLIDER ? (
+                  <PuzzleBoard
+                    tiles={tiles}
+                    gridSize={gridSize}
+                    imageSrc={selectedImage.src}
+                    onTileClick={handleTileClick}
+                  />
+                ) : gameMode === GAME_MODES.DRAG_DROP ? (
+                  <DragDropBoard
+                    tiles={tiles}
+                    gridSize={gridSize}
+                    imageSrc={selectedImage.src}
+                    onSwap={handleSwap}
+                  />
+                ) : (
+                  <JigsawBoard
+                    imageSrc={selectedImage.src}
+                    gridSize={gridSize}
+                    onSolve={handleJigsawWin}
+                  />
+                )}
+              </div>
+            </>
+          )}
+        </div>
+
+        <Modal
+          show={hasWon}
+          moves={moves}
+          time={time}
+          fact={selectedImage.fact}
+          imageName={selectedImage.name}
+          onPlayAgain={handlePlayAgain}
+          onGoHome={handleGameOverGoHome}
+        />
       </div>
     </div>
   );

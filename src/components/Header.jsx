@@ -7,6 +7,7 @@ export default function Header({
   onBack,
   showBack,
   showStats = true,
+  showTitle = true,
   theme,
   onToggleTheme,
 }) {
@@ -26,9 +27,11 @@ export default function Header({
             </button>
           )}
         </div>
-        <h1 className="header__title">
-          Bihar Divas Puzzle
-        </h1>
+        {showTitle && (
+          <h1 className="header__title">
+            Bihar Diwas Puzzle
+          </h1>
+        )}
         <div className="header__controls">
           <button
             className="btn-icon theme-toggle"

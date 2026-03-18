@@ -100,13 +100,13 @@
 
 .btn--mode {
   flex-direction: column;
-  padding: 12px 8px;
+  padding: 24px 12px; /* Increased padding */
   height: auto;
   border: 1px solid var(--border);
   background: var(--bg-card);
   text-align: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -128,7 +128,7 @@
 }
 
 .mode-icon {
-  font-size: 1.5rem;
+  font-size: 2.2rem; /* Significantly larger icons */
 }
 
 .mode-info {
@@ -137,13 +137,13 @@
 }
 
 .mode-name {
-  font-size: 0.9rem;
+  font-size: 1.1rem; /* Scaled up text */
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .mode-desc {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 400;
 }
@@ -330,26 +330,78 @@
 
   .game-gallery__steps-container {
     grid-column: 1 / -1; 
+    max-width: 850px; /* Slightly wider for the cards */
+  }
+
+  .step-title {
+    font-size: 1.8rem;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .step-number {
+    min-width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .btn--mode {
+    padding: 32px 20px;
+    gap: 16px;
+  }
+
+  .mode-icon {
+    font-size: 3rem;
+  }
+
+  .mode-name {
+    font-size: 1.4rem;
   }
 
   .game-gallery__welcome {
     grid-column: 1 / -1;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  .game-gallery__subtitle {
+    font-size: 2.5rem;
+  }
+
+  .game-gallery__text {
+    font-size: 1.2rem;
   }
 
   .game-gallery__btn {
     grid-column: 1 / -1;
-    max-width: 400px;
-    margin: 12px auto 0;
+    max-width: 600px;
+    margin: 24px auto 0;
+    padding: 24px !important;
+    font-size: 1.4rem !important;
   }
 
   .game-gallery__footer {
     grid-column: 1 / -1;
+    font-size: 1rem;
+    margin-top: 20px;
   }
 
   .game-gallery__levels-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-column: 1 / -1;
-    gap: 16px;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .btn--level-card {
+    padding: 32px 20px;
+  }
+
+  .level-card__tag {
+    font-size: 1.2rem;
+  }
+
+  .level-card__grid {
+    font-size: 2.2rem;
   }
 }
