@@ -26,9 +26,9 @@ export default function Header({
             🔙
           </button>
         )}
-        <h1 className="header__title">
-          Bihar Divas Puzzle
-        </h1>
+        <h1 className="header__title" style={{ fontSize: "60px" }}>
+  Bihar Divas Puzzle
+</h1>
         <div className="header__controls">
           <button
             className="btn-icon theme-toggle"

@@ -67,6 +67,7 @@ body {
   transition: background-color var(--transition), color var(--transition);
 }
 
+
 /* ===== Landing Page - New Theme ===== */
 .landing-page {
   position: fixed;
