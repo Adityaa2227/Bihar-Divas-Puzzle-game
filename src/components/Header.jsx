@@ -19,14 +19,16 @@ export default function Header({
   return (
     <header className="header">
       <div className="header__title-row">
-        {showBack && (
-          <button className="btn-icon btn-icon--back" onClick={onBack} aria-label="Back to Menu">
-            🔙
-          </button>
-        )}
-        <h1 className="header__title" style={{ fontSize: "60px" }}>
-  Bihar Divas Puzzle
-</h1>
+        <div className="header__left">
+          {showBack && (
+            <button className="btn-icon btn-icon--back" onClick={onBack} aria-label="Back to Menu">
+              🔙
+            </button>
+          )}
+        </div>
+        <h1 className="header__title">
+          Bihar Divas Puzzle
+        </h1>
         <div className="header__controls">
           <button
             className="btn-icon theme-toggle"

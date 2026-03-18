@@ -44,7 +44,7 @@
   gap: 16px;
   margin-top: 8px;
   width: 100%;
-  max-width: 600px;
+  max-width: 1100px; /* Massively expanded to match the first screen's full landscape style */
   margin-inline: auto;
 }
 
@@ -95,7 +95,7 @@
 .game-gallery__modes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 24px; /* Widened gap to balance the huge 1100px stretch */
 }
 
 .btn--mode {
@@ -148,12 +148,18 @@
   font-weight: 400;
 }
 
+.btn--mode.btn--level-active {
+  background: linear-gradient(135deg, var(--accent), #d97706);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
 .btn--level-active .mode-name {
-  color: #000;
+  color: #fff;
 }
 
 .btn--level-active .mode-desc {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .featured-image-card {
