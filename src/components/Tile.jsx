@@ -13,7 +13,7 @@ function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
     );
   }
 
-  // Calculate background position based on the tile's ORIGINAL value
+  // Calculate background position based on the tile's RIGINAL value
   const originalRow = Math.floor(value / gridSize);
   const originalCol = value % gridSize;
   const bgPosX = (originalCol / (gridSize - 1)) * 100;

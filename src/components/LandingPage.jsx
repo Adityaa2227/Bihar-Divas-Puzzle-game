@@ -8,6 +8,24 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
     setAnimate(true);
   }, []);
 
+  // Browser restriction: Start BGM on first user interaction
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      onStartBGM?.();
+      window.removeEventListener('mousedown', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+    window.addEventListener('mousedown', handleFirstInteraction);
+    window.addEventListener('keydown', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
+    return () => {
+      window.removeEventListener('mousedown', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+  }, [onStartBGM]);
+
   const handleStart = () => {
     playNavSound();
     onStart();
