@@ -15,14 +15,20 @@ export default function LandingPage({ onStart, onStartBGM }) {
       window.removeEventListener('mousedown', handleFirstInteraction);
       window.removeEventListener('keydown', handleFirstInteraction);
       window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('pointerdown', handleFirstInteraction);
     };
     window.addEventListener('mousedown', handleFirstInteraction);
     window.addEventListener('keydown', handleFirstInteraction);
     window.addEventListener('touchstart', handleFirstInteraction);
+    window.addEventListener('click', handleFirstInteraction);
+    window.addEventListener('pointerdown', handleFirstInteraction);
     return () => {
       window.removeEventListener('mousedown', handleFirstInteraction);
       window.removeEventListener('keydown', handleFirstInteraction);
       window.removeEventListener('touchstart', handleFirstInteraction);
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('pointerdown', handleFirstInteraction);
     };
   }, [onStartBGM]);
 

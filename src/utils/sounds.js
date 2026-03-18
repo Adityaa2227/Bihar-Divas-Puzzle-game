@@ -1,8 +1,13 @@
+import bgmFile from '../assets/bgm.mp3';
+
 let audioCtx = null;
 
 function getAudioContext() {
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
   }
   return audioCtx;
 }
@@ -70,20 +75,34 @@ export function playWinSound() {
 class BackgroundMusic {
   constructor() {
     this.audio = null;
-    this.src = '/src/assets/bgm.mp3';
+    this.src = bgmFile;
     this.initialized = false;
+    this.volume = 0.3;
+    this.muted = false;
   }
 
   init() {
     if (this.initialized) return;
     this.audio = new Audio(this.src);
     this.audio.loop = true;
+    this.audio.volume = this.volume;
+    this.audio.muted = this.muted;
     this.initialized = true;
   }
 
   play() {
     if (!this.initialized) this.init();
-    this.audio.play().catch((e) => console.log('BGM play failed:', e));
+    
+    // Resume context if needed for potential future Web Audio integration
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+
+    this.audio.play().catch((e) => {
+      console.log('BGM play failed:', e);
+      // Optional: try playing again on next user interaction if it failed due to context
+    });
   }
 
   pause() {
@@ -91,12 +110,24 @@ class BackgroundMusic {
   }
 
   setVolume(volume) {
+    this.volume = volume;
     if (this.audio) this.audio.volume = volume;
   }
 
   setMute(mute) {
+    this.muted = mute;
     if (this.audio) this.audio.muted = mute;
+  }
+
+  toggle() {
+    if (!this.audio) return;
+    if (this.audio.paused) {
+      this.play();
+    } else {
+      this.pause();
+    }
   }
 }
 
 export const bgmManager = new BackgroundMusic();
+
