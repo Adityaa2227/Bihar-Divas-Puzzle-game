@@ -240,18 +240,28 @@ export default function App() {
   return (
     <div className="app">
       <div className="app__container">
+        <Header 
+          moves={moves} 
+          time={time} 
+          bestScore={bestScore}
+          onBack={
+            view === 'categories' ? handleBackToLanding :
+            view === 'gallery' ? handleBackToCategories :
+            handleBackToGallery
+          }
+          showBack={view !== 'landing'}
+          showStats={view === 'game'}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
+
         {view === 'landing' ? (
           <LandingPage 
             onStart={handleGoToCategories} 
-            theme={theme} 
-            onToggleTheme={toggleTheme} 
           />
         ) : view === 'categories' ? (
           <CategorySelection 
             onSelectCategory={handleCategorySelect}
-            onBack={handleBackToLanding}
-            theme={theme}
-            onToggleTheme={toggleTheme}
           />
         ) : view === 'gallery' ? (
           <GameGallery
@@ -264,22 +274,9 @@ export default function App() {
             onGameModeChange={handleGameModeChange}
             onStart={handleStartGame}
             bestScore={bestScore}
-            onBack={handleBackToCategories}
-            theme={theme}
-            onToggleTheme={toggleTheme}
           />
         ) : (
           <>
-            <Header 
-              moves={moves} 
-              time={time} 
-              bestScore={bestScore}
-              onBack={handleBackToGallery}
-              showBack={true}
-              theme={theme}
-              onToggleTheme={toggleTheme}
-            />
-
             <Controls
               onRestart={handleRestart}
               onHint={handleHint}

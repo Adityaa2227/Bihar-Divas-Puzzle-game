@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Header from './Header';
 import { AGE_GROUPS, GAME_MODES } from '../utils/constants';
 import { playClickSound, playNavSound } from '../utils/sounds';
 import './GameGallery.css';
@@ -14,9 +13,6 @@ export default function GameGallery({
   onGameModeChange,
   onStart,
   bestScore,
-  onBack,
-  theme,
-  onToggleTheme,
 }) {
   const [step, setStep] = useState(1);
 
@@ -31,9 +27,7 @@ export default function GameGallery({
   };
 
   const handlePrevStep = () => {
-    if (step === 1) {
-      onBack();
-    } else {
+    if (step > 1) {
       playClickSound();
       setStep((s) => s - 1);
     }
@@ -46,18 +40,11 @@ export default function GameGallery({
 
   return (
     <div className="game-gallery fade-in">
-      <Header
-        onBack={handlePrevStep}
-        showBack={true}
-        showStats={false}
-        theme={theme}
-        onToggleTheme={onToggleTheme}
-      />
 
       <div className={`game-gallery__content ${difficulty === 'under_15' ? 'is-kids' : ''}`}>
         <div className="game-gallery__welcome">
           <h2 className="game-gallery__subtitle">
-            {difficulty === 'under_15' ? '🎈 Let\'s Play!' : '⚡ Choose Your Challenge'}
+            {difficulty === 'under_15' ? ' Let\'s Play!' : '⚡ Choose Your Challenge'}
           </h2>
           <p className="game-gallery__text">
             {difficulty === 'under_15' ? 'Pick a game and start having fun!' : 'Pick a game mode, set your skill level, and start solving!'}
@@ -122,7 +109,7 @@ export default function GameGallery({
                 <span>Choose Age Group</span>
               </h3>
               <div className="game-gallery__levels-grid">
-                {Object.entries(AGE_GROUPS).map(([key, { label, tag, desc }]) => (
+                {Object.entries(AGE_GROUPS).map(([key, { label, tag }]) => (
                   <button
                     key={key}
                     className={`btn btn--level-card ${difficulty === key ? 'btn--level-card-active' : ''}`}
@@ -130,7 +117,6 @@ export default function GameGallery({
                   >
                     <span className="level-card__tag">{tag}</span>
                     <span className="level-card__grid">{label}</span>
-                    <span className="level-card__desc">{desc}</span>
                   </button>
                 ))}
               </div>
