@@ -115,10 +115,11 @@
 /* Landscape Adaptation */
 @media (min-width: 900px) and (orientation: landscape) {
   .puzzle-wrapper {
-    max-height: 70vh;
+    height: 70vh;
+    width: 70vh; /* Fixed sizing prevents collapse in center-aligned flex containers */
+    max-width: 90vw;
     aspect-ratio: 1 / 1;
     margin: 0 auto;
-    width: auto;
   }
 }
 

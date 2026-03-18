@@ -137,29 +137,9 @@ export default function GameGallery({
               <button 
                 className="btn btn--primary btn--lg" 
                 style={{marginTop: '20px', width: '100%'}} 
-                onClick={() => { playClickSound(); setStep(3); }}
+                onClick={handleStartClick}
               >
-                Continue to Puzzle ➡️
-              </button>
-            </div>
-          )}
-
-          {/* Step 3: Selected Puzzle Preview */}
-          {step === 3 && (
-            <div className="game-gallery__step game-gallery__step--preview fade-in">
-              <h3 className="step-title">
-                <span className="step-number">3</span>
-                <span>Confirm Puzzle</span>
-              </h3>
-              <div className="featured-image-card featured-image-card--compact">
-                <img src={selectedImage.src} alt={selectedImage.name} className="featured-image" />
-                <div className="featured-image-info">
-                  <span className="featured-image-name">{selectedImage.name} {difficulty === 'under_15' && '🎨'}</span>
-                  {difficulty !== 'under_15' && <p className="featured-image-fact">{selectedImage.fact}</p>}
-                </div>
-              </div>
-              <button className="btn btn--primary btn--lg game-gallery__btn pulse-btn" onClick={handleStartClick}>
-                {difficulty === 'under_15' ? '🚀 PLAY NOW!' : '🚀 START ADVENTURE'}
+                🚀 PLAY NOW!
               </button>
             </div>
           )}
