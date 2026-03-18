@@ -1,15 +1,15 @@
 export const CATEGORIES = [
-  { id: 'heritage', label: 'Historical Places', icon: '🏛️', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', desc: 'Ancient wonders and monuments' },
-  { id: 'modern', label: 'Modern Bihar', icon: '🏙️', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Bihar_Vidhan_Sabha_Building.jpg', desc: 'Contemporary developments' },
-  { id: 'food', label: 'Local Cuisines', icon: '🍲', image: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Sattu_Paratha_with_Chokha.jpg', desc: 'Authentic flavors and dishes' },
-  { id: 'culture', label: 'Rich Art & Culture', icon: '🎨', image: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Bihar_Folk_Dance-.jpg', desc: 'Traditions and artistic heritage' }
+  { id: 'heritage', label: 'Historical Places', icon: '🏛️', image: 'src/assets/photos/golghar.webp' },
+  { id: 'modern', label: 'Modern Bihar', icon: '🏙️', image: 'src/assets/photos/modern_bihar.webp' },
+  { id: 'food', label: 'Local Cuisines', icon: '🍲', image: 'src/assets/photos/local_cuisine.webp' },
+  { id: 'culture', label: 'Rich Art & Culture', icon: '🎨', image: 'src/assets/photos/rich art culture.webp' }
 ];
 
 export const IMAGES = [
   // --- UNDER 15 ---
   { id: 'mahabodhi', categoryId: 'heritage', name: 'Mahabodhi Temple', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: 'Place where Buddha attained enlightenment.' },
   { id: 'nalanda-u', categoryId: 'heritage', name: 'Nalanda University', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Telhara_Ancient_University_Excavation_Site.jpg', fact: 'Ancient world-renowned learning center.' },
-  { id: 'golghar', categoryId: 'heritage', name: 'Golghar', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Gandhi_maidan_patna.jpg', fact: 'Massive beehive granary in Patna.' },
+  { id: 'golghar', categoryId: 'heritage', name: 'Golghar', src: 'src/assets/photos/golghar.webp' },
   { id: 'buddha-statue', categoryId: 'heritage', name: 'Buddha Statue', src: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Buddha_Statue_in_Bodh_Gaya.jpg', fact: '80-foot Bodh Gaya landmark.' },
   { id: 'rajgir-hills', categoryId: 'heritage', name: 'Rajgir Hills', src: 'https://picxy.com/images/high_res_files/stock-photo/IA282723-1579246101.jpg', fact: 'Sacred hills of Rajgir.' },
   { id: 'patna-metro', categoryId: 'modern', name: 'Patna Metro', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/IIT_Patna_Campus.jpg/1280px-IIT_Patna_Campus.jpg', fact: 'Modern transit project of Bihar.' },
@@ -17,7 +17,7 @@ export const IMAGES = [
   { id: 'ecopark', categoryId: 'modern', name: 'Eco Park', src: 'https://imgs.search.brave.com/v-ycMUUAfMNKg9-58Zx9v1vEbN7ytCqiDhx6x4OPVG4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS1jZG4udHJpcGFk/dmlzb3IuY29tL21l/ZGlhL3Bob3RvLW8v/MDgvOWQvNmMvYjgv/ZWNvLXBhcmstcmFq/ZGhhbmktdmF0aWth/LmpwZw', fact: ' Rajdhani Vatika urban oasis.' },
   { id: 'ganga-riverfront', categoryId: 'modern', name: 'Ganga Riverfront', src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Ganga_Aarti_at_Patna.jpg', fact: 'Developing bank of sacred Ganges.' },
   { id: 'jp-path', categoryId: 'modern', name: 'JP Ganga Path', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Rajendra_Setu.jpg/1280px-Rajendra_Setu.jpg', fact: 'Marine Drive of Bihar.' },
-  { id: 'litti-chokha', categoryId: 'food', name: 'Litti Chokha', src: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Sattu_Paratha_with_Chokha.jpg', fact: 'Signature Bihar soul food.' },
+  { id: 'litti-chokha', categoryId: 'food', name: 'Litti Chokha', src: 'src/assets/photos/local_cuisine.webp' },
   { id: 'sattu-drink', categoryId: 'food', name: 'Sattu Drink', src: 'https://imgs.search.brave.com/6qxhZBEGvpA7KlMwTmbeO9UFKlgfGp8QLzjxpvJBwXY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/c2h1dHRlcnN0b2Nr/LmNvbS9pbWFnZS1w/aG90by9zYXR0dS1z/dW1tZXItZHJpbmst/cHJlcGFyZWQtYnkt/MjYwbnctMTM2NTI5/MDQ5NS5qcGc', fact: 'Protein-rich desi energy drink.' },
   { id: 'thekua', categoryId: 'food', name: 'Thekua', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Malpua.jpg/1280px-Malpua.jpg', fact: 'Traditional Chhath Puja cookie.' },
   { id: 'khaja', categoryId: 'food', name: 'Khaja', src: 'https://imgs.search.brave.com/sey1lLs1sae3PG7hAQWmUuM64TRHUYcjBYdLS81IB5g/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly81Lmlt/aW1nLmNvbS9kYXRh/NS9BTkRST0lEL0Rl/ZmF1bHQvMjAyMS8x/L0tCL1VML01ZLzIz/MTI4Njg2L3Byb2Qt/MjAyMTAxMDYtMTI1/NzQwNDE3NzA4NjIy/MTgxOTI5NzAxNC1q/cGctNTAweDUwMC5q/cGc', fact: 'Crispy layered sweet from Silao.' },
