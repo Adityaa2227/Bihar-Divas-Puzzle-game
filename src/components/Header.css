@@ -12,20 +12,15 @@
 
 .header__title-row {
   display: grid;
-  grid-template-columns: 48px 1fr 48px; /* Fixed space for buttons */
+  grid-template-columns: 80px 1fr 80px; /* Safe space for buttons */
   align-items: center;
   gap: 12px;
-  min-height: 48px;
+  min-height: 80px;
   width: 100%;
 }
 
-.header__left {
-  display: flex;
-  justify-content: flex-start;
-}
-
 .header__title {
-  font-size: clamp(20px, 4.5vw, 40px); /* Slightly smaller max to ensure it fits better on small kiosks */
+  font-size: clamp(24px, 5vw, 60px); /* 60px exactly as requested by user */
   font-weight: 800;
   background: linear-gradient(135deg, var(--accent), #fbbf24, #f97316);
   -webkit-background-clip: text;
