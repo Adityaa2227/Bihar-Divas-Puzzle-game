@@ -1,11 +1,8 @@
-import { IMAGES } from '../utils/constants';
-
-export default function ImageSelector({ selectedImage, onSelect }) {
+export default function ImageSelector({ images, selectedImage, onSelect }) {
   return (
     <div className="image-selector">
-      <h3 className="image-selector__title">Choose Image</h3>
       <div className="image-selector__grid">
-        {IMAGES.map((img) => (
+        {images.map((img) => (
           <button
             key={img.id}
             className={`image-selector__item ${selectedImage.id === img.id ? 'image-selector__item--active' : ''}`}

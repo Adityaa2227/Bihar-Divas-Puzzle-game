@@ -2,11 +2,14 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Header from './components/Header';
 import PuzzleBoard from './components/PuzzleBoard';
 import DragDropBoard from './components/DragDropBoard';
+import JigsawBoard from './components/JigsawBoard';
 import ImageSelector from './components/ImageSelector';
 import Controls from './components/Controls';
 import Modal from './components/Modal';
-import StartScreen from './components/StartScreen';
-import { IMAGES, GRID_SIZES, LS_KEYS, GAME_MODES } from './utils/constants';
+import LandingPage from './components/LandingPage';
+import GameGallery from './components/GameGallery';
+import CategorySelection from './components/CategorySelection';
+import { IMAGES, CATEGORIES, GRID_SIZES, LS_KEYS, GAME_MODES } from './utils/constants';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, bgmManager } from './utils/sounds';
 
@@ -34,7 +37,8 @@ function saveBestScore(imageId, difficulty, time, gameMode) {
 }
 
 export default function App() {
-  const [view, setView] = useState('start'); // 'start' or 'game'
+  const [view, setView] = useState('landing'); // 'landing', 'categories', 'gallery', or 'game'
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [gameMode, setGameMode] = useState(GAME_MODES.SLIDER);
   const [selectedImage, setSelectedImage] = useState(IMAGES[0]);
   const [difficulty, setDifficulty] = useState('easy');
@@ -53,8 +57,20 @@ export default function App() {
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
   const [bgmStarted, setBgmStarted] = useState(false);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  }, []);
 
   const timerRef = useRef(null);
+
+  const categoryImages = IMAGES.filter((img) => img.categoryId === selectedCategory);
 
   // BGM Effect
   useEffect(() => {
@@ -95,11 +111,37 @@ export default function App() {
   const handleStartGame = () => {
     startBGM();
     resetGame();
+    if (gameMode === GAME_MODES.JIGSAW) {
+      setIsRunning(true);
+    }
     setView('game');
   };
 
-  const handleBackToMenu = () => {
-    setView('start');
+  const handleGoToCategories = () => {
+    setView('categories');
+    startBGM();
+  };
+
+  const handleCategorySelect = (categoryId) => {
+    setSelectedCategory(categoryId);
+    const catImages = IMAGES.filter(img => img.categoryId === categoryId);
+    if (catImages.length > 0) {
+      const randomImg = catImages[Math.floor(Math.random() * catImages.length)];
+      setSelectedImage(randomImg);
+    }
+    setView('gallery');
+  };
+
+  const handleBackToLanding = () => {
+    setView('landing');
+  };
+
+  const handleBackToCategories = () => {
+    setView('categories');
+  };
+
+  const handleBackToGallery = () => {
+    setView('gallery');
     resetGame();
   };
 
@@ -170,6 +212,11 @@ export default function App() {
     setTimeout(() => playWinSound(), 300);
   };
 
+  const handleJigsawWin = useCallback(() => {
+    if (hasWon) return;
+    handleWin();
+  }, [hasWon, handleWin]);
+
   const handleHint = useCallback((e) => {
     e.preventDefault();
     setShowHint((prev) => !prev);
@@ -180,18 +227,30 @@ export default function App() {
   }, [resetGame]);
 
   const handleGameOverGoHome = () => {
-    handleBackToMenu();
+    handleBackToGallery();
   };
 
   return (
     <div className="app">
       <div className="app__container">
-        {view === 'start' ? (
-          <StartScreen
+        {view === 'landing' ? (
+          <LandingPage onStart={handleGoToCategories} onStartBGM={startBGM} />
+        ) : view === 'categories' ? (
+          <CategorySelection 
+            onSelectCategory={handleCategorySelect}
+            volume={volume}
+            isMuted={isMuted}
+            onVolumeChange={setVolume}
+            onToggleMute={() => setIsMuted((prev) => !prev)}
+            onBack={handleBackToLanding}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        ) : view === 'gallery' ? (
+          <GameGallery
+            images={categoryImages}
             selectedImage={selectedImage}
             onImageSelect={handleImageChange}
-            difficulty={difficulty}
-            onDifficultyChange={handleDifficultyChange}
             gameMode={gameMode}
             onGameModeChange={handleGameModeChange}
             onStart={handleStartGame}
@@ -200,6 +259,9 @@ export default function App() {
             isMuted={isMuted}
             onVolumeChange={setVolume}
             onToggleMute={() => setIsMuted((prev) => !prev)}
+            onBack={handleBackToCategories}
+            theme={theme}
+            onToggleTheme={toggleTheme}
           />
         ) : (
           <>
@@ -211,13 +273,13 @@ export default function App() {
               isMuted={isMuted}
               onVolumeChange={setVolume}
               onToggleMute={() => setIsMuted(!isMuted)}
-              onBack={handleBackToMenu}
+              onBack={handleBackToGallery}
               showBack={true}
+              theme={theme}
+              onToggleTheme={toggleTheme}
             />
 
             <Controls
-              difficulty={difficulty}
-              onDifficultyChange={handleDifficultyChange}
               onRestart={resetGame}
               onHint={handleHint}
               showingHint={showHint}
@@ -236,12 +298,18 @@ export default function App() {
                   imageSrc={selectedImage.src}
                   onTileClick={handleTileClick}
                 />
-              ) : (
+              ) : gameMode === GAME_MODES.DRAG_DROP ? (
                 <DragDropBoard
                   tiles={tiles}
                   gridSize={gridSize}
                   imageSrc={selectedImage.src}
                   onSwap={handleSwap}
+                />
+              ) : (
+                <JigsawBoard
+                  imageSrc={selectedImage.src}
+                  gridSize={gridSize}
+                  onSolve={handleJigsawWin}
                 />
               )}
             </div>
@@ -261,3 +329,4 @@ export default function App() {
     </div>
   );
 }
+
