@@ -131,3 +131,10 @@
     margin: 0 auto;
   }
 }
+
+/* ===== Very Wide Kiosk (1400px+) ===== */
+@media (min-width: 1400px) and (orientation: landscape) {
+  .category-cards {
+    gap: 32px;
+  }
+}
