@@ -3,7 +3,6 @@ import Header from './components/Header';
 import PuzzleBoard from './components/PuzzleBoard';
 import DragDropBoard from './components/DragDropBoard';
 import JigsawBoard from './components/JigsawBoard';
-import ImageSelector from './components/ImageSelector';
 import Controls from './components/Controls';
 import Modal from './components/Modal';
 import LandingPage from './components/LandingPage';
@@ -11,7 +10,7 @@ import GameGallery from './components/GameGallery';
 import CategorySelection from './components/CategorySelection';
 import { IMAGES, CATEGORIES, GRID_SIZES, LS_KEYS, GAME_MODES } from './utils/constants';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
-import { playMoveSound, playWinSound, bgmManager } from './utils/sounds';
+import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
 
 function getBestScore(imageId, difficulty, gameMode) {
   try {
@@ -37,7 +36,7 @@ function saveBestScore(imageId, difficulty, time, gameMode) {
 }
 
 export default function App() {
-  const [view, setView] = useState('landing'); // 'landing', 'categories', 'gallery', or 'game'
+  const [view, setView] = useState('landing');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [gameMode, setGameMode] = useState(GAME_MODES.SLIDER);
   const [selectedImage, setSelectedImage] = useState(IMAGES[0]);
@@ -56,7 +55,6 @@ export default function App() {
 
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
-  const [bgmStarted, setBgmStarted] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
@@ -65,25 +63,13 @@ export default function App() {
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
+    playToggleSound();
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
   const timerRef = useRef(null);
 
   const categoryImages = IMAGES.filter((img) => img.categoryId === selectedCategory);
-
-  // BGM Effect
-  useEffect(() => {
-    bgmManager.setVolume(volume);
-    bgmManager.setMute(isMuted);
-  }, [volume, isMuted]);
-
-  const startBGM = useCallback(() => {
-    if (!bgmStarted) {
-      bgmManager.play();
-      setBgmStarted(true);
-    }
-  }, [bgmStarted]);
 
   // Timer effect
   useEffect(() => {
@@ -109,7 +95,7 @@ export default function App() {
   }, [difficulty, selectedImage.id, gameMode]);
 
   const handleStartGame = () => {
-    startBGM();
+    playNavSound();
     resetGame();
     if (gameMode === GAME_MODES.JIGSAW) {
       setIsRunning(true);
@@ -118,11 +104,12 @@ export default function App() {
   };
 
   const handleGoToCategories = () => {
+    playNavSound();
     setView('categories');
-    startBGM();
   };
 
   const handleCategorySelect = (categoryId) => {
+    playClickSound();
     setSelectedCategory(categoryId);
     const catImages = IMAGES.filter(img => img.categoryId === categoryId);
     if (catImages.length > 0) {
@@ -133,14 +120,17 @@ export default function App() {
   };
 
   const handleBackToLanding = () => {
+    playNavSound();
     setView('landing');
   };
 
   const handleBackToCategories = () => {
+    playNavSound();
     setView('categories');
   };
 
   const handleBackToGallery = () => {
+    playNavSound();
     setView('gallery');
     resetGame();
   };
@@ -219,10 +209,17 @@ export default function App() {
 
   const handleHint = useCallback((e) => {
     e.preventDefault();
+    playHintSound();
     setShowHint((prev) => !prev);
   }, []);
 
+  const handleRestart = useCallback(() => {
+    playRestartSound();
+    resetGame();
+  }, [resetGame]);
+
   const handlePlayAgain = useCallback(() => {
+    playRestartSound();
     resetGame();
   }, [resetGame]);
 
@@ -230,18 +227,27 @@ export default function App() {
     handleBackToGallery();
   };
 
+  const handleToggleMute = useCallback(() => {
+    playToggleSound();
+    setIsMuted((prev) => !prev);
+  }, []);
+
   return (
     <div className="app">
       <div className="app__container">
         {view === 'landing' ? (
-          <LandingPage onStart={handleGoToCategories} onStartBGM={startBGM} />
+          <LandingPage 
+            onStart={handleGoToCategories} 
+            theme={theme} 
+            onToggleTheme={toggleTheme} 
+          />
         ) : view === 'categories' ? (
           <CategorySelection 
             onSelectCategory={handleCategorySelect}
             volume={volume}
             isMuted={isMuted}
             onVolumeChange={setVolume}
-            onToggleMute={() => setIsMuted((prev) => !prev)}
+            onToggleMute={handleToggleMute}
             onBack={handleBackToLanding}
             theme={theme}
             onToggleTheme={toggleTheme}
@@ -251,6 +257,8 @@ export default function App() {
             images={categoryImages}
             selectedImage={selectedImage}
             onImageSelect={handleImageChange}
+            difficulty={difficulty}
+            onDifficultyChange={handleDifficultyChange}
             gameMode={gameMode}
             onGameModeChange={handleGameModeChange}
             onStart={handleStartGame}
@@ -258,7 +266,7 @@ export default function App() {
             volume={volume}
             isMuted={isMuted}
             onVolumeChange={setVolume}
-            onToggleMute={() => setIsMuted((prev) => !prev)}
+            onToggleMute={handleToggleMute}
             onBack={handleBackToCategories}
             theme={theme}
             onToggleTheme={toggleTheme}
@@ -272,7 +280,7 @@ export default function App() {
               volume={volume}
               isMuted={isMuted}
               onVolumeChange={setVolume}
-              onToggleMute={() => setIsMuted(!isMuted)}
+              onToggleMute={handleToggleMute}
               onBack={handleBackToGallery}
               showBack={true}
               theme={theme}
@@ -280,7 +288,7 @@ export default function App() {
             />
 
             <Controls
-              onRestart={resetGame}
+              onRestart={handleRestart}
               onHint={handleHint}
               showingHint={showHint}
             />
@@ -329,4 +337,3 @@ export default function App() {
     </div>
   );
 }
-

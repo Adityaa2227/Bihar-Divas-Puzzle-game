@@ -1,41 +1,36 @@
 import { useEffect, useState } from 'react';
-import { playMoveSound } from '../utils/sounds';
+import { playClickSound, playNavSound } from '../utils/sounds';
 
-export default function LandingPage({ onStart, onStartBGM }) {
+export default function LandingPage({ onStart, theme, onToggleTheme }) {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     setAnimate(true);
   }, []);
 
-  // Browser restriction: Start BGM on first user interaction
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      onStartBGM?.();
-      window.removeEventListener('mousedown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
-    };
-    window.addEventListener('mousedown', handleFirstInteraction);
-    window.addEventListener('keydown', handleFirstInteraction);
-    window.addEventListener('touchstart', handleFirstInteraction);
-    return () => {
-      window.removeEventListener('mousedown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
-    };
-  }, [onStartBGM]);
-
   const handleStart = () => {
-    onStartBGM?.(); // Ensure it starts if not already
-    playMoveSound();
+    playNavSound();
     onStart();
+  };
+
+  const handleThemeToggle = () => {
+    playClickSound();
+    onToggleTheme();
   };
 
   return (
     <div className={`landing-page ${animate ? 'landing-page--animate' : ''}`}>
       <div className="landing-page__pattern-overlay"></div>
       
+      {/* Dark mode toggle on landing */}
+      <button
+        className="btn-icon theme-toggle landing-theme-btn"
+        onClick={handleThemeToggle}
+        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      >
+        {theme === 'light' ? '🌙' : '☀️'}
+      </button>
+
       <div className="landing-page__content">
         <div className="landing-page__header">
             <span className="landing-page__tag">✨ CELEBRATING CULTURE & HERITAGE ✨</span>
@@ -43,30 +38,34 @@ export default function LandingPage({ onStart, onStartBGM }) {
 
         <h1 className="landing-page__title">
             <span className="title-hindi">बिहार दिवस</span>
-            <span className="title-english">2026 EDITION</span>
+            <span className="title-english">PUZZLE QUEST • 2026</span>
         </h1>
 
         <p className="landing-page__desc">
-            Experience the rich heritage of Bihar through interactive puzzles. Discover historical landmarks, iconic food, and our glorious past!
+            Test your skills with Bihar's iconic landmarks, delicious food & rich culture. Choose your level — from Kids to Senior!
         </p>
 
         <div className="landing-page__cards">
             <div className="info-card">
               <span className="info-icon">🏛️</span>
-              <span className="info-text">Historical Places</span>
+              <span className="info-text">10+ Heritage</span>
             </div>
             <div className="info-card">
               <span className="info-icon">🍲</span>
-              <span className="info-text">Local Cuisines</span>
+              <span className="info-text">7+ Cuisines</span>
             </div>
             <div className="info-card">
               <span className="info-icon">🎨</span>
-              <span className="info-text">Rich Art & Culture</span>
+              <span className="info-text">7+ Art Forms</span>
+            </div>
+            <div className="info-card">
+              <span className="info-icon">🎮</span>
+              <span className="info-text">3 Game Modes</span>
             </div>
         </div>
 
         <button className="landing-btn" onClick={handleStart}>
-           Explore Puzzles <span className="btn-arrow">→</span>
+           🎮 Start Puzzle Quest <span className="btn-arrow">→</span>
         </button>
       </div>
 

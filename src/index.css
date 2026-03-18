@@ -4,7 +4,7 @@
 :root {
   --bg-primary: #fff8f0;
   --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85); /* Glassmorphism base */
   --bg-elevated: #ffedd5;
   --text-primary: #431407;
   --text-secondary: #78350f;
@@ -13,22 +13,23 @@
   --accent-hover: #c2410c;
   --accent-glow: rgba(234, 88, 12, 0.3);
   --success: #16a34a;
-  --border: #fed7aa;
+  --border: rgba(254, 215, 170, 0.5); /* Softer border */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
-  --shadow-sm: 0 1px 3px rgba(234, 88, 12, 0.1);
-  --shadow-md: 0 4px 12px rgba(234, 88, 12, 0.15);
-  --shadow-lg: 0 8px 30px rgba(234, 88, 12, 0.2);
+  --shadow-sm: 0 1px 3px rgba(234, 88, 12, 0.05);
+  --shadow-md: 0 4px 12px rgba(234, 88, 12, 0.1);
+  --shadow-lg: 0 8px 30px rgba(234, 88, 12, 0.15);
   --shadow-glow: 0 0 20px var(--accent-glow);
-  --transition: 0.3s ease;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --blur: blur(12px); /* Standard glass blur */
 }
 
 [data-theme='dark'] {
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
-  --bg-card: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.85);
   --bg-elevated: #334155;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
@@ -36,10 +37,10 @@
   --accent: #f97316;
   --accent-hover: #fb923c;
   --accent-glow: rgba(249, 115, 22, 0.3);
-  --border: #334155;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --border: rgba(51, 65, 85, 0.6);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* ===== Reset ===== */
@@ -142,30 +143,35 @@ body {
 }
 
 .landing-page__cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 48px;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .info-card {
   background: var(--bg-card);
-  border: 2px solid var(--border);
-  padding: 16px 24px;
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 18px 24px;
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition);
   min-width: 150px;
+  flex: 1;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
 
 .info-card:hover {
   transform: translateY(-5px);
-  border-color: #f97316;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
 .info-icon {
@@ -289,17 +295,46 @@ body {
   padding: 16px;
   position: relative;
   z-index: 1;
+  overflow: hidden;
+}
+
+.app::before,
+.app::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.4;
+  animation: floatOrb 15s infinite alternate ease-in-out;
+  pointer-events: none;
 }
 
 .app::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.05;
-  background-image: radial-gradient(var(--accent) 2px, transparent 2px);
-  background-size: 30px 30px;
-  z-index: -1;
-  pointer-events: none;
+  top: -10vw;
+  left: -10vw;
+  width: 50vw;
+  height: 50vw;
+  background: var(--accent-glow);
+}
+
+.app::after {
+  bottom: -10vw;
+  right: -10vw;
+  width: 40vw;
+  height: 40vw;
+  background: rgba(251, 191, 36, 0.2);
+  animation-delay: -5s;
+}
+
+[data-theme='dark'] .app::after {
+  background: rgba(99, 102, 241, 0.2); /* Indigo glow for dark mode */
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5vw, 5vw) scale(1.1); }
+  100% { transform: translate(-5vw, 10vw) scale(0.9); }
 }
 
 .app__container {
@@ -337,9 +372,12 @@ body {
   align-items: center;
   gap: 10px;
   background: var(--bg-card);
-  padding: 6px 12px;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  padding: 8px 14px;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-icon {
@@ -876,15 +914,17 @@ body {
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
 }
 
 .category-card:hover {
   transform: translateY(-5px);
   border-color: var(--accent);
-  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .category-card__image-container {
@@ -899,10 +939,6 @@ body {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
-}
-
-.category-card:hover .category-card__image {
-  transform: scale(1.1);
 }
 
 .category-card:hover .category-card__image {
@@ -952,37 +988,51 @@ body {
 .game-gallery {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   animation: fadeIn 0.5s ease;
-  padding-bottom: 40px;
+  height: 100%; /* Fit without scroll */
+  max-height: 80vh; 
+  padding-bottom: 20px;
 }
 
 .game-gallery__content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
+  flex: 1;
 }
 
-.game-gallery__subtitle {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--accent);
+.game-gallery__welcome {
   text-align: center;
   margin-bottom: 4px;
 }
 
+.game-gallery__subtitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
 .game-gallery__text {
-  text-align: center;
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  max-width: 320px;
-  margin: 0 auto;
+  font-size: 0.85rem;
+}
+
+/* Kids specific adaptations */
+.is-kids .game-gallery__subtitle {
+  font-size: 1.8rem;
+  color: #ec4899; /* Fun pink for kids */
+}
+
+.is-kids .btn--level-card-active {
+  background: linear-gradient(135deg, #ec4899, #f43f5e); /* Fun gradient */
 }
 
 .game-gallery__section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .game-gallery__modes {
@@ -1096,10 +1146,50 @@ body {
   font-style: italic;
 }
 
-.game-gallery__levels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+/* Compact Preview for Single-Screen fitting */
+.featured-image-card--compact {
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 16px;
+  height: 80px;
+  border-left: 4px solid var(--accent);
+}
+
+.is-kids .featured-image-card--compact {
+  border-left-color: #ec4899;
+}
+
+.featured-image-card--compact .featured-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.featured-image-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.featured-image-card--compact .featured-image-name {
+  color: var(--text-primary);
+  text-shadow: none;
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.featured-image-card--compact .featured-image-fact {
+  font-size: 0.7rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-gallery__btn {
@@ -1117,7 +1207,6 @@ body {
   font-weight: 600;
   letter-spacing: 1px;
 }
-
 
 /* ===== Drag & Drop Board ===== */
 .puzzle-wrapper--jigsaw {
@@ -1141,33 +1230,104 @@ body {
 
 /* ===== Animations ===== */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ===== Level Card Grid ===== */
+.game-gallery__levels-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.btn--level-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+
+.btn--level-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--level-card-active {
+  background: linear-gradient(135deg, var(--accent), #d97706);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+}
+
+.btn--level-card-active .level-card__tag,
+.btn--level-card-active .level-card__grid,
+.btn--level-card-active .level-card__desc {
+  color: #fff;
+}
+
+.level-card__tag {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.level-card__grid {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.level-card__desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ===== Landing Theme Button ===== */
+.landing-theme-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1010;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+
+.landing-theme-btn:hover {
+  transform: scale(1.1) rotate(20deg);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ===== Responsive ===== */
@@ -1233,3 +1393,142 @@ body {
     padding: 8px 12px;
   }
 }
+
+/* ===== Landscape / Kiosk Mode ===== */
+@media (min-width: 900px) and (orientation: landscape) {
+  .app {
+    padding: 24px 5vw; /* Fluid padding on sides */
+  }
+
+  .app__container {
+    max-width: 100%; /* Stretch across landscape */
+    display: grid;
+    grid-template-columns: minmax(400px, 1fr) minmax(300px, 1fr) /* Fluid columns */;
+    grid-template-rows: auto 1fr auto;
+    gap: 20px 48px;
+    align-items: start;
+    width: 100%;
+  }
+
+  .header {
+    grid-column: 1 / -1;
+  }
+
+  .controls {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    align-self: end;
+  }
+
+  .puzzle-wrapper {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    max-height: 75vh;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+  }
+
+  .modal-overlay .modal {
+    max-width: 500px;
+  }
+
+  /* Landing page landscape */
+  .landing-page {
+    flex-direction: row;
+    gap: 8vw;
+    padding: 24px 8vw;
+    justify-content: center;
+  }
+
+  .landing-page__content {
+    max-width: 700px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .landing-page__cards {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  
+  .info-card {
+    min-width: 180px;
+  }
+
+  /* Title sizing for better width utilization */
+  .title-hindi {
+    font-size: clamp(6rem, 10vw, 9rem);
+  }
+  
+  .landing-page__desc {
+    font-size: 1.35rem;
+    max-width: 650px;
+  }
+
+  /* Category landscape */
+  .category-selection,
+  .game-gallery {
+    grid-column: 1 / -1;
+  }
+
+  .category-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Always 4 cols for wide */
+    gap: 24px;
+    width: 100%;
+  }
+
+  /* Game gallery landscape */
+  .game-gallery__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 48px;
+    align-items: start;
+    width: 100%;
+  }
+
+  .game-gallery__section--preview {
+    grid-column: 1 / -1; 
+  }
+
+  .game-gallery__welcome {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+  }
+
+  .game-gallery__btn {
+    grid-column: 1 / -1;
+    max-width: 400px;
+    margin: 12px auto 0;
+  }
+
+  .game-gallery__footer {
+    grid-column: 1 / -1;
+  }
+
+  .game-gallery__levels-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column: 1 / -1;
+    gap: 16px;
+  }
+}
+
+/* ===== Very Wide Kiosk (1400px+) ===== */
+@media (min-width: 1400px) and (orientation: landscape) {
+  .app__container {
+    gap: 32px 80px;
+  }
+
+  .title-hindi {
+    font-size: 10rem;
+  }
+
+  .category-cards {
+    gap: 32px;
+  }
+
+  .game-gallery__modes {
+    gap: 24px;
+  }
+}
+
