@@ -82,7 +82,7 @@ export default function App() {
   }, [isRunning, hasWon]);
 
   // Reset game
-  const resetGame = useCallback(() => {
+  const resetGame = useCallback((activeImage) => {
     clearInterval(timerRef.current);
     const newGridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
     setTiles(shuffleTiles(newGridSize, gameMode === GAME_MODES.DRAG_DROP));
@@ -91,12 +91,24 @@ export default function App() {
     setIsRunning(false);
     setHasWon(false);
     setShowHint(false);
-    setBestScore(getBestScore(selectedImage.id, difficulty, gameMode));
+    
+    // Sync best score with the potentially new image immediately
+    const imgId = activeImage ? activeImage.id : selectedImage.id;
+    setBestScore(getBestScore(imgId, difficulty, gameMode));
   }, [difficulty, selectedImage.id, gameMode]);
 
   const handleStartGame = () => {
     playNavSound();
-    resetGame();
+    
+    // Logic to ensure "New Puzzle" (image) on every entry
+    const allowed = AGE_GROUPS[difficulty].allowedImages;
+    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+    if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    const randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
+    
+    setSelectedImage(randomImg);
+    resetGame(randomImg); // Pass new image to ensure immediate sync
+    
     if (gameMode === GAME_MODES.JIGSAW) {
       setIsRunning(true);
     }
@@ -139,17 +151,22 @@ export default function App() {
     setSelectedImage(img);
   }, []);
 
-  const handleDifficultyChange = useCallback((ageGroupId) => {
-    setDifficulty(ageGroupId);
-    const allowed = AGE_GROUPS[ageGroupId].allowedImages;
-    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+  const pickRandomImage = useCallback((catId, ageId) => {
+    const allowed = AGE_GROUPS[ageId].allowedImages;
+    let pool = IMAGES.filter(img => img.categoryId === catId && allowed.includes(img.id));
     if (pool.length === 0) {
       pool = IMAGES.filter(img => allowed.includes(img.id));
     }
     if (pool.length > 0) {
-      setSelectedImage(pool[Math.floor(Math.random() * pool.length)]);
+      const randomImg = pool[Math.floor(Math.random() * pool.length)];
+      setSelectedImage(randomImg);
     }
-  }, [selectedCategory]);
+  }, []);
+
+  const handleDifficultyChange = useCallback((ageGroupId) => {
+    setDifficulty(ageGroupId);
+    pickRandomImage(selectedCategory, ageGroupId);
+  }, [selectedCategory, pickRandomImage]);
 
   const handleGameModeChange = (mode) => {
     setGameMode(mode);
