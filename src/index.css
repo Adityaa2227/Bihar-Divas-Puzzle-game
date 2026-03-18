@@ -354,20 +354,27 @@ body {
 }
 
 .header__title-row {
-  margin-bottom: 12px;
+  margin-bottom: 8px; /* Pulled up drastically */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  min-height: 80px; /* Make sure the huge absolute header doesn't overlap text below */
 }
 
 .header__title {
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: clamp(3rem, 7vw, 4.5rem); /* Bada text! */
+  font-weight: 950;
   background: linear-gradient(135deg, var(--accent), #fbbf24, #f97316);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.5px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  white-space: nowrap;
 }
 
 .header__controls {
@@ -876,15 +883,15 @@ body {
 .category-selection {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   animation: fadeIn 0.5s ease;
-  padding-bottom: 40px;
+  padding-bottom: 8px;
 }
 
 .category-selection__content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .category-selection__header {
@@ -892,23 +899,25 @@ body {
 }
 
 .category-selection__title {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .category-selection__subtitle {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   max-width: 320px;
   margin: 0 auto;
 }
 
 .category-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .category-card {
@@ -922,6 +931,7 @@ body {
   flex-direction: column;
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
+  aspect-ratio: 1 / 1; /* Forces square format */
 }
 
 .category-card:hover {
@@ -933,7 +943,7 @@ body {
 .category-card__image-container {
   position: relative;
   width: 100%;
-  height: 140px;
+  flex: 1; /* Fills all remaining space in the square */
   overflow: hidden;
 }
 
@@ -954,15 +964,15 @@ body {
   background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
   display: flex;
   align-items: flex-end;
-  padding: 12px;
+  padding: 8px 12px;
 }
 
 .category-card__icon {
-  font-size: 2rem;
+  font-size: 1.6rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -971,20 +981,20 @@ body {
 }
 
 .category-card__info {
-  padding: 16px;
+  padding: 12px;
 }
 
 .category-card__name {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .category-card__desc {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
 /* ===== Game Gallery ===== */
@@ -1479,9 +1489,11 @@ body {
 
   .category-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Always 4 cols for wide */
+    grid-template-columns: repeat(4, 1fr); /* 4 options in 1 line */
     gap: 24px;
     width: 100%;
+    max-width: 1100px; /* Widen container to fit 4 square-shaped cards snugly on 1 row */
+    margin: 0 auto;
   }
 
   /* Game gallery landscape */

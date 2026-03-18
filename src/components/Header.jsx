@@ -27,7 +27,6 @@ export default function Header({
           </button>
         )}
         <h1 className="header__title">
-          <span className="header__icon">🏛️</span>
           Bihar Divas Puzzle
         </h1>
         <div className="header__controls">
@@ -38,23 +37,6 @@ export default function Header({
           >
             {theme === 'light' ? '🌙' : '☀️'}
           </button>
-          <button
-            className="btn-icon"
-            onClick={onToggleMute}
-            aria-label={isMuted ? 'Unmute' : 'Mute'}
-          >
-            {isMuted || volume === 0 ? '🔇' : '🔊'}
-          </button>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value={volume}
-            onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-            className="volume-slider"
-            aria-label="Volume"
-          />
         </div>
       </div>
       {showStats && (
