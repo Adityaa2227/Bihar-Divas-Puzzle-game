@@ -49,6 +49,7 @@ export default function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [jigsawKey, setJigsawKey] = useState(0);
   const [bestScore, setBestScore] = useState(() =>
     getBestScore(selectedImage.id, difficulty, gameMode)
   );
@@ -91,6 +92,7 @@ export default function App() {
     setIsRunning(false);
     setHasWon(false);
     setShowHint(false);
+    setJigsawKey(k => k + 1);
     
     // Sync best score with the potentially new image immediately
     const imgId = activeImage ? activeImage.id : selectedImage.id;
@@ -246,6 +248,7 @@ export default function App() {
   const handlePlayAgain = useCallback(() => {
     playRestartSound();
     resetGame();
+    setView('gallery');
   }, [resetGame]);
 
   const handleGameOverGoHome = () => {
@@ -306,34 +309,44 @@ export default function App() {
                 showingHint={showHint}
               />
 
-              <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
-                {showHint && (
-                  <div className="hint-overlay">
-                    <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
-                  </div>
-                )}
-                {gameMode === GAME_MODES.SLIDER ? (
-                  <PuzzleBoard
-                    tiles={tiles}
-                    gridSize={gridSize}
-                    imageSrc={selectedImage.src}
-                    onTileClick={handleTileClick}
-                  />
-                ) : gameMode === GAME_MODES.DRAG_DROP ? (
-                  <DragDropBoard
-                    tiles={tiles}
-                    gridSize={gridSize}
-                    imageSrc={selectedImage.src}
-                    onSwap={handleSwap}
-                  />
-                ) : (
+              {gameMode === GAME_MODES.JIGSAW ? (
+                <div className="puzzle-wrapper puzzle-wrapper--jigsaw-mode">
+                  {showHint && (
+                    <div className="hint-overlay">
+                      <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
+                    </div>
+                  )}
                   <JigsawBoard
+                    key={jigsawKey}
                     imageSrc={selectedImage.src}
                     gridSize={gridSize}
                     onSolve={handleJigsawWin}
                   />
-                )}
-              </div>
+                </div>
+              ) : (
+                <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
+                  {showHint && (
+                    <div className="hint-overlay">
+                      <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
+                    </div>
+                  )}
+                  {gameMode === GAME_MODES.SLIDER ? (
+                    <PuzzleBoard
+                      tiles={tiles}
+                      gridSize={gridSize}
+                      imageSrc={selectedImage.src}
+                      onTileClick={handleTileClick}
+                    />
+                  ) : (
+                    <DragDropBoard
+                      tiles={tiles}
+                      gridSize={gridSize}
+                      imageSrc={selectedImage.src}
+                      onSwap={handleSwap}
+                    />
+                  )}
+                </div>
+              )}
             </>
           )}
         </div>

@@ -5,7 +5,7 @@ import './PuzzleBoard.css';
 
 export default function JigsawBoard({ imageSrc, gridSize, onSolve }) {
   return (
-    <div className="jigsaw-board-container" style={{ width: '100%', maxWidth: '400px', margin: '0 auto', border: '5px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
+    <div className="jigsaw-board-container">
       <JigsawPuzzle
         imageSrc={imageSrc}
         rows={gridSize}

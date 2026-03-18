@@ -77,6 +77,48 @@
   border-color: var(--accent);
 }
 
+/* Jigsaw mode: override the square aspect-ratio so the library 
+   can set its own height based on the actual image proportions */
+.puzzle-wrapper--jigsaw-mode {
+  position: relative;
+  width: 100%;
+  aspect-ratio: unset;
+  border-radius: var(--radius-lg);
+  overflow: visible;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.jigsaw-board-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Make the library's root container fill the wrapper */
+.jigsaw-board-container .jigsaw-puzzle {
+  width: 100%;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Style the individual jigsaw pieces */
+.jigsaw-board-container .jigsaw-puzzle__piece {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: box-shadow 0.15s ease;
+}
+
+.jigsaw-board-container .jigsaw-puzzle__piece--solved {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.jigsaw-board-container .jigsaw-puzzle__piece--dragging {
+  z-index: 10 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
 .drag-tile-wrapper {
   cursor: grab;
   transition: transform 0.2s ease;
@@ -119,6 +161,14 @@
     width: 55vh;
     max-width: 80vw;
     aspect-ratio: 1 / 1;
+    margin: 4px auto 0;
+  }
+
+  .puzzle-wrapper--jigsaw-mode {
+    height: auto;
+    width: 55vh;
+    max-width: 80vw;
+    aspect-ratio: unset;
     margin: 4px auto 0;
   }
 }
