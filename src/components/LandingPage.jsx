@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { playClickSound, playNavSound } from '../utils/sounds';
 import './LandingPage.css';
 
-export default function LandingPage({ onStart }) {
+export default function LandingPage({ onStart, theme, onToggleTheme }) {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     setAnimate(true);
   }, []);
-
 
   const handleStart = () => {
     playNavSound();
@@ -22,6 +21,15 @@ export default function LandingPage({ onStart }) {
 
   return (
     <div className={`landing-page ${animate ? 'landing-page--animate' : ''}`}>
+      <div className="landing-page__top-header">
+        <button
+          className="btn-icon theme-toggle"
+          onClick={handleThemeToggle}
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
+      </div>
       <div className="landing-page__pattern-overlay"></div>
 
       <div className="landing-page__content">

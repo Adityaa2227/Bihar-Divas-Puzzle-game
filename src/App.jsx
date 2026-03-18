@@ -257,26 +257,30 @@ export default function App() {
   return (
     <div className="app">
       <div className="app__container">
-        <Header 
-          moves={moves} 
-          time={time} 
-          bestScore={bestScore}
-          onBack={
-            view === 'categories' ? handleBackToLanding :
-            view === 'gallery' ? handleBackToCategories :
-            handleBackToGallery
-          }
-          showBack={view !== 'landing'}
-          showStats={view === 'game'}
-          showTitle={view !== 'landing'}
-          theme={theme}
-          onToggleTheme={toggleTheme}
-        />
+        {view !== 'landing' && (
+          <Header 
+            moves={moves} 
+            time={time} 
+            bestScore={bestScore}
+            onBack={
+              view === 'categories' ? handleBackToLanding :
+              view === 'gallery' ? handleBackToCategories :
+              handleBackToGallery
+            }
+            showBack={view !== 'landing'}
+            showStats={view === 'game'}
+            showTitle={view !== 'landing'}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        )}
 
         <div className="app__content">
           {view === 'landing' ? (
             <LandingPage 
               onStart={handleGoToCategories} 
+              theme={theme}
+              onToggleTheme={toggleTheme}
             />
           ) : view === 'categories' ? (
             <CategorySelection 
