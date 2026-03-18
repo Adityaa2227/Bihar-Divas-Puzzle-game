@@ -268,32 +268,28 @@ export const AGE_GROUPS = {
     id: 'under_15',
     size: 3, 
     label: 'Under 15', 
-    tag: '🧒 Young Minds', 
-    desc: 'Golghar, Malpua...',
+    tag: ' Young Minds', 
     allowedImages: ['golghar', 'malpua', 'ecopark'] 
   },
   age_16_30: { 
     id: 'age_16_30',
     size: 3, 
     label: '16-30 Years', 
-    tag: '⚡ Youth', 
-    desc: 'Sabhyata Dwar, Nalanda, Patna Metro...',
+    tag: ' Youth', 
     allowedImages: ['sabhyata-dwar', 'nalanda', 'patna-metro', 'litti-chokha', 'jp-path', 'vikramshila']
   },
   age_30_55: { 
     id: 'age_30_55',
     size: 3, 
     label: '30-55 Years', 
-    tag: '🌟 Adults', 
-    desc: 'Mahabodhi, Madhubani Art...',
+    tag: ' Adults', 
     allowedImages: ['mahabodhi', 'madhubani', 'chhath', 'sattu-drink', 'sher-shah-tomb', 'bidesia']
   },
   age_55_plus: { 
     id: 'age_55_plus',
     size: 3, 
     label: '55+ Years', 
-    tag: '🧠 Seniors', 
-    desc: 'Patna Sahib, Thekua...',
+    tag: ' Seniors', 
     allowedImages: ['patna-sahib', 'khaja', 'thekua', 'sikki-art', 'rohtasgarh-fort', 'barabar-caves']
   },
 };

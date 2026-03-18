@@ -21,8 +21,8 @@ export default function Header({
       <div className="header__title-row">
         <div className="header__left">
           {showBack && (
-            <button className="btn-icon btn-icon--back" onClick={onBack} aria-label="Back to Menu">
-              🔙
+            <button className="btn-icon" onClick={onBack} title="Go Back" aria-label="Back">
+              ⬅️
             </button>
           )}
         </div>

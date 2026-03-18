@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { playClickSound, playNavSound } from '../utils/sounds';
-import Header from './Header';
 import './LandingPage.css';
 
-export default function LandingPage({ onStart, theme, onToggleTheme, onStartBGM }) {
+export default function LandingPage({ onStart }) {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -24,16 +23,6 @@ export default function LandingPage({ onStart, theme, onToggleTheme, onStartBGM 
   return (
     <div className={`landing-page ${animate ? 'landing-page--animate' : ''}`}>
       <div className="landing-page__pattern-overlay"></div>
-
-      {/* Universal header placed at the absolute top of the landing page */}
-      <div className="landing-page__top-header">
-        <Header 
-          showBack={false} 
-          showStats={false} 
-          theme={theme} 
-          onToggleTheme={onToggleTheme} 
-        />
-      </div>
 
       <div className="landing-page__content">
         <div className="landing-page__header">

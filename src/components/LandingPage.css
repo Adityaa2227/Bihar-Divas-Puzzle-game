@@ -1,17 +1,16 @@
 /* ===== Landing Page Styles ===== */
 .landing-page {
-  position: fixed;
-  inset: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-  z-index: 1000;
+  padding: 20px 0;
+  z-index: 10;
   text-align: center;
-  background: var(--bg-primary);
+  background: transparent;
   transition: background-color var(--transition);
+  animation: fadeIn 0.8s ease;
 }
 
 .landing-page__content {
@@ -194,20 +193,13 @@
   border-color: #475569;
 }
 
-.landing-page__top-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 24px 5vw;
-  z-index: 1010;
-}
+
 
 /* Landscape Adaptation */
 @media (min-width: 900px) and (orientation: landscape) {
   .landing-page {
     flex-direction: column;
-    padding: 24px 5vw;
+    padding: 24px 0;
     justify-content: center;
     align-items: center;
   }

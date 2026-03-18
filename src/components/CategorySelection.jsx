@@ -1,17 +1,9 @@
-import Header from './Header';
 import { CATEGORIES } from '../utils/constants';
 import './CategorySelection.css';
 
-export default function CategorySelection({ onSelectCategory, onBack, theme, onToggleTheme }) {
+export default function CategorySelection({ onSelectCategory }) {
   return (
     <div className="category-selection fade-in">
-      <Header
-        onBack={onBack}
-        showBack={true}
-        showStats={false}
-        theme={theme}
-        onToggleTheme={onToggleTheme}
-      />
 
       <div className="category-selection__content">
         <div className="category-selection__header">
