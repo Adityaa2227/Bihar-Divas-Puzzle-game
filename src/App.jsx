@@ -259,6 +259,12 @@ export default function App() {
 
   return (
     <div className="app">
+      {/* Animated background blobs */}
+      <div className="blob blob--1" />
+      <div className="blob blob--2" />
+      <div className="blob blob--3" />
+      <div className="blob blob--4" />
+
       <div className="app__container">
         {view !== 'landing' && (
           <Header 

@@ -24,6 +24,7 @@
   --shadow-glow: 0 0 20px var(--accent-glow);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --blur: blur(12px); /* Standard glass blur */
+  --bg-glass: rgba(255, 255, 255, 0.45); /* Consistent glass variable */
 }
 
 [data-theme='dark'] {
@@ -31,6 +32,7 @@
   --bg-secondary: #1e293b;
   --bg-card: rgba(30, 41, 59, 0.85);
   --bg-elevated: #334155;
+  --bg-glass: rgba(30, 41, 59, 0.6); /* Darker glass for contrast */
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
@@ -75,7 +77,7 @@ body {
 /* ===== App Layout ===== */
 .app {
   height: 100vh;
-  background: var(--bg-primary);
+  background: transparent; /* Changed from var(--bg-primary) to show blobs */
   display: flex;
   justify-content: center;
   align-items: stretch; /* Anchor children to top and bottom */
@@ -85,43 +87,78 @@ body {
   overflow: hidden; 
 }
 
-.app::before,
-.app::after {
-  content: "";
+/* ===== Animated Background Blobs ===== */
+.blob {
   position: fixed;
-  border-radius: 50%;
-  filter: blur(120px);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Organic morphing shape */
+  filter: blur(80px); /* Slightly sharper for better definition */
   z-index: -1;
-  opacity: 0.25; /* Even more subtle */
-  animation: floatOrb 15s infinite alternate ease-in-out;
+  opacity: 0.45;
   pointer-events: none;
+  will-change: transform, border-radius;
+  transition: opacity 0.5s ease;
 }
 
-.app::before {
-  top: -10vw;
-  left: -10vw;
-  width: 50vw;
-  height: 50vw;
-  background: var(--accent-glow);
+.blob--1 {
+  top: -8vw; left: -8vw;
+  width: 45vw; height: 45vw;
+  background: linear-gradient(135deg, var(--accent), #fcd34d);
+  animation: blobFloat1 25s infinite alternate ease-in-out, blobMorph 12s infinite alternate ease-in-out;
+}
+.blob--2 {
+  bottom: -10vw; right: -10vw;
+  width: 40vw; height: 40vw;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  animation: blobFloat2 30s infinite alternate-reverse ease-in-out, blobMorph 15s infinite alternate-reverse ease-in-out;
+}
+.blob--3 {
+  top: 30%; right: -15vw;
+  width: 35vw; height: 35vw;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  animation: blobFloat3 28s infinite alternate ease-in-out, blobMorph 18s infinite alternate ease-in-out;
+}
+.blob--4 {
+  bottom: 20%; left: -12vw;
+  width: 30vw; height: 30vw;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  animation: blobFloat4 35s infinite alternate-reverse ease-in-out, blobMorph 20s infinite alternate-reverse ease-in-out;
 }
 
-.app::after {
-  bottom: -10vw;
-  right: -10vw;
-  width: 40vw;
-  height: 40vw;
-  background: rgba(251, 191, 36, 0.2);
-  animation-delay: -5s;
+@keyframes blobMorph {
+  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+  67% { border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
 }
 
-[data-theme='dark'] .app::after {
-  background: rgba(99, 102, 241, 0.2);
-}
+/* Dark theme blob adjustments */
+[data-theme='dark'] .blob { opacity: 0.25; }
+[data-theme='dark'] .blob--1 { background: linear-gradient(135deg, #4f46e5, #ec4899); }
+[data-theme='dark'] .blob--2 { background: linear-gradient(135deg, #1e3a8a, #7c3aed); }
+[data-theme='dark'] .blob--3 { background: linear-gradient(135deg, #be123c, #1e1b4b); }
+[data-theme='dark'] .blob--4 { background: linear-gradient(135deg, #064e3b, #0c4a6e); }
 
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(5vw, 5vw) scale(1.1); }
-  100% { transform: translate(-5vw, 10vw) scale(0.9); }
+@keyframes blobFloat1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(8vw, 5vw) scale(1.15); }
+  66%  { transform: translate(-3vw, 10vw) scale(0.9); }
+  100% { transform: translate(5vw, -3vw) scale(1.05); }
+}
+@keyframes blobFloat2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-6vw, -4vw) scale(1.1); }
+  66%  { transform: translate(4vw, -8vw) scale(0.95); }
+  100% { transform: translate(-3vw, 5vw) scale(1.08); }
+}
+@keyframes blobFloat3 {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(-10vw, 6vw) scale(1.2) rotate(45deg); }
+  100% { transform: translate(5vw, -5vw) scale(0.85) rotate(-20deg); }
+}
+@keyframes blobFloat4 {
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50%  { transform: translate(8vw, -6vw) scale(1.1) rotate(-30deg); }
+  100% { transform: translate(-4vw, 8vw) scale(0.9) rotate(15deg); }
 }
 
 .app__container {
@@ -131,6 +168,8 @@ body {
   flex-direction: column;
   height: 100vh;
   padding: 12px 16px;
+  background: transparent;
+  z-index: 1; /* Stay above blobs */
 }
 
 .app__content {
