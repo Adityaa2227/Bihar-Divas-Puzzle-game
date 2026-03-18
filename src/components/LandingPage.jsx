@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { playClickSound, playNavSound } from '../utils/sounds';
+import './LandingPage.css';
 
 export default function LandingPage({ onStart, theme, onToggleTheme }) {
   const [animate, setAnimate] = useState(false);
@@ -7,24 +8,6 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
   useEffect(() => {
     setAnimate(true);
   }, []);
-
-  // Browser restriction: Start BGM on first user interaction
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      onStartBGM?.();
-      window.removeEventListener('mousedown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
-    };
-    window.addEventListener('mousedown', handleFirstInteraction);
-    window.addEventListener('keydown', handleFirstInteraction);
-    window.addEventListener('touchstart', handleFirstInteraction);
-    return () => {
-      window.removeEventListener('mousedown', handleFirstInteraction);
-      window.removeEventListener('keydown', handleFirstInteraction);
-      window.removeEventListener('touchstart', handleFirstInteraction);
-    };
-  }, [onStartBGM]);
 
   const handleStart = () => {
     playNavSound();

@@ -1,5 +1,7 @@
 import Tile from './Tile';
 
+import './PuzzleBoard.css';
+
 export default function PuzzleBoard({ tiles, gridSize, imageSrc, onTileClick }) {
   const emptyValue = gridSize * gridSize - 1;
 

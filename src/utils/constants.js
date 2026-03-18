@@ -263,11 +263,39 @@ export const IMAGES = [
   }
 ];
 
-export const GRID_SIZES = {
-  kids: { size: 2, label: '2×2', tag: '🧒 Kids', desc: 'Perfect for little ones' },
-  easy: { size: 3, label: '3×3', tag: '😊 Easy', desc: 'A gentle challenge' },
-  medium: { size: 4, label: '4×4', tag: '🔥 Medium', desc: 'For puzzle lovers' },
-  senior: { size: 5, label: '5×5', tag: '🧠 Senior', desc: 'Expert level' },
+export const AGE_GROUPS = {
+  under_15: { 
+    id: 'under_15',
+    size: 3, 
+    label: 'Under 15', 
+    tag: '🧒 Young Minds', 
+    desc: 'Golghar, Malpua...',
+    allowedImages: ['golghar', 'malpua', 'ecopark'] 
+  },
+  age_16_30: { 
+    id: 'age_16_30',
+    size: 3, 
+    label: '16-30 Years', 
+    tag: '⚡ Youth', 
+    desc: 'Sabhyata Dwar, Nalanda, Patna Metro...',
+    allowedImages: ['sabhyata-dwar', 'nalanda', 'patna-metro', 'litti-chokha', 'jp-path', 'vikramshila']
+  },
+  age_30_55: { 
+    id: 'age_30_55',
+    size: 3, 
+    label: '30-55 Years', 
+    tag: '🌟 Adults', 
+    desc: 'Mahabodhi, Madhubani Art...',
+    allowedImages: ['mahabodhi', 'madhubani', 'chhath', 'sattu-drink', 'sher-shah-tomb', 'bidesia']
+  },
+  age_55_plus: { 
+    id: 'age_55_plus',
+    size: 3, 
+    label: '55+ Years', 
+    tag: '🧠 Seniors', 
+    desc: 'Patna Sahib, Thekua...',
+    allowedImages: ['patna-sahib', 'khaja', 'thekua', 'sikki-art', 'rohtasgarh-fort', 'barabar-caves']
+  },
 };
 
 export const LS_KEYS = {

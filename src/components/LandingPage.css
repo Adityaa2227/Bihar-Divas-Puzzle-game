@@ -1,0 +1,258 @@
+/* ===== Landing Page Styles ===== */
+.landing-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  z-index: 1000;
+  text-align: center;
+  background: var(--bg-primary);
+  transition: background-color var(--transition);
+}
+
+.landing-page__content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page__tag {
+  background: #fef08a;
+  color: #854d0e;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-block;
+  border: 1px solid #fde047;
+  animation: slideDown 0.8s ease backwards;
+}
+
+.landing-page__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.title-hindi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #ea580c; /* vibrant orange */
+  text-shadow: 2px 2px 0px #fdba74, 4px 4px 0px #fff;
+  animation: scaleIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards;
+  white-space: nowrap;
+}
+
+.title-english {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  color: #9a3412;
+  letter-spacing: 6px;
+  animation: fadeIn 1s ease 0.3s backwards;
+}
+
+.landing-page__desc {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  line-height: 1.5;
+  max-width: 600px;
+  margin-bottom: 30px;
+  color: var(--text-secondary);
+  animation: fadeIn 1s ease 0.5s backwards;
+}
+
+.landing-page__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 440px;
+  align-self: center;
+  margin-inline: auto;
+}
+
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 14px 20px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  min-width: 150px;
+  flex: 1;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.info-icon {
+  font-size: 2rem;
+  margin-bottom: 2px;
+}
+
+.info-text {
+  font-weight: 800;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.landing-btn {
+  background: #ea580c;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.landing-btn:hover {
+  background: #c2410c;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(234, 88, 12, 0.5);
+}
+
+.btn-arrow {
+  transition: transform 0.3s ease;
+  font-size: 1.4rem;
+}
+
+.landing-btn:hover .btn-arrow {
+  transform: translateX(6px);
+}
+
+.landing-page__decoration {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  z-index: 1;
+  filter: blur(80px);
+}
+
+.bottom-left {
+  bottom: -100px;
+  left: -100px;
+  background: #fef08a; /* soft yellow */
+}
+
+.top-right {
+  top: -100px;
+  right: -100px;
+  background: var(--accent-glow);
+}
+
+[data-theme='dark'] .bottom-left {
+  background: #1e3a8a; /* Deep blue */
+}
+
+[data-theme='dark'] .top-right {
+  background: #3730a3; /* Indigo */
+}
+
+[data-theme='dark'] .title-hindi {
+  text-shadow: 2px 2px 0px #431407, 4px 4px 0px rgba(255,255,255,0.1);
+}
+
+[data-theme='dark'] .title-english {
+  color: #fb923c;
+}
+
+[data-theme='dark'] .landing-page__tag {
+  background: #334155;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+
+.landing-theme-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1010;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+
+.landing-theme-btn:hover {
+  transform: scale(1.1) rotate(20deg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Landscape Adaptation */
+@media (min-width: 900px) and (orientation: landscape) {
+  .landing-page {
+    flex-direction: column;
+    padding: 24px 5vw;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .landing-page__content {
+    max-width: 1200px;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .landing-page__cards {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 900px;
+    margin-bottom: 30px;
+    gap: 16px;
+  }
+  
+  .info-card {
+    min-width: 160px;
+  }
+
+  .title-hindi {
+    font-size: clamp(4rem, 7.5vw, 6.5rem);
+  }
+  
+  .landing-page__desc {
+    font-size: 1.15rem;
+    max-width: 650px;
+  }
+}

@@ -8,7 +8,7 @@ import Modal from './components/Modal';
 import LandingPage from './components/LandingPage';
 import GameGallery from './components/GameGallery';
 import CategorySelection from './components/CategorySelection';
-import { IMAGES, CATEGORIES, GRID_SIZES, LS_KEYS, GAME_MODES } from './utils/constants';
+import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
 
@@ -40,8 +40,8 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [gameMode, setGameMode] = useState(GAME_MODES.SLIDER);
   const [selectedImage, setSelectedImage] = useState(IMAGES[0]);
-  const [difficulty, setDifficulty] = useState('easy');
-  const gridSize = GRID_SIZES[difficulty].size;
+  const [difficulty, setDifficulty] = useState('under_15');
+  const gridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
 
   const [tiles, setTiles] = useState(() => shuffleTiles(gridSize, gameMode === GAME_MODES.DRAG_DROP));
   const [moves, setMoves] = useState(0);
@@ -84,7 +84,7 @@ export default function App() {
   // Reset game
   const resetGame = useCallback(() => {
     clearInterval(timerRef.current);
-    const newGridSize = GRID_SIZES[difficulty].size;
+    const newGridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
     setTiles(shuffleTiles(newGridSize, gameMode === GAME_MODES.DRAG_DROP));
     setMoves(0);
     setTime(0);
@@ -139,9 +139,17 @@ export default function App() {
     setSelectedImage(img);
   }, []);
 
-  const handleDifficultyChange = useCallback((diff) => {
-    setDifficulty(diff);
-  }, []);
+  const handleDifficultyChange = useCallback((ageGroupId) => {
+    setDifficulty(ageGroupId);
+    const allowed = AGE_GROUPS[ageGroupId].allowedImages;
+    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+    if (pool.length === 0) {
+      pool = IMAGES.filter(img => allowed.includes(img.id));
+    }
+    if (pool.length > 0) {
+      setSelectedImage(pool[Math.floor(Math.random() * pool.length)]);
+    }
+  }, [selectedCategory]);
 
   const handleGameModeChange = (mode) => {
     setGameMode(mode);
@@ -227,10 +235,7 @@ export default function App() {
     handleBackToGallery();
   };
 
-  const handleToggleMute = useCallback(() => {
-    playToggleSound();
-    setIsMuted((prev) => !prev);
-  }, []);
+
 
   return (
     <div className="app">
@@ -244,10 +249,6 @@ export default function App() {
         ) : view === 'categories' ? (
           <CategorySelection 
             onSelectCategory={handleCategorySelect}
-            volume={volume}
-            isMuted={isMuted}
-            onVolumeChange={setVolume}
-            onToggleMute={handleToggleMute}
             onBack={handleBackToLanding}
             theme={theme}
             onToggleTheme={toggleTheme}
@@ -263,10 +264,6 @@ export default function App() {
             onGameModeChange={handleGameModeChange}
             onStart={handleStartGame}
             bestScore={bestScore}
-            volume={volume}
-            isMuted={isMuted}
-            onVolumeChange={setVolume}
-            onToggleMute={handleToggleMute}
             onBack={handleBackToCategories}
             theme={theme}
             onToggleTheme={toggleTheme}
@@ -277,10 +274,6 @@ export default function App() {
               moves={moves} 
               time={time} 
               bestScore={bestScore}
-              volume={volume}
-              isMuted={isMuted}
-              onVolumeChange={setVolume}
-              onToggleMute={handleToggleMute}
               onBack={handleBackToGallery}
               showBack={true}
               theme={theme}

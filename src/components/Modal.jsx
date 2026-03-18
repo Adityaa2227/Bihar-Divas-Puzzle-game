@@ -1,3 +1,5 @@
+import './Modal.css';
+
 export default function Modal({ show, moves, time, fact, imageName, onPlayAgain, onGoHome }) {
   if (!show) return null;
 

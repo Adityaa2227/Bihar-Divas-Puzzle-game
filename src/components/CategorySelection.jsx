@@ -1,14 +1,11 @@
 import Header from './Header';
 import { CATEGORIES } from '../utils/constants';
+import './CategorySelection.css';
 
-export default function CategorySelection({ onSelectCategory, volume, isMuted, onVolumeChange, onToggleMute, onBack, theme, onToggleTheme }) {
+export default function CategorySelection({ onSelectCategory, onBack, theme, onToggleTheme }) {
   return (
     <div className="category-selection fade-in">
       <Header
-        volume={volume}
-        isMuted={isMuted}
-        onVolumeChange={onVolumeChange}
-        onToggleMute={onToggleMute}
         onBack={onBack}
         showBack={true}
         showStats={false}

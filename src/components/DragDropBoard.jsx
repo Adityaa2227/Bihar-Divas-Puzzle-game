@@ -1,5 +1,6 @@
 import { useState, memo } from 'react';
 import Tile from './Tile';
+import './PuzzleBoard.css';
 
 const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
   const [draggedIndex, setDraggedIndex] = useState(null);

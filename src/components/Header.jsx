@@ -1,11 +1,9 @@
+import './Header.css';
+
 export default function Header({
   moves,
   time,
   bestScore,
-  volume,
-  isMuted,
-  onVolumeChange,
-  onToggleMute,
   onBack,
   showBack,
   showStats = true,
