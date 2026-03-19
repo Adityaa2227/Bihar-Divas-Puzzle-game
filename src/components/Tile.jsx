@@ -26,7 +26,7 @@ function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
       style={{
         width: '100%',
         height: '100%',
-        backgroundImage: `url(${imageSrc})`,
+        backgroundImage: `url("${imageSrc}")`,
         backgroundSize: `${gridSize * 100}%`,
         backgroundPosition: `${bgPosX}% ${bgPosY}%`,
       }}
