@@ -14,8 +14,9 @@ export default function Header({
 }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    const secs = Math.floor(seconds % 60);
+    const ms = Math.floor((seconds % 1) * 100);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -70,7 +71,7 @@ export default function Header({
             <span className="stat-card__icon">🏆</span>
             <div className="stat-card__content">
               <span className="stat-card__label">Best</span>
-              <span className="stat-card__value">{bestScore ? formatTime(bestScore) : '--:--'}</span>
+              <span className="stat-card__value">{bestScore ? formatTime(bestScore) : '--:--.00'}</span>
             </div>
           </div>
         </div>

@@ -13,20 +13,20 @@ import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/con
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
 
-function getBestScore(imageId, difficulty, gameMode) {
+function getBestScore(difficulty, gameMode) {
   try {
     const stored = JSON.parse(localStorage.getItem(LS_KEYS.bestScore) || '{}');
-    const key = `${imageId}-${difficulty}-${gameMode}`;
+    const key = `${difficulty}-${gameMode}`;
     return stored[key] || null;
   } catch {
     return null;
   }
 }
 
-function saveBestScore(imageId, difficulty, time, gameMode) {
+function saveBestScore(difficulty, time, gameMode) {
   try {
     const stored = JSON.parse(localStorage.getItem(LS_KEYS.bestScore) || '{}');
-    const key = `${imageId}-${difficulty}-${gameMode}`;
+    const key = `${difficulty}-${gameMode}`;
     if (!stored[key] || time < stored[key]) {
       stored[key] = time;
       localStorage.setItem(LS_KEYS.bestScore, JSON.stringify(stored));
@@ -45,15 +45,30 @@ export default function App() {
   const gridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
 
   const defaultHintSettings = {
-    under_15: 5,
-    age_16_30: 2,
-    age_30_55: 2,
-    age_55_plus: 3
+    under_15: { max: 5, duration: 3 },
+    age_16_30: { max: 2, duration: 1 },
+    age_30_55: { max: 2, duration: 1 },
+    age_55_plus: { max: 3, duration: 2 }
   };
 
   const [hintSettings, setHintSettings] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('bihar-puzzle-hints')) || defaultHintSettings;
+      const stored = JSON.parse(localStorage.getItem('bihar-puzzle-hints'));
+      if (stored) {
+        // Migration check for old flat structure
+        if (typeof Object.values(stored)[0] === 'number') {
+          const migrated = {};
+          Object.keys(defaultHintSettings).forEach(key => {
+            migrated[key] = {
+              max: stored[key] !== undefined ? stored[key] : defaultHintSettings[key].max,
+              duration: defaultHintSettings[key].duration
+            };
+          });
+          return migrated;
+        }
+        return stored;
+      }
+      return defaultHintSettings;
     } catch {
       return defaultHintSettings;
     }
@@ -66,12 +81,14 @@ export default function App() {
     localStorage.setItem('bihar-puzzle-hints', JSON.stringify(hintSettings));
   }, [hintSettings]);
 
-  const maxHints = hintSettings[difficulty] || 0;
+  const maxHints = (hintSettings[difficulty] && hintSettings[difficulty].max) || 0;
+  const hintDuration = (hintSettings[difficulty] && hintSettings[difficulty].duration) || 1;
   const hintsRemaining = Math.max(0, maxHints - hintsUsed);
 
   const [tiles, setTiles] = useState(() => shuffleTiles(gridSize, gameMode === GAME_MODES.DRAG_DROP));
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
+  const [hintTimer, setHintTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [hasWon, setHasWon] = useState(false);
@@ -91,6 +108,23 @@ export default function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // Hint countdown timer effect
+  useEffect(() => {
+    let interval;
+    if (showHint && hintTimer > 0) {
+      interval = setInterval(() => {
+        setHintTimer(prev => {
+          const next = Math.max(0, prev - 0.1);
+          if (next <= 0) {
+            setShowHint(false);
+          }
+          return next;
+        });
+      }, 100);
+    }
+    return () => clearInterval(interval);
+  }, [showHint, hintTimer]);
+
   const toggleTheme = useCallback(() => {
     playToggleSound();
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -103,8 +137,8 @@ export default function App() {
   useEffect(() => {
     if (isRunning && !hasWon && !isPreviewing) {
       timerRef.current = setInterval(() => {
-        setTime((t) => t + 1);
-      }, 1000);
+        setTime((t) => t + 0.01);
+      }, 10);
     }
     return () => clearInterval(timerRef.current);
   }, [isRunning, hasWon, isPreviewing]);
@@ -134,11 +168,7 @@ export default function App() {
     setShowHint(false);
     setHintsUsed(0);
     setJigsawKey(k => k + 1);
-    
-    // Sync best score with the potentially new image immediately
-    const imgId = activeImage ? activeImage.id : selectedImage.id;
-    setBestScore(getBestScore(imgId, difficulty, gameMode));
-  }, [difficulty, selectedImage.id, gameMode]);
+  }, [difficulty, gameMode]);
 
   const handleStartGame = () => {
     playNavSound();
@@ -216,8 +246,8 @@ export default function App() {
 
   // Update best score whenever selection changes
   useEffect(() => {
-    setBestScore(getBestScore(selectedImage.id, difficulty, gameMode));
-  }, [difficulty, selectedImage.id, gameMode]);
+    setBestScore(getBestScore(difficulty, gameMode));
+  }, [difficulty, gameMode]);
 
   const handleTileClick = useCallback(
     (index) => {
@@ -238,10 +268,10 @@ export default function App() {
       setMoves((m) => m + 1);
 
       if (checkWin(newTiles)) {
-        handleWin();
+        handleWin(time);
       }
     },
-    [tiles, gridSize, hasWon, isRunning, isPreviewing]
+    [tiles, gridSize, hasWon, isRunning, isPreviewing, time, selectedImage.id]
   );
 
   const handleSwap = useCallback((srcIndex, targetIndex) => {
@@ -257,23 +287,24 @@ export default function App() {
     setMoves((m) => m + 1);
 
     if (checkWin(newTiles)) {
-      handleWin();
+      handleWin(time);
     }
-  }, [tiles, hasWon, isRunning, isPreviewing]);
+  }, [tiles, hasWon, isRunning, isPreviewing, time, selectedImage.id]);
 
-  const handleWin = () => {
+  const handleWin = (finalTime) => {
     setHasWon(true);
     setShowModal(true);
     setIsRunning(false);
-    saveBestScore(selectedImage.id, difficulty, time, gameMode);
-    setBestScore(getBestScore(selectedImage.id, difficulty, gameMode));
+    saveBestScore(difficulty, finalTime || time, gameMode);
+    // Refresh bestScore from local storage right away
+    setBestScore(getBestScore(difficulty, gameMode));
     setTimeout(() => playWinSound(), 300);
   };
 
   const handleJigsawWin = useCallback(() => {
     if (hasWon) return;
-    handleWin();
-  }, [hasWon, handleWin]);
+    handleWin(time);
+  }, [hasWon, time, selectedImage.id]);
 
   const handleHint = useCallback((e) => {
     if (e) e.preventDefault();
@@ -281,11 +312,13 @@ export default function App() {
       if (hintsRemaining <= 0) return;
       playHintSound();
       setHintsUsed(u => u + 1);
+      setHintTimer(hintDuration);
       setShowHint(true);
     } else {
       setShowHint(false);
+      setHintTimer(0);
     }
-  }, [showHint, hintsRemaining]);
+  }, [showHint, hintsRemaining, hintDuration]);
 
   const handleRestart = useCallback(() => {
     playRestartSound();
@@ -393,6 +426,11 @@ export default function App() {
                 <div className="puzzle-wrapper puzzle-wrapper--jigsaw-mode">
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                      {showHint && !isPreviewing && (
+                        <div className="hint-timer-bubble">
+                          {hintTimer.toFixed(1)}s
+                        </div>
+                      )}
                       <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
                     </div>
                   )}
@@ -407,6 +445,11 @@ export default function App() {
                 <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                      {showHint && !isPreviewing && (
+                        <div className="hint-timer-bubble">
+                          {hintTimer.toFixed(1)}s
+                        </div>
+                      )}
                       <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
                     </div>
                   )}

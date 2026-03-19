@@ -22,11 +22,7 @@ export default function Controls({
         <button
           className={`btn btn--action btn--hint ${showingHint ? 'btn--hint-active' : ''}`}
           disabled={hintsRemaining <= 0 && !showingHint}
-          onMouseDown={hintsRemaining > 0 ? onHint : undefined}
-          onMouseUp={hintsRemaining > 0 || showingHint ? onHint : undefined}
-          onMouseLeave={showingHint ? onHint : undefined}
-          onTouchStart={hintsRemaining > 0 ? onHint : undefined}
-          onTouchEnd={hintsRemaining > 0 || showingHint ? onHint : undefined}
+          onClick={onHint}
         >
           💡 Hint ({hintsRemaining}/{maxHints})
         </button>
