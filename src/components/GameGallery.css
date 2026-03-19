@@ -33,11 +33,6 @@
   font-size: 0.85rem;
 }
 
-.is-kids .game-gallery__subtitle {
-  font-size: 1.8rem;
-  color: #ec4899;
-}
-
 .game-gallery__steps-container {
   display: flex;
   flex-direction: column;

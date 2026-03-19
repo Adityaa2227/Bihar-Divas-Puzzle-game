@@ -1,6 +1,6 @@
 import './Modal.css';
 
-export default function Modal({ show, moves, time, fact, imageName, onPlayAgain, onGoHome }) {
+export default function Modal({ show, moves, time, fact, imageName, onPlayAgain, onGoHome, onClose }) {
   if (!show) return null;
 
   const formatTime = (seconds) => {
@@ -10,8 +10,13 @@ export default function Modal({ show, moves, time, fact, imageName, onPlayAgain,
   };
 
   return (
-    <div className="modal-overlay" onClick={onPlayAgain}>
+    <div className="modal-overlay" onClick={onClose || onPlayAgain}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
+        {onClose && (
+          <button className="modal__close" onClick={onClose} aria-label="Close">
+            ✖
+          </button>
+        )}
         <div className="modal__celebration">🎉</div>
         <h2 className="modal__title">Puzzle Solved!</h2>
         <p className="modal__subtitle">You completed the <strong>{imageName}</strong> puzzle!</p>

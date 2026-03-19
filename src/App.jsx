@@ -8,6 +8,7 @@ import Modal from './components/Modal';
 import LandingPage from './components/LandingPage';
 import GameGallery from './components/GameGallery';
 import CategorySelection from './components/CategorySelection';
+import SettingsModal from './components/SettingsModal';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
@@ -43,11 +44,38 @@ export default function App() {
   const [difficulty, setDifficulty] = useState('under_15');
   const gridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
 
+  const defaultHintSettings = {
+    under_15: 5,
+    age_16_30: 2,
+    age_30_55: 2,
+    age_55_plus: 3
+  };
+
+  const [hintSettings, setHintSettings] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('bihar-puzzle-hints')) || defaultHintSettings;
+    } catch {
+      return defaultHintSettings;
+    }
+  });
+
+  const [hintsUsed, setHintsUsed] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('bihar-puzzle-hints', JSON.stringify(hintSettings));
+  }, [hintSettings]);
+
+  const maxHints = hintSettings[difficulty] || 0;
+  const hintsRemaining = Math.max(0, maxHints - hintsUsed);
+
   const [tiles, setTiles] = useState(() => shuffleTiles(gridSize, gameMode === GAME_MODES.DRAG_DROP));
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPreviewing, setIsPreviewing] = useState(false);
   const [hasWon, setHasWon] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [jigsawKey, setJigsawKey] = useState(0);
   const [bestScore, setBestScore] = useState(() =>
@@ -72,15 +100,27 @@ export default function App() {
 
   const categoryImages = IMAGES.filter((img) => img.categoryId === selectedCategory);
 
-  // Timer effect
   useEffect(() => {
-    if (isRunning && !hasWon) {
+    if (isRunning && !hasWon && !isPreviewing) {
       timerRef.current = setInterval(() => {
         setTime((t) => t + 1);
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [isRunning, hasWon]);
+  }, [isRunning, hasWon, isPreviewing]);
+
+  // Preview timeout
+  useEffect(() => {
+    if (isPreviewing) {
+      const timer = setTimeout(() => {
+        setIsPreviewing(false);
+        if (gameMode === GAME_MODES.JIGSAW) {
+          setIsRunning(true);
+        }
+      }, 3300);
+      return () => clearTimeout(timer);
+    }
+  }, [isPreviewing, gameMode]);
 
   // Reset game
   const resetGame = useCallback((activeImage) => {
@@ -92,6 +132,7 @@ export default function App() {
     setIsRunning(false);
     setHasWon(false);
     setShowHint(false);
+    setHintsUsed(0);
     setJigsawKey(k => k + 1);
     
     // Sync best score with the potentially new image immediately
@@ -111,9 +152,8 @@ export default function App() {
     setSelectedImage(randomImg);
     resetGame(randomImg); // Pass new image to ensure immediate sync
     
-    if (gameMode === GAME_MODES.JIGSAW) {
-      setIsRunning(true);
-    }
+    setIsPreviewing(true);
+    setShowModal(false);
     setView('game');
   };
 
@@ -181,7 +221,7 @@ export default function App() {
 
   const handleTileClick = useCallback(
     (index) => {
-      if (hasWon) return;
+      if (hasWon || isPreviewing) return;
 
       const emptyValue = gridSize * gridSize - 1;
       const emptyIndex = tiles.indexOf(emptyValue);
@@ -201,11 +241,11 @@ export default function App() {
         handleWin();
       }
     },
-    [tiles, gridSize, hasWon, isRunning]
+    [tiles, gridSize, hasWon, isRunning, isPreviewing]
   );
 
   const handleSwap = useCallback((srcIndex, targetIndex) => {
-    if (hasWon) return;
+    if (hasWon || isPreviewing) return;
 
     if (!isRunning) setIsRunning(true);
     playMoveSound();
@@ -219,10 +259,11 @@ export default function App() {
     if (checkWin(newTiles)) {
       handleWin();
     }
-  }, [tiles, hasWon, isRunning]);
+  }, [tiles, hasWon, isRunning, isPreviewing]);
 
   const handleWin = () => {
     setHasWon(true);
+    setShowModal(true);
     setIsRunning(false);
     saveBestScore(selectedImage.id, difficulty, time, gameMode);
     setBestScore(getBestScore(selectedImage.id, difficulty, gameMode));
@@ -235,21 +276,49 @@ export default function App() {
   }, [hasWon, handleWin]);
 
   const handleHint = useCallback((e) => {
-    e.preventDefault();
-    playHintSound();
-    setShowHint((prev) => !prev);
-  }, []);
+    if (e) e.preventDefault();
+    if (!showHint) {
+      if (hintsRemaining <= 0) return;
+      playHintSound();
+      setHintsUsed(u => u + 1);
+      setShowHint(true);
+    } else {
+      setShowHint(false);
+    }
+  }, [showHint, hintsRemaining]);
 
   const handleRestart = useCallback(() => {
     playRestartSound();
     resetGame();
-  }, [resetGame]);
+    setIsPreviewing(true);
+  }, [playRestartSound, resetGame]);
 
   const handlePlayAgain = useCallback(() => {
     playRestartSound();
-    resetGame();
-    setView('gallery');
-  }, [resetGame]);
+    
+    // Pick different image
+    const allowed = AGE_GROUPS[difficulty].allowedImages;
+    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+    if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    
+    let randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
+    if (pool.length > 1) {
+      let tempPool = pool.filter(img => img.id !== selectedImage.id);
+      if (tempPool.length > 0) {
+        randomImg = tempPool[Math.floor(Math.random() * tempPool.length)];
+      }
+    }
+
+    setSelectedImage(randomImg);
+    resetGame(randomImg);
+
+    setIsPreviewing(true);
+    setShowModal(false);
+  }, [difficulty, selectedCategory, selectedImage.id, gameMode, resetGame]);
+
+  const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
 
   const handleGameOverGoHome = () => {
     handleBackToGallery();
@@ -281,6 +350,7 @@ export default function App() {
             showTitle={view !== 'landing'}
             theme={theme}
             onToggleTheme={toggleTheme}
+            onSettings={() => setShowSettings(true)}
           />
         )}
 
@@ -310,16 +380,20 @@ export default function App() {
           ) : (
             <>
               <Controls
+                hasWon={hasWon}
                 onRestart={handleRestart}
+                onPlayAgain={handlePlayAgain}
                 onHint={handleHint}
                 showingHint={showHint}
+                hintsRemaining={hintsRemaining}
+                maxHints={maxHints}
               />
 
               {gameMode === GAME_MODES.JIGSAW ? (
                 <div className="puzzle-wrapper puzzle-wrapper--jigsaw-mode">
-                  {showHint && (
-                    <div className="hint-overlay">
-                      <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
+                  {(isPreviewing || showHint) && (
+                    <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                      <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
                     </div>
                   )}
                   <JigsawBoard
@@ -331,9 +405,9 @@ export default function App() {
                 </div>
               ) : (
                 <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
-                  {showHint && (
-                    <div className="hint-overlay">
-                      <img src={selectedImage.src} alt="Hint" className="hint-overlay__image" />
+                  {(isPreviewing || showHint) && (
+                    <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                      <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
                     </div>
                   )}
                   {gameMode === GAME_MODES.SLIDER ? (
@@ -358,13 +432,21 @@ export default function App() {
         </div>
 
         <Modal
-          show={hasWon}
+          show={showModal}
           moves={moves}
           time={time}
           fact={selectedImage.fact}
           imageName={selectedImage.name}
           onPlayAgain={handlePlayAgain}
           onGoHome={handleGameOverGoHome}
+          onClose={handleCloseModal}
+        />
+
+        <SettingsModal
+          show={showSettings}
+          onClose={() => setShowSettings(false)}
+          hintSettings={hintSettings}
+          onUpdateHintSettings={setHintSettings}
         />
       </div>
     </div>

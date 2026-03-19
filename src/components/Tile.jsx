@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
+function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty, showNumber = true }) {
   if (isEmpty) {
     return (
       <div
@@ -27,7 +27,7 @@ function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
         width: '100%',
         height: '100%',
         backgroundImage: `url("${imageSrc}")`,
-        backgroundSize: `${gridSize * 100}%`,
+        backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`,
         backgroundPosition: `${bgPosX}% ${bgPosY}%`,
       }}
       role="button"
@@ -37,7 +37,7 @@ function Tile({ value, index, gridSize, imageSrc, onClick, isEmpty }) {
         if (e.key === 'Enter' || e.key === ' ') onClick(index);
       }}
     >
-      <span className="tile__number">{value + 1}</span>
+      {showNumber && <span className="tile__number">{value + 1}</span>}
     </div>
   );
 }

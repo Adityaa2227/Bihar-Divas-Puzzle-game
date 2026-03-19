@@ -44,10 +44,10 @@ export default function GameGallery({
       <div className={`game-gallery__content ${difficulty === 'under_15' ? 'is-kids' : ''}`}>
         <div className="game-gallery__welcome">
           <h2 className="game-gallery__subtitle">
-            {difficulty === 'under_15' ? ' Let\'s Play!' : '⚡ Choose Your Challenge'}
+            ⚡ Let's Play!
           </h2>
           <p className="game-gallery__text">
-            {difficulty === 'under_15' ? 'Pick a game and start having fun!' : 'Pick a game mode, set your skill level, and start solving!'}
+            Pick a game mode, set your skill level, and start solving!
           </p>
         </div>
 

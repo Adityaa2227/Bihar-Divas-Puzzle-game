@@ -43,6 +43,7 @@ const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
             onDragStart={(e) => handleDragStart(e, index)}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, index)}
+            onDragEnd={() => setDraggedIndex(null)}
             style={{ width: '100%', height: '100%' }}
             className={`drag-tile-wrapper ${draggedIndex === index ? 'dragging' : ''}`}
           >
@@ -53,6 +54,7 @@ const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
               imageSrc={imageSrc}
               onClick={() => {}} // No click move in drag-drop mode
               isEmpty={false} // No empty tile in drag-drop
+              showNumber={false}
             />
           </div>
         ))}

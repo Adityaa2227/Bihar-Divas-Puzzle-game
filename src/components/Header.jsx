@@ -10,6 +10,7 @@ export default function Header({
   showTitle = true,
   theme,
   onToggleTheme,
+  onSettings,
 }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -33,6 +34,13 @@ export default function Header({
           </h1>
         )}
         <div className="header__controls">
+          <button
+            className="btn-icon theme-toggle"
+            onClick={onSettings}
+            aria-label="Settings"
+          >
+            ⚙️
+          </button>
           <button
             className="btn-icon theme-toggle"
             onClick={onToggleTheme}
