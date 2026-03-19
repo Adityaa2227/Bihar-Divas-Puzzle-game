@@ -96,7 +96,7 @@ export default function App() {
   const [showHint, setShowHint] = useState(false);
   const [jigsawKey, setJigsawKey] = useState(0);
   const [bestScore, setBestScore] = useState(() =>
-    getBestScore(selectedImage.id, difficulty, gameMode)
+    getBestScore(difficulty, gameMode)
   );
 
   const [volume, setVolume] = useState(0.5);
@@ -132,7 +132,11 @@ export default function App() {
 
   const timerRef = useRef(null);
 
-  const categoryImages = IMAGES.filter((img) => img.categoryId === selectedCategory);
+  const categoryImages = IMAGES.filter((img) => {
+    const isCategory = img.categoryId === selectedCategory;
+    const allowed = AGE_GROUPS[difficulty]?.allowedImages || [];
+    return isCategory && allowed.includes(img.id);
+  });
 
   useEffect(() => {
     if (isRunning && !hasWon && !isPreviewing) {
