@@ -105,6 +105,7 @@
 
 
 /* Style the individual jigsaw pieces */
+
 .jigsaw-board-container .jigsaw-puzzle__piece {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 2px;
