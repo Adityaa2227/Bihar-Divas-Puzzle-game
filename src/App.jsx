@@ -13,7 +13,7 @@ import LazyImage from './components/LazyImage';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { preloadImageCache } from './utils/imageCache';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
-import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
+import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound, playHoverSound, playInteractSound, playMouseMoveSound } from './utils/sounds';
 
 function getBestScore(difficulty, gameMode) {
   try {
@@ -141,6 +141,32 @@ export default function App() {
     }
     return () => clearInterval(interval);
   }, [showHint, hintTimer]);
+
+  // Global Cursor Gamification SFX
+  useEffect(() => {
+    const handleMouseOver = (e) => {
+      const clickable = e.target.closest('button, a, input, select, [role="button"], .cursor-pointer');
+      if (clickable) {
+        playHoverSound();
+      }
+    };
+    const handleMouseDown = () => {
+      playInteractSound();
+    };
+    const handleMouseMove = () => {
+      playMouseMoveSound();
+    };
+
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   const toggleTheme = useCallback(() => {
     playToggleSound();

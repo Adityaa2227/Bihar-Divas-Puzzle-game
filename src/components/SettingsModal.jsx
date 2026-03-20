@@ -1,6 +1,22 @@
+import { useState, useEffect } from 'react';
 import { AGE_GROUPS } from '../utils/constants';
+import { globalVolume, setGlobalVolume } from '../utils/sounds';
 
 export default function SettingsModal({ show, onClose, hintSettings, onUpdateHintSettings }) {
+  const [vol, setVol] = useState(globalVolume);
+
+  useEffect(() => {
+    if (show) {
+      setVol(globalVolume);
+    }
+  }, [show]);
+
+  const handleVolumeChange = (e) => {
+    const newVol = parseFloat(e.target.value);
+    setVol(newVol);
+    setGlobalVolume(newVol);
+  };
+
   if (!show) return null;
 
   const handleChange = (ageId, prop, val) => {
@@ -59,6 +75,29 @@ export default function SettingsModal({ show, onClose, hintSettings, onUpdateHin
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="mt-5 pt-4 border-t border-[var(--border)] text-left">
+          <h3 className="text-base font-bold text-[var(--accent)] mb-1">Interaction Sounds</h3>
+          <p className="text-[0.8rem] text-[var(--text-secondary)] mb-3">Enable gamified UI click and hover sounds.</p>
+          
+          <div className="flex flex-col gap-3">
+            <div className="py-3 px-4 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl flex flex-col gap-2 transition-all focus-within:border-[var(--accent)] focus-within:shadow-[0_0_8px_var(--accent-glow)]">
+              <div className="flex justify-between items-center w-full">
+                <span className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">🔊 Master Volume</span>
+                <span className="text-xs font-bold text-[var(--accent)]">{Math.round(vol * 100)}%</span>
+              </div>
+              <input 
+                type="range" 
+                min="0" 
+                max="1" 
+                step="0.01" 
+                value={vol} 
+                onChange={handleVolumeChange} 
+                className="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500 outline-none" 
+              />
+            </div>
           </div>
         </div>
 
