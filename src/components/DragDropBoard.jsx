@@ -1,18 +1,16 @@
 import { useState, memo } from 'react';
 import Tile from './Tile';
-import './PuzzleBoard.css';
 
 const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
   const [draggedIndex, setDraggedIndex] = useState(null);
 
   const handleDragStart = (e, index) => {
     setDraggedIndex(index);
-    // Needed for Firefox
     e.dataTransfer.setData('text/plain', index);
   };
 
   const handleDragOver = (e) => {
-    e.preventDefault(); // Necessary to allow drop
+    e.preventDefault();
   };
 
   const handleDrop = (e, targetIndex) => {
@@ -24,16 +22,14 @@ const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
   };
 
   return (
-    <div className="puzzle-board puzzle-board--drag" style={{ aspectRatio: '1 / 1' }}>
+    <div className="w-full p-1" style={{ aspectRatio: '1 / 1' }}>
       <div
-        className="puzzle-grid"
+        className="w-full h-full"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
           gridTemplateRows: `repeat(${gridSize}, 1fr)`,
           gap: '3px',
-          width: '100%',
-          height: '100%',
         }}
       >
         {tiles.map((value, index) => (
@@ -44,16 +40,15 @@ const DragDropBoard = ({ tiles, gridSize, imageSrc, onSwap }) => {
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, index)}
             onDragEnd={() => setDraggedIndex(null)}
-            style={{ width: '100%', height: '100%' }}
-            className={`drag-tile-wrapper ${draggedIndex === index ? 'dragging' : ''}`}
+            className={`w-full h-full cursor-grab transition-transform duration-200 active:cursor-grabbing ${draggedIndex === index ? 'opacity-40 scale-90' : ''}`}
           >
             <Tile
               value={value}
               index={index}
               gridSize={gridSize}
               imageSrc={imageSrc}
-              onClick={() => {}} // No click move in drag-drop mode
-              isEmpty={false} // No empty tile in drag-drop
+              onClick={() => {}}
+              isEmpty={false}
               showNumber={false}
             />
           </div>

@@ -1,3 +1,5 @@
+import LazyImage from './LazyImage';
+
 export default function ImageSelector({ images, selectedImage, onSelect }) {
   return (
     <div className="image-selector">
@@ -9,9 +11,10 @@ export default function ImageSelector({ images, selectedImage, onSelect }) {
             onClick={() => onSelect(img)}
             aria-label={`Select ${img.name}`}
           >
-            <img src={img.src} alt={img.name} className="image-selector__thumb" loading="lazy" />
+            <LazyImage src={img.src} alt={img.name} className="image-selector__thumb" />
             <span className="image-selector__label">{img.name}</span>
           </button>
+
         ))}
       </div>
     </div>

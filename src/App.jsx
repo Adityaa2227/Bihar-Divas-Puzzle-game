@@ -9,7 +9,9 @@ import LandingPage from './components/LandingPage';
 import GameGallery from './components/GameGallery';
 import CategorySelection from './components/CategorySelection';
 import SettingsModal from './components/SettingsModal';
+import LazyImage from './components/LazyImage';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
+import { preloadImageCache } from './utils/imageCache';
 import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
 
@@ -35,6 +37,13 @@ function saveBestScore(difficulty, time, gameMode) {
     // localStorage not available
   }
 }
+
+const formatTime = (seconds) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  const ms = Math.floor((seconds % 1) * 100);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+};
 
 export default function App() {
   const [view, setView] = useState('landing');
@@ -107,6 +116,14 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Background Image Cache Pre-Warming
+  useEffect(() => {
+    // Silently pre-cache primary category thumbnails as Base64 in IndexedDB
+    const categoryUrls = CATEGORIES.map(cat => cat.image);
+    preloadImageCache(categoryUrls);
+  }, []);
+
 
   // Hint countdown timer effect
   useEffect(() => {
@@ -362,43 +379,41 @@ export default function App() {
   };
 
 
-
   return (
-    <div className="app">
-      {/* Animated background blobs */}
-      <div className="blob blob--1" />
-      <div className="blob blob--2" />
-      <div className="blob blob--3" />
-      <div className="blob blob--4" />
+    <div className="min-h-screen h-auto bg-transparent flex justify-center items-center p-0 relative z-[1] overflow-visible">
+      {/* Animated background blobs — inline styles for complex multi-animations */}
+      <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform top-[-8vw] left-[-8vw] w-[45vw] h-[45vw] bg-gradient-to-br from-[var(--accent)] to-[#fcd34d] dark:from-indigo-600 dark:to-pink-500 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat1 25s infinite alternate ease-in-out, blobMorph 12s infinite alternate ease-in-out' }} />
+      <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform bottom-[-10vw] right-[-10vw] w-[40vw] h-[40vw] bg-gradient-to-br from-amber-400 to-amber-500 dark:from-blue-900 dark:to-violet-600 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat2 30s infinite alternate-reverse ease-in-out, blobMorph 15s infinite alternate-reverse ease-in-out' }} />
+      <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform top-[30%] right-[-15vw] w-[35vw] h-[35vw] bg-gradient-to-br from-violet-500 to-pink-500 dark:from-rose-700 dark:to-indigo-950 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat3 28s infinite alternate ease-in-out, blobMorph 18s infinite alternate ease-in-out' }} />
+      <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform bottom-[20%] left-[-12vw] w-[30vw] h-[30vw] bg-gradient-to-br from-emerald-500 to-blue-500 dark:from-emerald-900 dark:to-sky-900 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat4 35s infinite alternate-reverse ease-in-out, blobMorph 20s infinite alternate-reverse ease-in-out' }} />
 
-      <div className="app__container">
-        {view !== 'landing' && (
-          <Header 
-            moves={moves} 
-            time={time} 
-            bestScore={bestScore}
-            onBack={
-              view === 'categories' ? handleBackToLanding :
-              view === 'gallery' ? handleBackToCategories :
-              handleBackToGallery
-            }
-            showBack={view !== 'landing'}
-            showStats={view === 'game'}
-            showTitle={view !== 'landing'}
-            theme={theme}
-            onToggleTheme={toggleTheme}
-            onSettings={() => setShowSettings(true)}
-          />
-        )}
+      {view === 'landing' ? (
+        <LandingPage 
+          onStart={handleGoToCategories} 
+          theme={theme}
+          onToggleTheme={toggleTheme}
+        />
+      ) : (
+      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-3 md:p-5 lg:p-8 relative z-[1]">
+        <Header 
+          moves={moves} 
+          time={time} 
+          bestScore={bestScore}
+          onBack={
+            view === 'categories' ? handleBackToLanding :
+            view === 'gallery' ? handleBackToCategories :
+            handleBackToGallery
+          }
+          showBack={view !== 'landing'}
+          showStats={view === 'game'}
+          showTitle={view !== 'landing'}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onSettings={() => setShowSettings(true)}
+        />
 
-        <div className="app__content">
-          {view === 'landing' ? (
-            <LandingPage 
-              onStart={handleGoToCategories} 
-              theme={theme}
-              onToggleTheme={toggleTheme}
-            />
-          ) : view === 'categories' ? (
+        <div className="flex-1 flex flex-col justify-center w-full">
+          {view === 'categories' ? (
             <CategorySelection 
               onSelectCategory={handleCategorySelect}
             />
@@ -415,27 +430,20 @@ export default function App() {
               bestScore={bestScore}
             />
           ) : (
-            <>
-              <Controls
-                hasWon={hasWon}
-                onRestart={handleRestart}
-                onPlayAgain={handlePlayAgain}
-                onHint={handleHint}
-                showingHint={showHint}
-                hintsRemaining={hintsRemaining}
-                maxHints={maxHints}
-              />
-
+            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-8 lg:gap-24 w-full h-full pb-6 max-w-[1600px] mx-auto px-4 lg:px-12">
+              
+              {/* PUZZLE BOARD (Now on Right visually on LG) */}
+              <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-2">
               {gameMode === GAME_MODES.JIGSAW ? (
-                <div className="puzzle-wrapper puzzle-wrapper--jigsaw-mode">
+                <div className="relative w-full rounded-2xl overflow-visible shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] aspect-square shrink-0">
                   {(isPreviewing || showHint) && (
-                    <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                    <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
-                        <div className="hint-timer-bubble">
+                        <div className="absolute top-5 right-5 bg-orange-600 text-white py-2 px-4 rounded-full font-extrabold text-xl shadow-[0_4px_15px_rgba(234,88,12,0.4)] z-30 animate-[pulse_1s_infinite_alternate] pointer-events-none">
                           {hintTimer.toFixed(1)}s
                         </div>
                       )}
-                      <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
+                      <LazyImage src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "w-[calc(100%-8px)] h-[calc(100%-8px)] object-fill rounded-xl shadow-[0_10px_40px_rgba(234,88,12,0.4)] origin-center animate-[pulsePreview_2s_ease-in-out] [animation:pulsePreview_2s_ease-in-out,imageShatter_1.2s_cubic-bezier(0.68,-0.55,0.265,1.55)_2s_forwards]" : "w-[calc(100%-8px)] h-[calc(100%-8px)] object-fill rounded-xl shadow-lg"} />
                     </div>
                   )}
                   <JigsawBoard
@@ -446,15 +454,15 @@ export default function App() {
                   />
                 </div>
               ) : (
-                <div className={`puzzle-wrapper ${gameMode === GAME_MODES.DRAG_DROP ? 'puzzle-wrapper--jigsaw' : ''}`}>
+                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
                   {(isPreviewing || showHint) && (
-                    <div className={isPreviewing ? "preview-overlay" : "hint-overlay"}>
+                    <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
-                        <div className="hint-timer-bubble">
+                        <div className="absolute top-5 right-5 bg-orange-600 text-white py-2 px-4 rounded-full font-extrabold text-xl shadow-[0_4px_15px_rgba(234,88,12,0.4)] z-30 animate-[pulse_1s_infinite_alternate] pointer-events-none">
                           {hintTimer.toFixed(1)}s
                         </div>
                       )}
-                      <img src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "preview-overlay__image" : "hint-overlay__image"} />
+                      <LazyImage src={selectedImage.src} alt={isPreviewing ? "Previewing full image" : "Hint"} className={isPreviewing ? "w-[calc(100%-8px)] h-[calc(100%-8px)] object-fill rounded-xl shadow-[0_10px_40px_rgba(234,88,12,0.4)] origin-center animate-[pulsePreview_2s_ease-in-out] [animation:pulsePreview_2s_ease-in-out,imageShatter_1.2s_cubic-bezier(0.68,-0.55,0.265,1.55)_2s_forwards]" : "w-[calc(100%-8px)] h-[calc(100%-8px)] object-fill rounded-xl shadow-lg"} />
                     </div>
                   )}
                   {gameMode === GAME_MODES.SLIDER ? (
@@ -474,7 +482,60 @@ export default function App() {
                   )}
                 </div>
               )}
-            </>
+              </div>
+
+              {/* CONTROLS & INFO (Now on Left visually on LG) */}
+              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-6 lg:gap-8 justify-center order-2 lg:order-1">
+                
+                {/* Stats Panel */}
+                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                      <span className="text-xl">⏱️</span>
+                      <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Time</span>
+                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{formatTime(time)}</span>
+                    </div>
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                      <span className="text-xl">👆</span>
+                      <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Moves</span>
+                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{moves}</span>
+                    </div>
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                      <span className="text-xl">🏆</span>
+                      <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Best</span>
+                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{bestScore ? formatTime(bestScore) : '--:--.--'}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fact Panel */}
+                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
+                  <h3 className="text-slate-800 dark:text-gray-100 font-extrabold text-xl mb-2 flex items-center gap-2 relative z-10">
+                    <span className="text-2xl">💡</span> Did you know?
+                  </h3>
+                  <div className="w-12 h-1 bg-orange-500 rounded-full mb-3 relative z-10"></div>
+                  <strong className="block text-slate-900 dark:text-white mb-1.5 font-black text-sm relative z-10">{selectedImage.name}</strong>
+                  <p className="text-slate-700/90 dark:text-slate-300 text-sm font-medium leading-relaxed mb-0 relative z-10 line-clamp-4">
+                    {selectedImage.fact || "This represents the vibrant and rich cultural heritage of Bihar, reflecting centuries of history and tradition."}
+                  </p>
+                </div>
+
+                {/* Controls */}
+                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                  <Controls
+                    hasWon={hasWon}
+                    onRestart={handleRestart}
+                    onPlayAgain={handlePlayAgain}
+                    onHint={handleHint}
+                    showingHint={showHint}
+                    hintsRemaining={hintsRemaining}
+                    maxHints={maxHints}
+                  />
+                </div>
+              </div>
+
+            </div>
           )}
         </div>
 
@@ -496,6 +557,7 @@ export default function App() {
           onUpdateHintSettings={setHintSettings}
         />
       </div>
+      )}
     </div>
   );
 }
