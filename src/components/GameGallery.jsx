@@ -44,6 +44,7 @@ export default function GameGallery({
 
         {/* LEFT — Title + stepper nav */}
         <div className="flex flex-col justify-center gap-6 pr-0 lg:pr-10 pb-6 lg:pb-0 text-center lg:text-left">
+
           <div>
             <h2 className="text-3xl lg:text-[2.8rem] lg:leading-tight font-black text-orange-600 mb-2 drop-shadow-sm">
               ⚡ Let's Play!
@@ -130,7 +131,7 @@ export default function GameGallery({
                 <span className="bg-orange-600 text-white w-9 h-9 flex items-center justify-center rounded-full shadow-lg text-sm">2</span>
                 Choose Age Group
               </h3>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 {Object.entries(AGE_GROUPS).map(([key, { label, tag }]) => (
                   <button
                     key={key}
