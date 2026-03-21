@@ -18,9 +18,9 @@ export default function LandingPage({ onStart, theme, onToggleTheme, isFullscree
   };
 
   const expectItems = [
-    { icon: '🏛️', label: '10+ Heritage' },
-    { icon: '🍲', label: '7+ Cuisines' },
-    { icon: '🎨', label: '7+ Art Forms' },
+    { icon: '🏛️', label: '50+ Heritage' },
+    { icon: '🍲', label: '30+ Cuisines' },
+    { icon: '🎨', label: '20+ Celebrities' },
     { icon: '🎮', label: '3 Modes' },
   ];
 
