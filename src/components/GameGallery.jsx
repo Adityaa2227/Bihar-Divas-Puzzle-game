@@ -40,16 +40,16 @@ export default function GameGallery({
     <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col max-h-[calc(100vh-70px)] overflow-hidden">
 
       {/* ── KIOSK 2-COL: Left = info, Right = content ── */}
-      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-0 flex-1 overflow-hidden">
+      <div className="w-full max-w-[1800px] px-4 lg:px-12 mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-4 lg:gap-10 flex-1 overflow-hidden">
 
         {/* LEFT — Title + stepper nav */}
         <div className="flex flex-col justify-center gap-1.5 lg:gap-2 pr-0 lg:pr-2 pb-2 lg:pb-0 text-center lg:text-left">
 
           <div>
-            <h2 className="text-2xl lg:text-[clamp(1.6rem,3.5vh,2.5rem)] lg:leading-tight font-black text-orange-600 mb-1 drop-shadow-sm">
+            <h2 className="text-3xl lg:text-[clamp(2.5rem,5vh,3.5rem)] lg:leading-tight font-black text-orange-600 mb-2 drop-shadow-sm">
               ⚡ Let's Play!
             </h2>
-            <p className="text-amber-900/80 dark:text-slate-300 text-sm lg:text-base max-w-sm mx-auto lg:mx-0 font-semibold leading-relaxed">
+            <p className="text-amber-900/80 dark:text-slate-300 text-sm lg:text-xl max-w-lg mx-auto lg:mx-0 font-semibold leading-relaxed lg:leading-loose">
               Pick a game mode, set your skill level, and start solving Bihar's cultural puzzles!
             </p>
           </div>
@@ -95,22 +95,22 @@ export default function GameGallery({
 
           {/* Step 1: Game Mode */}
           {step === 1 && (
-            <div className="flex flex-col animate-[scaleIn_0.3s_ease] gap-3">
-              <h3 className="flex items-center gap-3 text-xl font-black text-slate-800 dark:text-gray-100 uppercase tracking-widest">
-                <span className="bg-orange-600 text-white w-8 h-8 flex items-center justify-center rounded-full shadow-lg text-sm">1</span>
+            <div className="flex flex-col animate-[scaleIn_0.3s_ease] gap-4 lg:gap-8 max-w-4xl">
+              <h3 className="flex items-center gap-4 text-2xl lg:text-3xl font-black text-slate-800 dark:text-gray-100 uppercase tracking-widest">
+                <span className="bg-orange-600 text-white w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full shadow-lg text-lg lg:text-xl">1</span>
                 Select Game Mode
               </h3>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4 lg:gap-6">
                 {gameModes.map(({ mode, icon, label, desc }) => (
                   <button
                     key={mode}
-                    className={`flex flex-col items-center gap-2 p-2 lg:p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm ${gameMode === mode ? 'border-orange-500 bg-orange-50/80 dark:bg-orange-950/40 shadow-xl scale-[1.03]' : 'border-orange-200/50 dark:border-white/10 hover:border-orange-400 hover:scale-[1.02]'}`}
+                    className={`flex flex-col items-center gap-3 p-3 lg:p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm ${gameMode === mode ? 'border-orange-500 bg-orange-50/80 dark:bg-orange-950/40 shadow-xl scale-[1.03]' : 'border-orange-200/50 dark:border-white/10 hover:border-orange-400 hover:scale-[1.02]'}`}
                     onClick={() => handleModeChange(mode)}
                   >
-                    <span className="text-4xl lg:text-5xl group-hover:scale-110 transition-transform drop-shadow-md">{icon}</span>
+                    <span className="text-5xl lg:text-7xl group-hover:scale-110 transition-transform drop-shadow-md mb-2">{icon}</span>
                     <div className="flex flex-col items-center">
-                      <span className="text-lg lg:text-xl font-black text-slate-900 dark:text-gray-100">{label}</span>
-                      <span className="text-[0.6rem] lg:text-xs font-bold text-amber-900/70 dark:text-slate-400 uppercase tracking-widest mt-0.5">{desc}</span>
+                      <span className="text-xl lg:text-2xl font-black text-slate-900 dark:text-gray-100">{label}</span>
+                      <span className="text-[0.7rem] lg:text-[0.9rem] font-bold text-amber-900/70 dark:text-slate-400 uppercase tracking-widest mt-1 lg:mt-2">{desc}</span>
                     </div>
                   </button>
                 ))}
@@ -126,20 +126,20 @@ export default function GameGallery({
 
           {/* Step 2: Level Selection */}
           {step === 2 && (
-            <div className="flex flex-col animate-[scaleIn_0.3s_ease] gap-3">
-              <h3 className="flex items-center gap-3 text-xl font-black text-slate-800 dark:text-gray-100 uppercase tracking-widest">
-                <span className="bg-orange-600 text-white w-9 h-9 flex items-center justify-center rounded-full shadow-lg text-sm">2</span>
+            <div className="flex flex-col animate-[scaleIn_0.3s_ease] gap-4 lg:gap-8 max-w-4xl">
+              <h3 className="flex items-center gap-4 text-2xl lg:text-3xl font-black text-slate-800 dark:text-gray-100 uppercase tracking-widest">
+                <span className="bg-orange-600 text-white w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center rounded-full shadow-lg text-lg lg:text-xl">2</span>
                 Choose Age Group
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 {Object.entries(AGE_GROUPS).map(([key, { label, tag }]) => (
                   <button
                     key={key}
-                    className={`flex flex-col items-center justify-center gap-2 p-2 lg:p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm ${difficulty === key ? 'border-orange-500 bg-orange-100 dark:bg-orange-950/50 scale-[1.03] shadow-xl' : 'border-orange-200/50 dark:border-white/10 hover:border-orange-400 hover:scale-[1.02]'}`}
+                    className={`flex flex-col items-center justify-center gap-3 p-4 lg:p-6 rounded-3xl border-2 transition-all duration-300 cursor-pointer group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm ${difficulty === key ? 'border-orange-500 bg-orange-100 dark:bg-orange-950/50 scale-[1.03] shadow-xl' : 'border-orange-200/50 dark:border-white/10 hover:border-orange-400 hover:scale-[1.02]'}`}
                     onClick={() => handleDiffChange(key)}
                   >
-                    <span className="text-sm font-black bg-orange-600 text-white px-4 py-1.5 rounded-full shadow-md transition-transform group-hover:scale-110 uppercase tracking-widest">{tag}</span>
-                    <span className="text-2xl font-black text-slate-800 dark:text-white leading-tight">{label}</span>
+                    <span className="text-base font-black bg-orange-600 text-white px-5 py-2 rounded-full shadow-md transition-transform group-hover:scale-110 uppercase tracking-widest mb-1">{tag}</span>
+                    <span className="text-3xl lg:text-4xl font-black text-slate-800 dark:text-white leading-tight">{label}</span>
                   </button>
                 ))}
               </div>

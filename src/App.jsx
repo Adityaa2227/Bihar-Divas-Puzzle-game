@@ -483,7 +483,7 @@ export default function App() {
           onToggleFullscreen={toggleFullscreen}
         />
       ) : (
-      <div className="w-full max-w-[480px] md:max-w-[1400px] h-screen max-h-screen flex flex-col p-0 md:p-1 lg:p-1 relative z-[1] overflow-hidden">
+      <div className="w-full max-w-[480px] md:max-w-[1800px] lg:px-6 h-screen max-h-screen flex flex-col p-0 md:p-1 lg:p-2 relative z-[1] overflow-hidden">
         <Header 
           moves={moves} 
           time={time} 
@@ -521,12 +521,12 @@ export default function App() {
               bestScore={bestScore}
             />
           ) : (
-            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-2 w-full h-full pb-1 max-w-[1600px] mx-auto px-0 lg:px-1">
+            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-4 lg:gap-12 w-full h-full pb-1 max-w-[1800px] mx-auto px-0 lg:px-4">
               
               {/* PUZZLE BOARD (Now on Right visually on LG) */}
               <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-3">
               {gameMode === GAME_MODES.JIGSAW ? (
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] aspect-square shrink-0">
+                <div className="relative w-full rounded-[1.4rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[4px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(400px,76vh,900px)] lg:w-[clamp(400px,76vh,900px)] aspect-square shrink-0">
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -545,7 +545,7 @@ export default function App() {
                   />
                 </div>
               ) : (
-                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
+                <div className={`relative w-full aspect-square shrink-0 rounded-[1.4rem] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[4px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(400px,76vh,900px)] lg:w-[clamp(400px,76vh,900px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -583,7 +583,7 @@ export default function App() {
               </div>
 
               {/* CONTROLS & INFO (Now on Left visually on LG) */}
-              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-2 justify-center order-2 lg:order-1">
+              <div className="w-full flex-1 lg:flex-none lg:w-[500px] max-w-[500px] flex flex-col gap-3 justify-center order-2 lg:order-1">
                 
                 {/* Stats Panel */}
                 <div className="bg-white/40 dark:bg-slate-800/40 p-2 sm:p-2.5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
