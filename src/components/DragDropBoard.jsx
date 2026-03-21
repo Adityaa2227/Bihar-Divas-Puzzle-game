@@ -38,6 +38,7 @@ const DraggablePiece = ({ id, value, gridSize, imageSrc, isDraggingSelf }) => {
       className="w-full h-full cursor-grab active:cursor-grabbing touch-none select-none"
       style={{ opacity }}
     >
+      
       <Tile
         value={value}
         index={id}
