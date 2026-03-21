@@ -37,10 +37,10 @@ export default function GameGallery({
   ];
 
   return (
-    <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col">
+    <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col max-h-[calc(100vh-70px)] overflow-hidden">
 
       {/* ── KIOSK 2-COL: Left = info, Right = content ── */}
-      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-0 flex-1">
+      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-0 flex-1 overflow-hidden">
 
         {/* LEFT — Title + stepper nav */}
         <div className="flex flex-col justify-center gap-1.5 lg:gap-2 pr-0 lg:pr-2 pb-2 lg:pb-0 text-center lg:text-left">
