@@ -66,10 +66,10 @@ export default function CategorySelection({ onSelectCategory }) {
             >
               <div className="relative w-full h-full overflow-hidden rounded-[1.8rem] bg-slate-900/40">
                 <LazyImage src={cat.image} alt={cat.label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/10 to-transparent flex items-end p-5">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/20 to-transparent flex items-end p-3 sm:p-4 lg:p-5">
                   <div className="mt-auto w-full">
-                    <div className="text-2xl bg-white/20 backdrop-blur-md w-11 h-11 flex items-center justify-center rounded-2xl border border-white/30 shadow-lg mb-3 transform transition-transform group-hover:rotate-12 group-hover:scale-110">{cat.icon}</div>
-                    <h3 className="text-white text-lg lg:text-2xl font-black leading-tight drop-shadow-md">{cat.label}</h3>
+                    <div className="text-xl sm:text-2xl bg-white/20 backdrop-blur-md w-8 h-8 sm:w-10 sm:h-10 lg:w-11 lg:h-11 flex items-center justify-center rounded-xl sm:rounded-2xl border border-white/30 shadow-lg mb-1.5 sm:mb-2 lg:mb-3 transform transition-transform group-hover:rotate-12 group-hover:scale-110">{cat.icon}</div>
+                    <h3 className="text-white text-sm sm:text-lg lg:text-xl xl:text-2xl font-black leading-tight drop-shadow-md">{cat.label}</h3>
                   </div>
                 </div>
               </div>
