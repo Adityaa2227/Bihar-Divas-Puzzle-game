@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { playClickSound, playNavSound } from '../utils/sounds';
 
-export default function LandingPage({ onStart, theme, onToggleTheme }) {
+export default function LandingPage({ onStart, theme, onToggleTheme, isFullscreen, onToggleFullscreen }) {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,6 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
   };
 
   const handleThemeToggle = () => {
-    playClickSound();
     onToggleTheme();
   };
 
@@ -29,13 +28,20 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
     <div className={`w-full min-h-screen flex items-center justify-center px-1 py-1 relative z-10 transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'} overflow-hidden`}>
 
       {/* Theme Toggle */}
-      <div className="fixed top-5 right-5 z-[1010]">
+      <div className="fixed top-5 right-5 z-[1010] flex gap-3">
         <button
-          className="w-11 h-11 bg-white/15 backdrop-blur-xl rounded-full flex items-center justify-center text-lg hover:bg-white/25 border border-white/25 transition-all active:scale-90 shadow-lg cursor-pointer"
+          className="w-11 h-11 bg-white/15 backdrop-blur-xl rounded-full flex items-center justify-center text-lg hover:bg-white/25 border border-white/25 transition-all active:scale-90 shadow-lg cursor-pointer text-white"
           onClick={handleThemeToggle}
           aria-label="Toggle theme"
         >
-          {theme === 'dark' ? '☀️' : '🌙'}
+          {theme === 'dark' ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+        </button>
+        <button
+          className="w-11 h-11 bg-white/15 backdrop-blur-xl rounded-full flex items-center justify-center text-lg hover:bg-white/25 border border-white/25 transition-all active:scale-90 shadow-lg cursor-pointer text-white"
+          onClick={onToggleFullscreen}
+          aria-label={isFullscreen ? "Exit full screen" : "Go full screen"}
+        >
+          {isFullscreen ? <i className="fas fa-compress-arrows-alt"></i> : <i className="fas fa-expand-arrows-alt"></i>}
         </button>
       </div>
 
