@@ -46,10 +46,6 @@ export default function Modal({ show, isLoss, score, gameMode, moves, time, fact
           )}
         </div>
 
-        <div className="bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.2)] rounded-xl p-3.5 mb-5 text-left">
-          <h3 className="text-[0.85rem] font-bold text-[var(--accent)] mb-1.5">📚 Did You Know?</h3>
-          <p className="text-[0.8rem] text-[var(--text-secondary)] leading-relaxed">{fact}</p>
-        </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
           <button className="flex-1 font-inherit text-base font-bold py-3.5 px-6 border-none rounded-[20px] cursor-pointer flex items-center justify-center gap-1.5 select-none bg-gradient-to-br from-[var(--accent)] to-[#d97706] text-white shadow-[var(--shadow-glow)] transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_var(--accent-glow)]" onClick={onPlayAgain}>

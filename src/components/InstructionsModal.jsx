@@ -11,7 +11,7 @@ export default function InstructionsModal({ show, gameMode, onClose }) {
           <ul className="text-left space-y-3 text-[0.95rem] text-[var(--text-secondary)] mb-0 list-disc pl-5">
             <li><strong>Goal:</strong> Drag and swap tiles to arrange the image correctly.</li>
             <li><strong>Time Limit:</strong> You have <strong>60 seconds</strong> to complete the puzzle.</li>
-            <li><strong>Scoring (10/10):</strong> Your score drops if you take more than <strong>12 moves</strong> or more than <strong>20 seconds</strong>.</li>
+            <li><strong>Scoring (10/10):</strong> Your score drops if you take more than <strong>10 moves</strong> or more than <strong>20 seconds</strong>.</li>
             <li><strong>Hints:</strong> Using a hint perfectly reveals the image, but deducts <strong>0.5 points</strong> from your score.</li>
           </ul>
         );
