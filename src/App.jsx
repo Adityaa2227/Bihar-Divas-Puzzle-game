@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage';
 import GameGallery from './components/GameGallery';
 import CategorySelection from './components/CategorySelection';
 import SettingsModal from './components/SettingsModal';
+import InstructionsModal from './components/InstructionsModal';
 import LazyImage from './components/LazyImage';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { preloadImageCache } from './utils/imageCache';
@@ -112,6 +113,7 @@ export default function App() {
   const [hasLost, setHasLost] = useState(false);
   const [score, setScore] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [jigsawKey, setJigsawKey] = useState(0);
   const [bestScore, setBestScore] = useState(() =>
@@ -242,7 +244,7 @@ export default function App() {
     setSelectedImage(randomImg);
     resetGame(randomImg); // Pass new image to ensure immediate sync
     
-    setIsPreviewing(true);
+    setShowInstructions(true);
     setShowModal(false);
     setView('game');
   };
@@ -414,9 +416,14 @@ export default function App() {
     setSelectedImage(randomImg);
     resetGame(randomImg);
 
-    setIsPreviewing(true);
+    setShowInstructions(true);
     setShowModal(false);
   }, [difficulty, selectedCategory, selectedImage.id, gameMode, resetGame]);
+
+  const handleCloseInstructions = useCallback(() => {
+    setShowInstructions(false);
+    setIsPreviewing(true);
+  }, []);
 
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
@@ -614,6 +621,12 @@ export default function App() {
           onPlayAgain={handlePlayAgain}
           onGoHome={handleGameOverGoHome}
           onClose={handleCloseModal}
+        />
+
+        <InstructionsModal
+          show={showInstructions}
+          gameMode={gameMode}
+          onClose={handleCloseInstructions}
         />
 
         <SettingsModal
