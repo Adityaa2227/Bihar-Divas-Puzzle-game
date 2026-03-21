@@ -3,13 +3,13 @@ import LazyImage from './LazyImage';
 
 export default function CategorySelection({ onSelectCategory }) {
   return (
-    <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col items-center justify-center py-2 lg:py-4 overflow-hidden">
+    <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col items-center justify-center py-1 lg:py-2 overflow-hidden">
 
       {/* ── KIOSK 2-COLS ── */}
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-0 items-stretch flex-1 h-full max-h-full">
 
         {/* LEFT — BRANDING & INFO */}
-        <div className="flex flex-col justify-center gap-6 pr-0 lg:pr-14 pb-6 lg:pb-0 text-left border-b lg:border-b-0 lg:border-r border-white/10">
+        <div className="flex flex-col justify-center gap-3 lg:gap-4 pr-0 lg:pr-10 pb-4 lg:pb-0 text-left border-b lg:border-b-0 lg:border-r border-white/10">
           
           {/* Government Badge (Consistent with Landing) */}
           <div className="flex flex-col items-start gap-3">
@@ -26,10 +26,10 @@ export default function CategorySelection({ onSelectCategory }) {
           </div>
 
           <div>
-            <h2 className="text-3xl lg:text-[3.2rem] lg:leading-tight font-black text-[#ea580c] mb-3 [text-shadow:2px_2px_0_rgba(0,0,0,0.05)] dark:[text-shadow:2px_2px_0_rgba(255,165,0,0.1)]">
+            <h2 className="text-2xl lg:text-[clamp(1.8rem,4vh,2.8rem)] lg:leading-tight font-black text-[#ea580c] mb-2 [text-shadow:2px_2px_0_rgba(0,0,0,0.05)] dark:[text-shadow:2px_2px_0_rgba(255,165,0,0.1)]">
               Select a Theme
             </h2>
-            <p className="text-amber-950/90 dark:text-white/80 text-sm lg:text-[1.05rem] max-w-sm font-semibold leading-relaxed">
+            <p className="text-amber-950/90 dark:text-white/80 text-xs lg:text-[0.95rem] max-w-sm font-semibold leading-relaxed">
               Every pixel tells a story. From ancient ruins to modern marvels, choose a theme to start your journey through the heart of Bihar.
             </p>
           </div>
@@ -61,7 +61,7 @@ export default function CategorySelection({ onSelectCategory }) {
           {CATEGORIES.map((cat) => (
             <div 
               key={cat.id} 
-              className="bg-white/10 dark:bg-slate-800/40 border border-white/20 dark:border-slate-700/50 rounded-[2.5rem] p-3 cursor-pointer transition-all duration-300 flex flex-col backdrop-blur-md aspect-square hover:-translate-y-2 hover:border-orange-500 hover:shadow-[0_15px_30px_rgba(234,88,12,0.15)] group relative shadow-md" 
+              className="bg-white/10 dark:bg-slate-800/40 border border-white/20 dark:border-slate-700/50 rounded-[2rem] p-2 cursor-pointer transition-all duration-300 flex flex-col backdrop-blur-md aspect-[16/11] max-h-[clamp(180px,28vh,300px)] hover:-translate-y-2 hover:border-orange-500 hover:shadow-[0_15px_30px_rgba(234,88,12,0.15)] group relative shadow-md" 
               onClick={() => onSelectCategory(cat.id)}
             >
               <div className="relative w-full h-full overflow-hidden rounded-[1.8rem] bg-slate-900/40">

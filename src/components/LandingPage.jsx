@@ -26,7 +26,7 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
   ];
 
   return (
-    <div className={`w-full min-h-screen flex items-center justify-center px-1 py-1 relative z-10 transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full min-h-screen flex items-center justify-center px-1 py-1 relative z-10 transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'} overflow-hidden`}>
 
       {/* Theme Toggle */}
       <div className="fixed top-5 right-5 z-[1010]">
@@ -40,12 +40,12 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
       </div>
 
       {/* ── KIOSK FRAME ── */}
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-[1fr_auto_1fr] gap-0 items-stretch min-h-[540px]">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-[1fr_auto_1fr] gap-0 items-stretch min-h-[clamp(450px,65vh,700px)]">
 
         {/* ════════════════════════════════
             LEFT COLUMN — BRANDING
         ════════════════════════════════ */}
-        <div className="flex flex-col justify-center gap-3 pr-2 border-r border-white/10">
+        <div className="flex flex-col justify-center gap-2 lg:gap-3 pr-2 border-r border-white/10">
 
           {/* Government Badge */}
           <div className="flex flex-col items-start gap-3">
@@ -56,17 +56,17 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
                 <span className="text-[0.55rem] text-slate-700 dark:text-white/70 tracking-[2px] font-bold uppercase">GOVERNMENT OF BIHAR</span>
               </div>
             </div>
-            <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white font-extrabold py-2 px-6 rounded-full text-xs shadow-[0_4px_15px_rgba(234,88,12,0.35)] border border-white/25 tracking-wider uppercase inline-flex items-center gap-2">
+            <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white font-extrabold py-1.5 px-5 rounded-full text-[0.55rem] lg:text-xs shadow-[0_4px_15px_rgba(234,88,12,0.35)] border border-white/25 tracking-wider uppercase inline-flex items-center gap-2">
               🗓️ BIHAR DIWAS 2026
             </div>
           </div>
 
           {/* Title */}
           <h1 className="flex flex-col select-none">
-            <span className="font-['Noto_Sans_Devanagari',sans-serif] text-[clamp(3.5rem,6vw,6.5rem)] font-black leading-[1] text-[#ea580c] whitespace-nowrap [text-shadow:-1px_-1px_0_#b45309,1px_-1px_0_#b45309,-1px_1px_0_#b45309,1px_1px_0_#b45309,3px_3px_0_#fbbf24,5px_5px_0_rgba(255,255,255,0.15)] dark:[text-shadow:-1px_-1px_0_#431407,1px_-1px_0_#431407,-1px_1px_0_#431407,1px_1px_0_#431407,3px_3px_0_#9a3412,5px_5px_0_rgba(251,191,36,0.15)] py-2">
+            <span className="font-['Noto_Sans_Devanagari',sans-serif] text-[clamp(2.5rem,8vh,6rem)] font-black leading-[1] text-[#ea580c] whitespace-nowrap [text-shadow:-1px_-1px_0_#b45309,1px_-1px_0_#b45309,-1px_1px_0_#b45309,1px_1px_0_#b45309,3px_3px_0_#fbbf24,5px_5px_0_rgba(255,255,255,0.15)] dark:[text-shadow:-1px_-1px_0_#431407,1px_-1px_0_#431407,-1px_1px_0_#431407,1px_1px_0_#431407,3px_3px_0_#9a3412,5px_5px_0_rgba(251,191,36,0.15)] py-1 lg:py-2">
               बिहार दिवस
             </span>
-            <span className="text-[clamp(0.85rem,1.5vw,1.4rem)] font-black text-[#92400e] dark:text-amber-300 tracking-[6px] opacity-80">
+            <span className="text-[clamp(0.7rem,2vh,1.2rem)] font-black text-[#92400e] dark:text-amber-300 tracking-[4px] lg:tracking-[6px] opacity-80">
               PUZZLE QUEST • 2026
             </span>
           </h1>

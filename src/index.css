@@ -40,7 +40,7 @@
 
 /* Increase base font-size to scale all rem units and increase overall website size */
 html {
-  font-size: 110%; /* 1rem = 17.6px instead of 16px */
+  font-size: clamp(14px, 1.1vw, 24px); /* Scales with screen width but keeps sensible limits */
 }
 
 /* Base body — cannot be done purely in Tailwind */

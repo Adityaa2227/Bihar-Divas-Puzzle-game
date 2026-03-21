@@ -43,10 +43,10 @@ export default function GameGallery({
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-0 flex-1">
 
         {/* LEFT — Title + stepper nav */}
-        <div className="flex flex-col justify-center gap-2 pr-0 lg:pr-2 pb-2 lg:pb-0 text-center lg:text-left">
+        <div className="flex flex-col justify-center gap-1.5 lg:gap-2 pr-0 lg:pr-2 pb-2 lg:pb-0 text-center lg:text-left">
 
           <div>
-            <h2 className="text-3xl lg:text-[2.8rem] lg:leading-tight font-black text-orange-600 mb-2 drop-shadow-sm">
+            <h2 className="text-2xl lg:text-[clamp(1.6rem,3.5vh,2.5rem)] lg:leading-tight font-black text-orange-600 mb-1 drop-shadow-sm">
               ⚡ Let's Play!
             </h2>
             <p className="text-amber-900/80 dark:text-slate-300 text-sm lg:text-base max-w-sm mx-auto lg:mx-0 font-semibold leading-relaxed">
@@ -97,7 +97,7 @@ export default function GameGallery({
           {step === 1 && (
             <div className="flex flex-col animate-[scaleIn_0.3s_ease] gap-3">
               <h3 className="flex items-center gap-3 text-xl font-black text-slate-800 dark:text-gray-100 uppercase tracking-widest">
-                <span className="bg-orange-600 text-white w-9 h-9 flex items-center justify-center rounded-full shadow-lg text-sm">1</span>
+                <span className="bg-orange-600 text-white w-8 h-8 flex items-center justify-center rounded-full shadow-lg text-sm">1</span>
                 Select Game Mode
               </h3>
               <div className="grid grid-cols-3 gap-4">
@@ -107,16 +107,16 @@ export default function GameGallery({
                     className={`flex flex-col items-center gap-2 p-2 lg:p-3 rounded-2xl border-2 transition-all duration-300 cursor-pointer group bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-sm ${gameMode === mode ? 'border-orange-500 bg-orange-50/80 dark:bg-orange-950/40 shadow-xl scale-[1.03]' : 'border-orange-200/50 dark:border-white/10 hover:border-orange-400 hover:scale-[1.02]'}`}
                     onClick={() => handleModeChange(mode)}
                   >
-                    <span className="text-5xl group-hover:scale-110 transition-transform drop-shadow-md">{icon}</span>
+                    <span className="text-4xl lg:text-5xl group-hover:scale-110 transition-transform drop-shadow-md">{icon}</span>
                     <div className="flex flex-col items-center">
-                      <span className="text-xl font-black text-slate-900 dark:text-gray-100">{label}</span>
-                      <span className="text-xs font-bold text-amber-900/70 dark:text-slate-400 uppercase tracking-widest mt-1">{desc}</span>
+                      <span className="text-lg lg:text-xl font-black text-slate-900 dark:text-gray-100">{label}</span>
+                      <span className="text-[0.6rem] lg:text-xs font-bold text-amber-900/70 dark:text-slate-400 uppercase tracking-widest mt-0.5">{desc}</span>
                     </div>
                   </button>
                 ))}
               </div>
               <button 
-                className="bg-orange-600 text-white font-black py-4 px-10 rounded-2xl text-lg uppercase tracking-widest transition-all duration-300 shadow-[inset_0_-4px_0_rgba(0,0,0,0.2),0_10px_25px_rgba(234,88,12,0.4)] hover:bg-orange-700 hover:-translate-y-1 active:translate-y-0.5 w-full max-w-sm mx-auto cursor-pointer" 
+                className="bg-orange-600 text-white font-black py-3 lg:py-4 px-10 rounded-2xl text-base lg:text-lg uppercase tracking-widest transition-all duration-300 shadow-[inset_0_-4px_0_rgba(0,0,0,0.2),0_10px_25px_rgba(234,88,12,0.4)] hover:bg-orange-700 hover:-translate-y-1 active:translate-y-0.5 w-full max-w-sm mx-auto cursor-pointer" 
                 onClick={() => { playClickSound(); setStep(2); }}
               >
                 Continue to Level ➡️
