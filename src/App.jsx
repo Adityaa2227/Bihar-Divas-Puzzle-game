@@ -12,26 +12,34 @@ import SettingsModal from './components/SettingsModal';
 import LazyImage from './components/LazyImage';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { preloadImageCache } from './utils/imageCache';
-import { shuffleTiles, canMove, checkWin } from './utils/puzzleLogic';
+import { shuffleTiles, canMove, checkWin, calculateDragDropScore } from './utils/puzzleLogic';
 import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
 
 function getBestScore(difficulty, gameMode) {
   try {
     const stored = JSON.parse(localStorage.getItem(LS_KEYS.bestScore) || '{}');
-    const key = `${difficulty}-${gameMode}`;
+    const key = gameMode === GAME_MODES.DRAG_DROP ? `${difficulty}-drag-drop-score` : `${difficulty}-${gameMode}`;
     return stored[key] || null;
   } catch {
     return null;
   }
 }
 
-function saveBestScore(difficulty, time, gameMode) {
+function saveBestScore(difficulty, time, gameMode, score = null) {
   try {
     const stored = JSON.parse(localStorage.getItem(LS_KEYS.bestScore) || '{}');
-    const key = `${difficulty}-${gameMode}`;
-    if (!stored[key] || time < stored[key]) {
-      stored[key] = time;
-      localStorage.setItem(LS_KEYS.bestScore, JSON.stringify(stored));
+    if (gameMode === GAME_MODES.DRAG_DROP && score !== null) {
+      const key = `${difficulty}-drag-drop-score`;
+      if (!stored[key] || score > stored[key]) {
+        stored[key] = score;
+        localStorage.setItem(LS_KEYS.bestScore, JSON.stringify(stored));
+      }
+    } else {
+      const key = `${difficulty}-${gameMode}`;
+      if (!stored[key] || time < stored[key]) {
+        stored[key] = time;
+        localStorage.setItem(LS_KEYS.bestScore, JSON.stringify(stored));
+      }
     }
   } catch {
     // localStorage not available
@@ -96,11 +104,13 @@ export default function App() {
 
   const [tiles, setTiles] = useState(() => shuffleTiles(gridSize, gameMode === GAME_MODES.DRAG_DROP));
   const [moves, setMoves] = useState(0);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(gameMode === GAME_MODES.DRAG_DROP ? 60 : 0);
   const [hintTimer, setHintTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [hasWon, setHasWon] = useState(false);
+  const [hasLost, setHasLost] = useState(false);
+  const [score, setScore] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showHint, setShowHint] = useState(false);
   const [jigsawKey, setJigsawKey] = useState(0);
@@ -108,8 +118,6 @@ export default function App() {
     getBestScore(difficulty, gameMode)
   );
 
-  const [volume, setVolume] = useState(0.5);
-  const [isMuted, setIsMuted] = useState(false);
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
@@ -156,13 +164,21 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (isRunning && !hasWon && !isPreviewing) {
+    if (isRunning && !hasWon && !hasLost && !isPreviewing) {
       timerRef.current = setInterval(() => {
-        setTime((t) => t + 0.01);
+        setTime((t) => gameMode === GAME_MODES.DRAG_DROP ? Math.max(0, t - 0.01) : t + 0.01);
       }, 10);
     }
     return () => clearInterval(timerRef.current);
-  }, [isRunning, hasWon, isPreviewing]);
+  }, [isRunning, hasWon, hasLost, isPreviewing, gameMode]);
+
+  useEffect(() => {
+    if (isRunning && gameMode === GAME_MODES.DRAG_DROP && time <= 0 && !hasLost && !hasWon) {
+      setHasLost(true);
+      setShowModal(true);
+      setIsRunning(false);
+    }
+  }, [time, isRunning, gameMode, hasLost, hasWon]);
 
   // Preview timeout
   useEffect(() => {
@@ -183,9 +199,11 @@ export default function App() {
     const newGridSize = AGE_GROUPS[difficulty] ? AGE_GROUPS[difficulty].size : 3;
     setTiles(shuffleTiles(newGridSize, gameMode === GAME_MODES.DRAG_DROP));
     setMoves(0);
-    setTime(0);
+    setTime(gameMode === GAME_MODES.DRAG_DROP ? 60 : 0);
     setIsRunning(false);
     setHasWon(false);
+    setHasLost(false);
+    setScore(null);
     setShowHint(false);
     setHintsUsed(0);
     setJigsawKey(k => k + 1);
@@ -272,7 +290,7 @@ export default function App() {
 
   const handleTileClick = useCallback(
     (index) => {
-      if (hasWon || isPreviewing) return;
+      if (hasWon || hasLost || isPreviewing) return;
 
       const emptyValue = gridSize * gridSize - 1;
       const emptyIndex = tiles.indexOf(emptyValue);
@@ -292,11 +310,11 @@ export default function App() {
         handleWin(time);
       }
     },
-    [tiles, gridSize, hasWon, isRunning, isPreviewing, time, selectedImage.id]
+    [tiles, gridSize, hasWon, hasLost, isRunning, isPreviewing, time, selectedImage.id]
   );
 
   const handleSwap = useCallback((srcIndex, targetIndex) => {
-    if (hasWon || isPreviewing) return;
+    if (hasWon || hasLost || isPreviewing) return;
 
     if (!isRunning) setIsRunning(true);
     playMoveSound();
@@ -310,22 +328,31 @@ export default function App() {
     if (checkWin(newTiles)) {
       handleWin(time);
     }
-  }, [tiles, hasWon, isRunning, isPreviewing, time, selectedImage.id]);
+  }, [tiles, hasWon, hasLost, isRunning, isPreviewing, time, selectedImage.id]);
 
   const handleWin = (finalTime) => {
     setHasWon(true);
-    setShowModal(true);
     setIsRunning(false);
-    saveBestScore(difficulty, finalTime || time, gameMode);
+    
+    let timeScoreToSave = finalTime || time;
+    if (gameMode === GAME_MODES.DRAG_DROP) {
+      const currentScore = calculateDragDropScore(moves, timeScoreToSave, hintsUsed);
+      setScore(currentScore);
+      saveBestScore(difficulty, timeScoreToSave, gameMode, currentScore);
+    } else {
+      saveBestScore(difficulty, timeScoreToSave, gameMode);
+    }
+    
+    setShowModal(true);
     // Refresh bestScore from local storage right away
     setBestScore(getBestScore(difficulty, gameMode));
     setTimeout(() => playWinSound(), 300);
   };
 
   const handleJigsawWin = useCallback(() => {
-    if (hasWon) return;
+    if (hasWon || hasLost) return;
     handleWin(time);
-  }, [hasWon, time, selectedImage.id]);
+  }, [hasWon, hasLost, time, selectedImage.id]);
 
   const handleHint = useCallback((e) => {
     if (e) e.preventDefault();
@@ -492,8 +519,12 @@ export default function App() {
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">⏱️</span>
-                      <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Time</span>
-                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{formatTime(time)}</span>
+                      <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">
+                        {gameMode === GAME_MODES.DRAG_DROP ? 'Time Left' : 'Time'}
+                      </span>
+                      <span className={`text-sm font-black tabular-nums ${gameMode === GAME_MODES.DRAG_DROP && time <= 10 ? 'text-red-500 animate-pulse' : 'text-slate-800 dark:text-gray-100'}`}>
+                        {formatTime(time)}
+                      </span>
                     </div>
                     <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">👆</span>
@@ -503,7 +534,11 @@ export default function App() {
                     <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">🏆</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Best</span>
-                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{bestScore ? formatTime(bestScore) : '--:--.--'}</span>
+                      <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">
+                        {bestScore !== null 
+                          ? (gameMode === GAME_MODES.DRAG_DROP ? bestScore.toFixed(1) + ' / 10' : formatTime(bestScore)) 
+                          : (gameMode === GAME_MODES.DRAG_DROP ? '-- / 10' : '--:--.--')}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -541,6 +576,9 @@ export default function App() {
 
         <Modal
           show={showModal}
+          isLoss={hasLost}
+          score={score}
+          gameMode={gameMode}
           moves={moves}
           time={time}
           fact={selectedImage.fact}

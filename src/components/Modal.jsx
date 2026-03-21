@@ -1,4 +1,4 @@
-export default function Modal({ show, moves, time, fact, imageName, onPlayAgain, onGoHome, onClose }) {
+export default function Modal({ show, isLoss, score, gameMode, moves, time, fact, imageName, onPlayAgain, onGoHome, onClose }) {
   if (!show) return null;
 
   const formatTime = (seconds) => {
@@ -16,21 +16,34 @@ export default function Modal({ show, moves, time, fact, imageName, onPlayAgain,
             ✖
           </button>
         )}
-        <div className="text-[3.5rem] mb-2 animate-[bounce_0.6s_ease]">🎉</div>
-        <h2 className="text-[1.6rem] font-extrabold bg-gradient-to-br from-[var(--accent)] to-[#fbbf24] bg-clip-text text-transparent mb-1">Puzzle Solved!</h2>
-        <p className="text-[var(--text-secondary)] text-[0.9rem] mb-5">You completed the <strong>{imageName}</strong> puzzle!</p>
+        <div className="text-[3.5rem] mb-2 animate-[bounce_0.6s_ease]">{isLoss ? '⏰' : '🎉'}</div>
+        <h2 className={`text-[1.6rem] font-extrabold bg-clip-text text-transparent mb-1 ${isLoss ? 'bg-gradient-to-br from-red-600 to-rose-400' : 'bg-gradient-to-br from-[var(--accent)] to-[#fbbf24]'}`}>
+          {isLoss ? "Time's Up!" : 'Puzzle Solved!'}
+        </h2>
+        <p className="text-[var(--text-secondary)] text-[0.9rem] mb-5">
+          {isLoss ? 'You ran out of time on the ' : 'You completed the '}<strong>{imageName}</strong> puzzle!
+        </p>
 
         <div className="grid grid-cols-2 gap-3 mb-5">
           <div className="bg-[var(--bg-elevated)] rounded-xl p-3.5 flex flex-col items-center gap-1">
             <span className="text-[1.4rem]">⏱️</span>
-            <span className="text-[0.7rem] text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Time</span>
-            <span className="text-[1.3rem] font-extrabold text-[var(--accent)]">{formatTime(time)}</span>
+            <span className="text-[0.7rem] text-[var(--text-secondary)] uppercase tracking-wider font-semibold">
+              {gameMode === 'drag_drop' ? 'Time Left' : 'Time'}
+            </span>
+            <span className={`text-[1.3rem] font-extrabold ${isLoss ? 'text-red-500' : 'text-[var(--accent)]'}`}>{formatTime(time)}</span>
           </div>
           <div className="bg-[var(--bg-elevated)] rounded-xl p-3.5 flex flex-col items-center gap-1">
             <span className="text-[1.4rem]">👆</span>
             <span className="text-[0.7rem] text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Moves</span>
             <span className="text-[1.3rem] font-extrabold text-[var(--accent)]">{moves}</span>
           </div>
+          {score !== null && !isLoss && (
+            <div className="bg-[var(--bg-elevated)] rounded-xl p-3.5 flex flex-col items-center gap-1 col-span-2 shadow-sm border border-[var(--accent)]/10">
+              <span className="text-[1.4rem]">⭐</span>
+              <span className="text-[0.7rem] text-[var(--text-secondary)] uppercase tracking-wider font-semibold">Score</span>
+              <span className="text-[1.8rem] font-extrabold text-[var(--accent)]">{score.toFixed(1)} <span className="text-base text-[var(--text-secondary)]">/ 10</span></span>
+            </div>
+          )}
         </div>
 
         <div className="bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.2)] rounded-xl p-3.5 mb-5 text-left">

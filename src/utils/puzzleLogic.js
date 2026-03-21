@@ -85,3 +85,20 @@ export function checkWin(tiles) {
   }
   return true;
 }
+
+export function calculateDragDropScore(moves, timeRemaining, hintsUsed) {
+  let score = 10.0;
+  
+  if (moves > 15) {
+    score -= (moves - 15) * 0.2;
+  }
+  
+  if (timeRemaining < 30) {
+    const secondsSlow = 30 - timeRemaining;
+    score -= (secondsSlow * 0.1); 
+  }
+  
+  score -= (hintsUsed * 1.0);
+  
+  return Math.max(1.0, Math.min(10.0, Math.round(score * 10) / 10));
+}
