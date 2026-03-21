@@ -94,6 +94,26 @@ export default function App() {
 
   const [hintsUsed, setHintsUsed] = useState(0);
   const [showSettings, setShowSettings] = useState(false);
+  const [scoreSettings, setScoreSettings] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('bihar-puzzle-score-settings'));
+      return stored || { movesThreshold: 10, timeThreshold: 20 };
+    } catch {
+      return { movesThreshold: 10, timeThreshold: 20 };
+    }
+  });
+  const [isRandomEnabled, setIsRandomEnabled] = useState(() => {
+    const stored = localStorage.getItem('bihar-puzzle-random-enabled');
+    return stored === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('bihar-puzzle-random-enabled', isRandomEnabled);
+  }, [isRandomEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem('bihar-puzzle-score-settings', JSON.stringify(scoreSettings));
+  }, [scoreSettings]);
 
   useEffect(() => {
     localStorage.setItem('bihar-puzzle-hints', JSON.stringify(hintSettings));
@@ -269,11 +289,17 @@ export default function App() {
     
     // Logic to ensure "New Puzzle" (image) on every entry
     const allowed = AGE_GROUPS[difficulty].allowedImages;
-    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
-    if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    let pool;
+    if (isRandomEnabled) {
+      pool = IMAGES.filter(img => allowed.includes(img.id));
+    } else {
+      pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+      if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    }
     const randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
     
     setSelectedImage(randomImg);
+    if (isRandomEnabled) setSelectedCategory(randomImg.categoryId);
     resetGame(randomImg); // Pass new image to ensure immediate sync
     
     setShowInstructions(true);
@@ -391,7 +417,7 @@ export default function App() {
     
     let timeScoreToSave = finalTime || time;
     if (gameMode === GAME_MODES.DRAG_DROP) {
-      const currentScore = calculateDragDropScore(moves, timeScoreToSave, hintsUsed);
+      const currentScore = calculateDragDropScore(moves, timeScoreToSave, hintsUsed, scoreSettings);
       setScore(currentScore);
       saveBestScore(difficulty, timeScoreToSave, gameMode, currentScore);
     } else {
@@ -434,8 +460,13 @@ export default function App() {
     
     // Pick different image
     const allowed = AGE_GROUPS[difficulty].allowedImages;
-    let pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
-    if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    let pool;
+    if (isRandomEnabled) {
+      pool = IMAGES.filter(img => allowed.includes(img.id));
+    } else {
+      pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
+      if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+    }
     
     let randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
     if (pool.length > 1) {
@@ -446,6 +477,7 @@ export default function App() {
     }
 
     setSelectedImage(randomImg);
+    if (isRandomEnabled) setSelectedCategory(randomImg.categoryId);
     resetGame(randomImg);
 
     setShowInstructions(true);
@@ -670,6 +702,10 @@ export default function App() {
           onClose={() => setShowSettings(false)}
           hintSettings={hintSettings}
           onUpdateHintSettings={setHintSettings}
+          scoreSettings={scoreSettings}
+          onUpdateScoreSettings={setScoreSettings}
+          isRandomEnabled={isRandomEnabled}
+          onToggleRandom={() => setIsRandomEnabled(!isRandomEnabled)}
         />
       </div>
       )}

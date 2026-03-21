@@ -86,15 +86,16 @@ export function checkWin(tiles) {
   return true;
 }
 
-export function calculateDragDropScore(moves, timeRemaining, hintsUsed) {
+export function calculateDragDropScore(moves, timeRemaining, hintsUsed, scoreSettings = { movesThreshold: 10, timeThreshold: 20 }) {
   let score = 10.0;
   
-  if (moves > 10) {
-    score -= (moves - 10) * 0.3;
+  if (moves > scoreSettings.movesThreshold) {
+    score -= (moves - scoreSettings.movesThreshold) * 0.3;
   }
   
-  if (timeRemaining < 40) {
-    const secondsSlow = 40 - timeRemaining;
+  const timeUsed = 60 - timeRemaining; // assuming 60 is max time
+  if (timeUsed > scoreSettings.timeThreshold) {
+    const secondsSlow = timeUsed - scoreSettings.timeThreshold;
     score -= (secondsSlow * 0.2); 
   }
   
