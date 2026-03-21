@@ -13,7 +13,7 @@ import LazyImage from './components/LazyImage';
 import { IMAGES, CATEGORIES, AGE_GROUPS, LS_KEYS, GAME_MODES } from './utils/constants';
 import { preloadImageCache } from './utils/imageCache';
 import { shuffleTiles, canMove, checkWin, calculateDragDropScore } from './utils/puzzleLogic';
-import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound } from './utils/sounds';
+import { playMoveSound, playWinSound, playClickSound, playNavSound, playToggleSound, playHintSound, playRestartSound, playHoverSound, playInteractSound, playMouseMoveSound } from './utils/sounds';
 
 function getBestScore(difficulty, gameMode) {
   try {
@@ -149,6 +149,27 @@ export default function App() {
     }
     return () => clearInterval(interval);
   }, [showHint, hintTimer]);
+
+  // Global Cursor Gamification SFX
+  useEffect(() => {
+    const handleMouseOver = (e) => {
+      const clickable = e.target.closest('button, a, input, select, [role="button"], .cursor-pointer');
+      if (clickable) {
+        playHoverSound();
+      }
+    };
+    const handleMouseDown = () => {
+      playInteractSound();
+    };
+
+    document.addEventListener('mouseover', handleMouseOver);
+    document.addEventListener('mousedown', handleMouseDown);
+
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOver);
+      document.removeEventListener('mousedown', handleMouseDown);
+    };
+  }, []);
 
   const toggleTheme = useCallback(() => {
     playToggleSound();
@@ -407,7 +428,7 @@ export default function App() {
 
 
   return (
-    <div className="min-h-screen h-auto bg-transparent flex justify-center items-center p-0 relative z-[1] overflow-visible">
+    <div className="h-screen w-screen bg-transparent flex justify-center items-center p-0 relative z-[1] overflow-hidden select-none">
       {/* Animated background blobs — inline styles for complex multi-animations */}
       <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform top-[-8vw] left-[-8vw] w-[45vw] h-[45vw] bg-gradient-to-br from-[var(--accent)] to-[#fcd34d] dark:from-indigo-600 dark:to-pink-500 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat1 25s infinite alternate ease-in-out, blobMorph 12s infinite alternate ease-in-out' }} />
       <div className="fixed z-[-1] opacity-45 dark:opacity-25 pointer-events-none will-change-transform bottom-[-10vw] right-[-10vw] w-[40vw] h-[40vw] bg-gradient-to-br from-amber-400 to-amber-500 dark:from-blue-900 dark:to-violet-600 blur-[80px]" style={{ borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%', animation: 'blobFloat2 30s infinite alternate-reverse ease-in-out, blobMorph 15s infinite alternate-reverse ease-in-out' }} />
@@ -421,7 +442,7 @@ export default function App() {
           onToggleTheme={toggleTheme}
         />
       ) : (
-      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-3 md:p-5 lg:p-8 relative z-[1]">
+      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-0 md:p-1 lg:p-1 relative z-[1]">
         <Header 
           moves={moves} 
           time={time} 
@@ -457,12 +478,12 @@ export default function App() {
               bestScore={bestScore}
             />
           ) : (
-            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-8 lg:gap-24 w-full h-full pb-6 max-w-[1600px] mx-auto px-4 lg:px-12">
+            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-2 w-full h-full pb-1 max-w-[1600px] mx-auto px-0 lg:px-1">
               
               {/* PUZZLE BOARD (Now on Right visually on LG) */}
-              <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-2">
+              <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-3">
               {gameMode === GAME_MODES.JIGSAW ? (
-                <div className="relative w-full rounded-2xl overflow-visible shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] aspect-square shrink-0">
+                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] aspect-square shrink-0">
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -511,13 +532,20 @@ export default function App() {
               )}
               </div>
 
+              {/* CENTER DIVIDER (CONSISTENT WITH OTHER PAGES) */}
+              <div className="hidden lg:flex flex-col items-center justify-center px-12 gap-4 select-none self-stretch lg:order-2">
+                <div className="w-px flex-1 bg-gradient-to-b from-transparent via-orange-500/20 to-transparent"></div>
+                <div className="w-11 h-11 rounded-full bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-xl shadow-lg shadow-orange-500/5 transition-transform hover:scale-110">🧩</div>
+                <div className="w-px flex-1 bg-gradient-to-b from-transparent via-orange-500/20 to-transparent"></div>
+              </div>
+
               {/* CONTROLS & INFO (Now on Left visually on LG) */}
-              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-6 lg:gap-8 justify-center order-2 lg:order-1">
+              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-2 justify-center order-2 lg:order-1">
                 
                 {/* Stats Panel */}
-                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                <div className="bg-white/40 dark:bg-slate-800/40 p-2 sm:p-2.5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">⏱️</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">
                         {gameMode === GAME_MODES.DRAG_DROP ? 'Time Left' : 'Time'}
@@ -526,12 +554,12 @@ export default function App() {
                         {formatTime(time)}
                       </span>
                     </div>
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">👆</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Moves</span>
                       <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{moves}</span>
                     </div>
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">🏆</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Best</span>
                       <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">
@@ -544,7 +572,7 @@ export default function App() {
                 </div>
 
                 {/* Fact Panel */}
-                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-2.5 sm:p-3 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
                   <h3 className="text-slate-800 dark:text-gray-100 font-extrabold text-xl mb-2 flex items-center gap-2 relative z-10">
                     <span className="text-2xl">💡</span> Did you know?
@@ -557,7 +585,7 @@ export default function App() {
                 </div>
 
                 {/* Controls */}
-                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                <div className="bg-white/40 dark:bg-slate-800/40 p-2 sm:p-2.5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
                   <Controls
                     hasWon={hasWon}
                     onRestart={handleRestart}

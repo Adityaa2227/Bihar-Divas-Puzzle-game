@@ -26,7 +26,7 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
   ];
 
   return (
-    <div className={`w-full min-h-screen flex items-center justify-center px-6 py-4 relative z-10 transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`w-full min-h-screen flex items-center justify-center px-1 py-1 relative z-10 transition-opacity duration-1000 ${animate ? 'opacity-100' : 'opacity-0'}`}>
 
       {/* Theme Toggle */}
       <div className="fixed top-5 right-5 z-[1010]">
@@ -45,7 +45,7 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
         {/* ════════════════════════════════
             LEFT COLUMN — BRANDING
         ════════════════════════════════ */}
-        <div className="flex flex-col justify-center gap-5 pr-8 border-r border-white/10">
+        <div className="flex flex-col justify-center gap-3 pr-2 border-r border-white/10">
 
           {/* Government Badge */}
           <div className="flex flex-col items-start gap-3">
@@ -102,7 +102,7 @@ export default function LandingPage({ onStart, theme, onToggleTheme }) {
         {/* ════════════════════════════════
             RIGHT COLUMN — GAME INFO + CTA
         ════════════════════════════════ */}
-        <div className="flex flex-col justify-center gap-4 pl-8">
+        <div className="flex flex-col justify-center gap-3 pl-2">
 
           {/* How to Play Card */}
           <div className="bg-gradient-to-br from-sky-400 to-sky-500 rounded-3xl p-5 text-sky-950 shadow-[0_8px_30px_rgba(56,189,248,0.25)] border-2 border-sky-300/60 relative overflow-hidden">
