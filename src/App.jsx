@@ -490,7 +490,7 @@ export default function App() {
               {/* PUZZLE BOARD (Now on Right visually on LG) */}
               <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-3">
               {gameMode === GAME_MODES.JIGSAW ? (
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] aspect-square shrink-0">
+                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] aspect-square shrink-0">
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -509,7 +509,7 @@ export default function App() {
                   />
                 </div>
               ) : (
-                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(450px,70vh,750px)] lg:w-[clamp(450px,70vh,750px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
+                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -579,14 +579,14 @@ export default function App() {
                 </div>
 
                 {/* Fact Panel */}
-                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-2.5 sm:p-3 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-2 sm:p-2.5 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
-                  <h3 className="text-slate-800 dark:text-gray-100 font-extrabold text-xl mb-2 flex items-center gap-2 relative z-10">
-                    <span className="text-2xl">💡</span> Did you know?
+                  <h3 className="text-slate-800 dark:text-gray-100 font-extrabold text-lg mb-1.5 flex items-center gap-2 relative z-10">
+                    <span className="text-xl">💡</span> Did you know?
                   </h3>
-                  <div className="w-12 h-1 bg-orange-500 rounded-full mb-3 relative z-10"></div>
-                  <strong className="block text-slate-900 dark:text-white mb-1.5 font-black text-sm relative z-10">{selectedImage.name}</strong>
-                  <p className="text-slate-700/90 dark:text-slate-300 text-sm font-medium leading-relaxed mb-0 relative z-10 line-clamp-4">
+                  <div className="w-12 h-0.5 bg-orange-500 rounded-full mb-2 relative z-10"></div>
+                  <strong className="block text-slate-900 dark:text-white mb-1 font-black text-sm relative z-10">{selectedImage.name}</strong>
+                  <p className="text-slate-700/90 dark:text-slate-300 text-xs lg:text-sm font-medium leading-relaxed mb-0 relative z-10 line-clamp-3 lg:line-clamp-4">
                     {selectedImage.fact || "This represents the vibrant and rich cultural heritage of Bihar, reflecting centuries of history and tradition."}
                   </p>
                 </div>
