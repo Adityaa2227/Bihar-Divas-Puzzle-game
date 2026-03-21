@@ -121,6 +121,38 @@ export default function App() {
   );
 
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    playToggleSound();
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -447,9 +479,11 @@ export default function App() {
           onStart={handleGoToCategories} 
           theme={theme}
           onToggleTheme={toggleTheme}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={toggleFullscreen}
         />
       ) : (
-      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-0 md:p-1 lg:p-1 relative z-[1]">
+      <div className="w-full max-w-[480px] md:max-w-[1400px] h-screen max-h-screen flex flex-col p-0 md:p-1 lg:p-1 relative z-[1] overflow-hidden">
         <Header 
           moves={moves} 
           time={time} 
@@ -464,10 +498,12 @@ export default function App() {
           showTitle={view !== 'landing'}
           theme={theme}
           onToggleTheme={toggleTheme}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={toggleFullscreen}
           onSettings={() => setShowSettings(true)}
         />
 
-        <div className="flex-1 flex flex-col justify-center w-full">
+        <div className="flex-1 flex flex-col justify-center w-full overflow-hidden min-h-0">
           {view === 'categories' ? (
             <CategorySelection 
               onSelectCategory={handleCategorySelect}

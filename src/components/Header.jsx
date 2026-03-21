@@ -11,6 +11,8 @@ export default function Header({
   theme,
   onToggleTheme,
   onSettings,
+  isFullscreen,
+  onToggleFullscreen,
 }) {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -53,10 +55,17 @@ export default function Header({
           </button>
           <button
             className={`bg-white/80 dark:bg-slate-800/80 border border-orange-200/50 dark:border-slate-600 w-11 h-11 rounded-full flex items-center justify-center text-lg cursor-pointer transition-all duration-500 text-slate-800 dark:text-gray-100 shadow-sm backdrop-blur-md hover:scale-110 hover:border-orange-500 hover:shadow-md active:scale-95 ${theme === 'dark' ? 'rotate-[360deg]' : ''}`}
-            onClick={() => { playToggleSound(); onToggleTheme(); }}
+            onClick={onToggleTheme}
             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             {theme === 'light' ? <i className="fas fa-moon"></i> : <i className="fas fa-sun"></i>}
+          </button>
+          <button
+            className="bg-white/80 dark:bg-slate-800/80 border border-orange-200/50 dark:border-slate-600 w-11 h-11 rounded-full flex items-center justify-center text-lg cursor-pointer transition-all text-slate-800 dark:text-gray-100 shadow-sm backdrop-blur-md hover:scale-110 hover:border-orange-500 hover:shadow-md active:scale-95"
+            onClick={onToggleFullscreen}
+            aria-label={isFullscreen ? "Exit full screen" : "Go full screen"}
+          >
+            {isFullscreen ? <i className="fas fa-compress-arrows-alt"></i> : <i className="fas fa-expand-arrows-alt"></i>}
           </button>
         </div>
       </div>

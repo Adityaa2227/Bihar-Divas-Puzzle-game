@@ -38,9 +38,9 @@
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Increase base font-size to scale all rem units and increase overall website size */
+/* Increase base font-size to scale all rem units — capped for large TV displays */
 html {
-  font-size: clamp(14px, 1.1vw, 24px); /* Scales with screen width but keeps sensible limits */
+  font-size: clamp(14px, 0.9vw, 18px); /* Gentler scaling, capped at 18px for 43"+ TVs */
 }
 
 /* Base body — cannot be done purely in Tailwind */
