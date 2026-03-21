@@ -526,7 +526,7 @@ export default function App() {
               {/* PUZZLE BOARD (Now on Right visually on LG) */}
               <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-3">
               {gameMode === GAME_MODES.JIGSAW ? (
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] aspect-square shrink-0">
+                <div className="relative w-full rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] border-[var(--border)] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(300px,50vh,600px)] lg:w-[clamp(300px,50vh,600px)] xl:h-[clamp(400px,55vh,650px)] xl:w-[clamp(400px,55vh,650px)] max-h-[70vw] max-w-[70vw] aspect-square shrink-0" style={{ maxHeight: 'calc(100vh - 120px)' }}>
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
@@ -545,7 +545,7 @@ export default function App() {
                   />
                 </div>
               ) : (
-                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(320px,65vh,750px)] lg:w-[clamp(320px,65vh,750px)] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`}>
+                <div className={`relative w-full aspect-square shrink-0 rounded-2xl overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.15)] border-[3px] bg-[var(--bg-secondary)] h-auto lg:h-[clamp(300px,50vh,600px)] lg:w-[clamp(300px,50vh,600px)] xl:h-[clamp(400px,55vh,650px)] xl:w-[clamp(400px,55vh,650px)] max-h-[70vw] max-w-[70vw] ${gameMode === GAME_MODES.DRAG_DROP ? 'border-dashed border-orange-500' : 'border-[var(--border)]'}`} style={{ maxHeight: 'calc(100vh - 120px)' }}>
                   {(isPreviewing || showHint) && (
                     <div className={isPreviewing ? "absolute inset-0 z-20 flex items-center justify-center rounded-2xl pointer-events-none" : "absolute inset-0 z-10 flex items-center justify-center bg-black/30 animate-[fadeIn_0.2s_ease] rounded-2xl"}>
                       {showHint && !isPreviewing && (
