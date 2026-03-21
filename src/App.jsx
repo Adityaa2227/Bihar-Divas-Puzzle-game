@@ -153,18 +153,13 @@ export default function App() {
     const handleMouseDown = () => {
       playInteractSound();
     };
-    const handleMouseMove = () => {
-      playMouseMoveSound();
-    };
 
     document.addEventListener('mouseover', handleMouseOver);
     document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -420,7 +415,7 @@ export default function App() {
           onToggleTheme={toggleTheme}
         />
       ) : (
-      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-3 md:p-5 lg:p-8 relative z-[1]">
+      <div className="w-full max-w-[480px] md:max-w-[1400px] flex flex-col p-0 md:p-1 lg:p-1 relative z-[1]">
         <Header 
           moves={moves} 
           time={time} 
@@ -456,7 +451,7 @@ export default function App() {
               bestScore={bestScore}
             />
           ) : (
-            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-8 lg:gap-8 w-full h-full pb-6 max-w-[1600px] mx-auto px-4 lg:px-12">
+            <div className="flex flex-col lg:flex-row flex-1 items-center justify-center gap-2 w-full h-full pb-1 max-w-[1600px] mx-auto px-0 lg:px-1">
               
               {/* PUZZLE BOARD (Now on Right visually on LG) */}
               <div className="w-full flex justify-center lg:justify-start lg:flex-none lg:w-auto order-1 lg:order-3">
@@ -518,22 +513,22 @@ export default function App() {
               </div>
 
               {/* CONTROLS & INFO (Now on Left visually on LG) */}
-              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-6 lg:gap-8 justify-center order-2 lg:order-1">
+              <div className="w-full flex-1 lg:flex-none lg:w-[460px] max-w-[460px] flex flex-col gap-2 justify-center order-2 lg:order-1">
                 
                 {/* Stats Panel */}
-                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                <div className="bg-white/40 dark:bg-slate-800/40 p-2 sm:p-2.5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">⏱️</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Time</span>
                       <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{formatTime(time)}</span>
                     </div>
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">👆</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Moves</span>
                       <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{moves}</span>
                     </div>
-                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-3 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
+                    <div className="bg-white/85 dark:bg-slate-800/85 border border-orange-200/50 dark:border-slate-600 rounded-2xl p-1.5 flex flex-col items-center justify-center gap-1 shadow-sm backdrop-blur-md">
                       <span className="text-xl">🏆</span>
                       <span className="text-[0.6rem] text-amber-900/70 dark:text-slate-400 uppercase tracking-widest font-bold leading-none mt-1">Best</span>
                       <span className="text-sm font-black tabular-nums text-slate-800 dark:text-gray-100">{bestScore ? formatTime(bestScore) : '--:--.--'}</span>
@@ -542,7 +537,7 @@ export default function App() {
                 </div>
 
                 {/* Fact Panel */}
-                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-amber-100 to-orange-50 dark:from-slate-800 dark:to-slate-900 p-2.5 sm:p-3 rounded-3xl border border-orange-200/60 dark:border-slate-600 shadow-lg relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-orange-400/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
                   <h3 className="text-slate-800 dark:text-gray-100 font-extrabold text-xl mb-2 flex items-center gap-2 relative z-10">
                     <span className="text-2xl">💡</span> Did you know?
@@ -555,7 +550,7 @@ export default function App() {
                 </div>
 
                 {/* Controls */}
-                <div className="bg-white/40 dark:bg-slate-800/40 p-5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
+                <div className="bg-white/40 dark:bg-slate-800/40 p-2 sm:p-2.5 rounded-3xl border border-white/20 dark:border-slate-700 shadow-lg backdrop-blur-md">
                   <Controls
                     hasWon={hasWon}
                     onRestart={handleRestart}

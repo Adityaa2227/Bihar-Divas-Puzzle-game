@@ -193,13 +193,21 @@ export function playHoverSound() {
     const gain = ctx.createGain();
     osc.connect(gain);
     gain.connect(ctx.destination);
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.05);
-    gain.gain.setValueAtTime(0.015 * globalVolume * MASTER_MULTIPLIER, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    
+    // 'square' wave provides a classic retro/8-bit gamified texture
+    osc.type = 'square';
+    
+    // Slide pitch up quickly for a classic menu 'blip'
+    osc.frequency.setValueAtTime(400, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.03);
+    
+    // Soft attack to prevent popping, quick decay for a snappy pip
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.015 * globalVolume * MASTER_MULTIPLIER, ctx.currentTime + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    
     osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.05);
+    osc.stop(ctx.currentTime + 0.04);
   } catch (e) {}
 }
 

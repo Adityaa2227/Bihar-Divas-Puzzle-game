@@ -8,7 +8,7 @@ export default function Controls({
   maxHints,
 }) {
   return (
-    <div className="flex gap-3 w-full animate-[fadeIn_0.3s_ease] mb-2">
+    <div className="flex gap-2 w-full animate-[fadeIn_0.3s_ease] mb-1">
       {hasWon ? (
         <button 
           className="flex-1 py-3 px-5 text-sm font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-2 select-none bg-white/80 dark:bg-white/10 backdrop-blur-md text-orange-600 dark:text-orange-400 border-2 border-orange-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(234,88,12,0.2)] hover:border-orange-500 active:scale-95 group"

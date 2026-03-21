@@ -20,7 +20,7 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-[1000] py-2 px-2 w-full backdrop-blur-md">
+    <header className="sticky top-0 z-[1000] py-1 px-1 w-full backdrop-blur-md">
       <div className="flex items-center gap-3 min-h-[56px] w-full">
         {/* Back button */}
         <div className="shrink-0">
