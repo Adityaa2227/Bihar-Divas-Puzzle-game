@@ -26,7 +26,7 @@ export const IMAGES = [
   { id: 'ganga-aarti', categoryId: 'culture', name: 'Ganga Aarti', src: '/assets/under_15/nit-ghat-ganga-aarti.webp', fact: 'A mesmerizing spiritual evening prayer held at the NIT Ghat, involving massive brass lamps, chanting, and beautiful reflections on the running river.' },
   { id: 'village-life', categoryId: 'culture', name: 'Village Life', src: '/assets/under_15/village side.webp', fact: 'Bihar\'s villages remain the heart of its culture, preserving traditional agricultural practices, tight-knit communities, and ancestral crafts.' },
 
-  // --- 16-30 YEARS ---
+  // // --- 16-30 YEARS ---
   { id: 'barabar-caves', categoryId: 'heritage', name: 'Barabar Caves', src: '/assets/16-30/Barabar-Caves.webp', fact: 'Constructed during the Mauryan Empire, these are the oldest surviving rock-cut caves in India and feature glass-like highly polished interiors.' },
   { id: 'sher-shah-tomb', categoryId: 'heritage', name: 'Sher Shah Tomb', src: '/assets/under_15/sher.webp', fact: 'Located in Sasaram, this magnificent 122-foot red sandstone tomb stands in the middle of an artificial lake and is a masterpiece of Indo-Islamic architecture.' },
   { id: 'ashoka-pillar', categoryId: 'heritage', name: 'Vaishali Pillar', src: '/assets/16-30/Pillar-Ashoka-Vaishali.webp', fact: 'Unlike other Ashokan pillars bearing four lions, the Vaishali pillar is uniquely crowned by a single Asiatic lion facing north.' },
@@ -44,6 +44,28 @@ export const IMAGES = [
   { id: 'shrawani-mela', categoryId: 'culture', name: 'Shrawani Mela', src: '/assets/16-30/Shravani-Mela.webp', fact: 'Millions of Kanwariyas undertake an arduous barefoot trek carrying holy river water during this massive monsoon pilgrimage.' },
   { id: 'mithila-art', categoryId: 'culture', name: 'Mithila Art', src: '/assets/16-30/mithila art.webp', fact: 'Originally a localized women\'s wall art tradition, Mithila painting has exploded into an internationally recognized fine art style.' },
   { id: 'bidesia', categoryId: 'culture', name: 'Bidesia Folk', src: '/assets/16-30/bedesiya.webp', fact: 'Created by Bhikhari Thakur (the Shakespeare of Bhojpuri), this powerful folk theater addresses themes of migration and social issues.' },
+
+  // --- NEW QUESTIONS ---
+  { id: 'kesariya-buddha', categoryId: 'heritage', name: 'Kesariya Buddha Site', src: '/assets/new image/kesariya_buddha.webp', fact: 'Believed to be the place where Buddha gave his last sermon before attaining Mahaparinirvana.' },
+  { id: 'jal-mandir', categoryId: 'heritage', name: 'Jal Mandir Pawapuri', src: '/assets/new image/jal_mandir.jpg', fact: 'A white marble temple floating in the middle of a lotus-filled lake, marking Mahavira’s cremation site.' },
+  { id: 'kakolat', categoryId: 'heritage', name: 'Kakolat Waterfall', src: '/assets/new image/kakolat.jpg', fact: 'A scenic waterfall believed in mythology to free people from snake curses if they bathe here.' },
+  { id: 'bhagalpur-silk', categoryId: 'heritage', name: 'Bhagalpuri Silk', src: '/assets/new image/bhagalpur_silk.jpg', fact: 'Known as the "Silk City", Bhagalpur produces world-famous Tussar silk fabrics.' },
+  { id: 'sherghati', categoryId: 'heritage', name: 'Sherghati Hills', src: '/assets/new image/sherghati.jpg', fact: 'A lesser-known but historically strategic region during medieval Indian battles.' },
+  { id: 'ravish-k', categoryId: 'celebrity', name: 'Ravish Kumar', src: '/assets/new image/ravish.webp', fact: 'A Ramon Magsaysay Award-winning journalist known for independent and fearless reporting.' },
+  { id: 'imtiyaz-a', categoryId: 'celebrity', name: 'Imtiaz Ali', src: '/assets/new image/imtiaz.avif', fact: 'A renowned filmmaker from Bihar known for movies like Rockstar and Tamasha.' },
+  { id: 'sanjay-m', categoryId: 'celebrity', name: 'Sanjay Mishra', src: '/assets/new image/sanjay.avif', fact: 'A critically acclaimed actor known for his natural acting and comic timing.' },
+  { id: 'pooja-s', categoryId: 'celebrity', name: 'Pooja Sharma', src: '/assets/new image/pooja.avif', fact: 'A television actress known for portraying Draupadi in Mahabharat.' },
+  { id: 'khesari-l', categoryId: 'celebrity', name: 'Khesari Lal Yadav', src: '/assets/new image/khesari.avif', fact: 'A Bhojpuri superstar singer-actor with massive popularity in rural India.' },
+  { id: 'tilkut', categoryId: 'food', name: 'Tilkut', src: '/assets/new image/tilkut.jpg', fact: 'A winter delicacy made from sesame seeds and jaggery, especially famous in Gaya.' },
+  { id: 'anarsa', categoryId: 'food', name: 'Anarsa', src: '/assets/new image/anarsa.jpg', fact: 'A unique sweet made from soaked rice flour and jaggery, deep-fried to perfection.' },
+  { id: 'kadhi-bari', categoryId: 'food', name: 'Kadhi Bari', src: '/assets/new image/kadhi.jpg', fact: 'A tangy yogurt-based curry with gram flour dumplings, widely eaten in Bihar households.' },
+  { id: 'ghugni', categoryId: 'food', name: 'Ghugni', src: '/assets/new image/ghugni.jpg', fact: 'A spicy street food made from black chickpeas, commonly eaten with poori or bread.' },
+  { id: 'lai', categoryId: 'food', name: 'Lai', src: '/assets/new image/lai.jpg', fact: 'A crunchy sweet made from puffed grains and jaggery, popular during festivals.' },
+  { id: 'angika', categoryId: 'culture', name: 'Angika Language', src: '/assets/new image/angika.jpg', fact: 'An ancient regional language spoken in parts of Bihar and Jharkhand.' },
+  { id: 'paag-ceremony', categoryId: 'culture', name: 'Paag Ceremony', src: '/assets/new image/paag_ceremony.avif', fact: 'Honoring guests with a Paag is a symbol of deep respect in Mithila culture.' },
+  { id: 'bihar-handloom', categoryId: 'culture', name: 'Bihar Handloom', src: '/assets/new image/handloom.png', fact: 'Traditional weaving techniques produce unique textiles reflecting rural craftsmanship.' },
+  { id: 'rural-haat', categoryId: 'culture', name: 'Village Haat', src: '/assets/new image/haat.webp', fact: 'Weekly rural markets where villagers trade goods, food, and handmade products.' },
+
 
   // --- 30-55 YEARS ---
   { id: 'vikramshila-u', categoryId: 'heritage', name: 'Vikramshila University', src: '/assets/30-55/vikramshila.webp', fact: 'Operating alongside Nalanda, Vikramshila was established by King Dharmapala as a premier global center for Vajrayana Buddhism.' },
@@ -88,11 +110,35 @@ export const IMAGES = [
 ];
 
 export const AGE_GROUPS = {
-  under_15: { id: 'under_15', size: 3, label: 'Under 15', tag: ' Young Minds', allowedImages: ['mahabodhi', 'nalanda-u', 'golghar', 'buddha-statue', 'rajgir-hills', 'ishan-k', 'neha-s', 'khan-s', 'anand-k', 'sonakshi-s', 'litti-chokha', 'sattu-drink', 'thekua', 'khaja', 'chana-ghugni', 'madhubani', 'chhath', 'folk-dance', 'ganga-aarti', 'village-life'] },
-  age_16_30: { id: 'age_16_30', size: 3, label: '16-30 Years', tag: ' Youth', allowedImages: ['barabar-caves', 'sher-shah-tomb', 'ashoka-pillar', 'rajgir-ropeway', 'kesaria-stupa', 'manoj-b', 'pankaj-t', 'sushant-r', 'bismillah-k', 'shatrughan-s', 'sattu-paratha', 'dal-pitha', 'champaran-mutton', 'kadhi-bari', 'tilkut', 'sonepur-mela', 'shrawani-mela', 'mithila-art', 'bhojpuri-songs', 'bidesia'] },
+  under_15: { id: 'under_15', size: 3, label: 'Under 15', tag: ' Young Minds', allowedImages: ['mahabodhi', 'nalanda-u', 'golghar', 'buddha-statue', 'rajgir-hills', 'ishan-k', 'neha-s', 'khan-s', 'anand-k', 'sonakshi-s', 'litti-chokha', 'sattu-drink', 'thekua', 'khaja', 'chana-ghugni', 'madhubani', 'chhath', 'folk-dance', 'ganga-aarti', 'village-life', 'kesariya-buddha', 'jal-mandir', 'kakolat', 'bhagalpur-silk', 'sherghati', 'ravish-k', 'imtiyaz-a', 'sanjay-m', 'pooja-s', 'khesari-l', 'tilkut', 'anarsa', 'kadhi-bari', 'ghugni', 'lai', 'bhojpuri-cinema', 'angika', 'paag-ceremony', 'bihar-handloom', 'rural-haat'] },
+  age_16_30: { id: 'age_16_30', size: 3, label: '16-30 Years', tag: ' Youth', allowedImages: ['barabar-caves', 'sher-shah-tomb', 'ashoka-pillar', 'rajgir-ropeway', 'kesaria-stupa', 'manoj-b', 'pankaj-t', 'sushant-r', 'bismillah-k', 'shatrughan-s', 'sattu-paratha', 'dal-pitha', 'champaran-mutton', 'kadhi-bari', 'tilkut', 'sonepur-mela', 'shrawani-mela', 'mithila-art', 'bhojpuri-songs', 'bidesia', 'kesariya-buddha', 'jal-mandir', 'kakolat', 'bhagalpur-silk', 'sherghati', 'ravish-k', 'imtiyaz-a', 'sanjay-m', 'pooja-s', 'khesari-l', 'anarsa', 'ghugni', 'lai', 'bhojpuri-cinema', 'angika', 'paag-ceremony', 'bihar-handloom', 'rural-haat'] },
   age_30_55: { id: 'age_30_55', size: 3, label: '30-55 Years', tag: ' Adults', allowedImages: ['vikramshila-u', 'rohtasgarh', 'agam-kuan', 'pawapuri', 'ajatshatru', 'prakash-j', 'ramdhari-sd', 'phanishwar-nr', 'bhikhari-t', 'sharda-s', 'makhana-kheer', 'bihari-kebab', 'fish-curry', 'aloo-chana', 'chura-dahi', 'chanakya', 'aryabhatta', 'dashrath', 'magadh', 'jain-buddha'] },
   age_55_plus: { id: 'age_55_plus', size: 3, label: '55+ Years', tag: ' Seniors', allowedImages: ['lauria', 'mundeshwari', 'v-ruins', 'layout', 'telhara', 'rajendra-p', 'jayaprakash-n', 'kunwar-s', 'vidyapati', 'malpua', 'gur-sweets', 'khichdi', 'saag-bhaat', 'handia', 'angika', 'magahi', 'mauryan-e', 'gupta-e', 'buddhist-c'] }
 };
 
 export const LS_KEYS = { bestScore: 'bihar-puzzle-best-score' };
 export const GAME_MODES = { SLIDER: 'slider', DRAG_DROP: 'drag_drop', JIGSAW: 'jigsaw' };
+
+
+
+
+
+
+  // { id: 'mahabodhi', categoryId: 'heritage', name: 'Mahabodhi Temple', src: '/assets/under_15/MAHABODHI.webp', fact: 'The Mahabodhi Temple is a UNESCO World Heritage Site where the Buddha is said to have attained enlightenment under the sacred Bodhi Tree.' },
+  // { id: 'nalanda-u', categoryId: 'heritage', name: 'Nalanda University', src: '/assets/under_15/nalanda.webp', fact: 'Founded in the 5th century, Nalanda was one of the greatest centers of learning in the ancient world, attracting scholars from as far away as China and Greece.' },
+  // { id: 'golghar', categoryId: 'heritage', name: 'Golghar', src: '/assets/photos/golghar.webp', fact: 'Built in 1786 by Captain John Garstin, this massive beehive-shaped granary was designed to store grain for the British army after the famine of 1770.' },
+  // { id: 'buddha-statue', categoryId: 'heritage', name: 'Buddha Statue', src: '/assets/under_15/The-Great-Buddha-Statue.webp', fact: 'Standing 80 feet tall in Bodh Gaya, this majestic statue took seven years to complete and is made from blocks of red granite and sandstone.' },
+  // { id: 'rajgir-hills', categoryId: 'heritage', name: 'Rajgir Hills', src: '/assets/under_15/Rajgir_hills.webp', fact: 'Rajgir was the first capital of the Magadha empire. Its seven sacred hills are revered in Hinduism, Buddhism, and Jainism alike.' },
+  // { id: 'ishan-k', categoryId: 'celebrity', name: 'Ishan Kishan', src: '/assets/under_15/ishan_kishan.png', fact: 'A dynamic young cricketer from Patna, Bihar who electrified the world with a blazing double century in ODIs.' },
+  // { id: 'neha-s', categoryId: 'celebrity', name: 'Neha Sharma', src: '/assets/under_15/neha_sharma.png', fact: 'A popular and talented Indian actress from Bhagalpur, Bihar who made her mark in Bollywood.' },
+  // { id: 'khan-s', categoryId: 'celebrity', name: 'Khan Sir', src: '/assets/under_15/Khan_Sir.png', fact: 'A beloved educational icon from Patna whose unique and humorous teaching style has educated millions across India.' },
+  // { id: 'anand-k', categoryId: 'celebrity', name: 'Anand Kumar', src: '/assets/under_15/Anand_Kumar.png', fact: 'A legendary educator whose Super 30 program helps underprivileged students crack the world’s toughest engineering exams.' },
+  // { id: 'sonakshi-s', categoryId: 'celebrity', name: 'Sonakshi Sinha', src: '/assets/under_15/Sonakshi_Sinha.png', fact: 'A leading Bollywood actress with proud roots in Bihar, known for her powerful performances in blockbuster films.' },
+  // { id: 'litti-chokha', categoryId: 'food', name: 'Litti Chokha', src: '/assets/photos/local_cuisine.webp', fact: 'Bihar\'s signature soul food—roasted wheat dough balls stuffed with spiced sattu (roasted gram flour), served with smoky mashed eggplant and potato.' },
+  // { id: 'sattu-drink', categoryId: 'food', name: 'Sattu Drink', src: '/assets/under_15/sattu.webp', fact: 'Known as the "Desi Energy Drink", iced sattu mixed with cumin, lime, and black salt provides instant cooling and protein during Bihar\'s scorching summers.' },
+  // { id: 'thekua', categoryId: 'food', name: 'Thekua', src: '/assets/under_15/thekua.webp', fact: 'A revered traditional sweet made from wheat flour, ghee, and jaggery. It is the core offering (prasad) during Bihar\'s most important festival, Chhath Puja.' },
+  // { id: 'madhubani', categoryId: 'culture', name: 'Madhubani Art', src: '/assets/under_15/madhubani.webp', fact: 'Also known as Mithila painting, this ancient geometric art form uses natural dyes from plants and was originally painted on freshly plastered mud walls.' },
+  // { id: 'chhath', categoryId: 'culture', name: 'Chhath Puja', src: '/assets/under_15/chhath.webp', fact: 'An ancient Vedic festival honoring Surya (the Sun God) and Chhathi Maiya, unique in its rigorous fasting, river-bathing rituals, and absence of idol worship.' },
+  // { id: 'folk-dance', categoryId: 'culture', name: 'Bihar Folk Dance', src: '/assets/under_15/Bihar_Folk_Dance-.webp', fact: 'Dances like Jat-Jatin and Jhijhiya express the vibrant rural culture and folklore, often performed during monsoons and harvest festivals.' },
+  // { id: 'ganga-aarti', categoryId: 'culture', name: 'Ganga Aarti', src: '/assets/under_15/nit-ghat-ganga-aarti.webp', fact: 'A mesmerizing spiritual evening prayer held at the NIT Ghat, involving massive brass lamps, chanting, and beautiful reflections on the running river.' },
+  // { id: 'village-life', categoryId: 'culture', name: 'Village Life', src: '/assets/under_15/village side.webp', fact: 'Bihar\'s villages remain the heart of its culture, preserving traditional agricultural practices, tight-knit communities, and ancestral crafts.' },
