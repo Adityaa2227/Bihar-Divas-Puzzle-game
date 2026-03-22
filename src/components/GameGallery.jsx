@@ -40,10 +40,10 @@ export default function GameGallery({
     <div className="animate-[fadeIn_0.5s_ease] w-full h-full flex flex-col max-h-[calc(100vh-70px)] overflow-hidden">
 
       {/* ── KIOSK 2-COL: Left = info, Right = content ── */}
-      <div className="w-full max-w-[1800px] px-4 lg:px-12 mx-auto grid grid-cols-1 lg:grid-cols-[1fr_auto_1.6fr] items-stretch gap-4 lg:gap-10 flex-1 overflow-hidden">
+      <div className="w-full max-w-[1800px] px-4 md:px-12 mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto_1.6fr] items-stretch gap-4 md:gap-10 flex-1 overflow-hidden">
 
         {/* LEFT — Title + stepper nav */}
-        <div className="flex flex-col justify-center gap-1.5 lg:gap-2 pr-0 lg:pr-2 pb-2 lg:pb-0 text-center lg:text-left">
+        <div className="flex flex-col justify-center gap-1.5 md:gap-2 pr-0 md:pr-2 pb-2 md:pb-0 text-center md:text-left">
 
           <div>
             <h2 className="text-3xl lg:text-[clamp(2.5rem,5vh,3.5rem)] lg:leading-tight font-black text-orange-600 mb-2 drop-shadow-sm">
@@ -55,7 +55,7 @@ export default function GameGallery({
           </div>
 
           {/* Step indicators */}
-          <div className="flex lg:flex-col gap-3 justify-center lg:justify-start">
+          <div className="flex md:flex-col gap-3 justify-center md:justify-start">
             <button
               onClick={() => { playClickSound(); setStep(1); }}
               className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all cursor-pointer border ${step === 1 ? 'bg-orange-600 text-white border-orange-600 shadow-lg' : 'bg-white/10 text-slate-700 dark:text-white/60 border-white/10 hover:border-orange-400'}`}
@@ -73,7 +73,7 @@ export default function GameGallery({
           </div>
 
           {/* Info about selected mode */}
-          <div className="hidden lg:block mt-2">
+          <div className="hidden md:block mt-2">
             <div className="bg-white/10 dark:bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
               <div className="text-xs font-bold text-slate-600 dark:text-white/50 uppercase tracking-widest mb-1">Current Selection</div>
               <div className="text-base font-black text-slate-800 dark:text-white">
@@ -84,7 +84,7 @@ export default function GameGallery({
         </div>
 
         {/* CENTER DIVIDER */}
-        <div className="hidden lg:flex flex-col items-center justify-center px-1 gap-1 select-none">
+        <div className="hidden md:flex flex-col items-center justify-center px-6 gap-3 select-none">
           <div className="w-px flex-1 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
           <div className="w-9 h-9 rounded-full bg-orange-500/20 border border-orange-500/40 flex items-center justify-center text-lg">⚡</div>
           <div className="w-px flex-1 bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
