@@ -109,10 +109,10 @@ export const IMAGES = [
 ];
 
 export const AGE_GROUPS = {
-  under_15: { id: 'under_15', size: 3, label: 'Under 15', tag: ' Young Minds', allowedImages: ['mahabodhi', 'nalanda-u', 'golghar', 'buddha-statue', 'rajgir-hills', 'neha-s', 'khan-s', 'anand-k', 'sonakshi-s', 'litti-chokha', 'sattu-drink', 'thekua', 'khaja', 'chana-ghugni', 'madhubani', 'chhath', 'folk-dance', 'ganga-aarti', 'village-life', 'kesariya-buddha', 'jal-mandir', 'kakolat', 'bhagalpur-silk', 'sherghati', 'ravish-k', 'imtiyaz-a', 'sanjay-m', 'pooja-s', 'khesari-l', 'tilkut', 'anarsa', 'kadhi-bari', 'ghugni', 'lai', 'bhojpuri-cinema', 'angika', 'paag-ceremony', 'bihar-handloom', 'rural-haat'] },
-  age_16_30: { id: 'age_16_30', size: 3, label: '16-30 Years', tag: ' Youth', allowedImages: ['barabar-caves', 'sher-shah-tomb', 'ashoka-pillar', 'rajgir-ropeway', 'kesaria-stupa', 'manoj-b', 'pankaj-t', 'sushant-r', 'bismillah-k', 'shatrughan-s', 'sattu-paratha', 'dal-pitha', 'champaran-mutton', 'kadhi-bari', 'tilkut', 'sonepur-mela', 'shrawani-mela', 'mithila-art', 'bhojpuri-songs', 'bidesia', 'kesariya-buddha', 'jal-mandir', 'kakolat', 'bhagalpur-silk', 'sherghati', 'ravish-k', 'imtiyaz-a', 'sanjay-m', 'pooja-s', 'khesari-l', 'anarsa', 'ghugni', 'lai', 'bhojpuri-cinema', 'angika', 'paag-ceremony', 'bihar-handloom', 'rural-haat'] },
-  age_30_55: { id: 'age_30_55', size: 3, label: '30-55 Years', tag: ' Adults', allowedImages: ['vikramshila-u', 'rohtasgarh', 'agam-kuan', 'pawapuri', 'ajatshatru', 'prakash-j', 'ramdhari-sd', 'phanishwar-nr', 'bhikhari-t', 'sharda-s', 'makhana-kheer', 'bihari-kebab', 'fish-curry', 'aloo-chana', 'chura-dahi', 'chanakya', 'aryabhatta', 'dashrath', 'magadh', 'jain-buddha'] },
-  age_55_plus: { id: 'age_55_plus', size: 3, label: '55+ Years', tag: ' Seniors', allowedImages: ['lauria', 'mundeshwari', 'v-ruins', 'layout', 'telhara', 'rajendra-p', 'jayaprakash-n', 'kunwar-s', 'vidyapati', 'malpua', 'gur-sweets', 'khichdi', 'saag-bhaat', 'handia', 'angika', 'magahi', 'mauryan-e', 'gupta-e', 'buddhist-c'] }
+  under_15: { id: 'under_15', size: 3, label: 'Under 15', tag: ' Young Minds' },
+  age_16_30: { id: 'age_16_30', size: 3, label: '16-30 Years', tag: ' Youth' },
+  age_30_55: { id: 'age_30_55', size: 3, label: '30-55 Years', tag: ' Adults' },
+  age_55_plus: { id: 'age_55_plus', size: 3, label: '55+ Years', tag: ' Seniors' }
 };
 
 export const LS_KEYS = { bestScore: 'bihar-puzzle-best-score' };

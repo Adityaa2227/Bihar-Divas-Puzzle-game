@@ -232,11 +232,7 @@ export default function App() {
 
   const timerRef = useRef(null);
 
-  const categoryImages = IMAGES.filter((img) => {
-    const isCategory = img.categoryId === selectedCategory;
-    const allowed = AGE_GROUPS[difficulty]?.allowedImages || [];
-    return isCategory && allowed.includes(img.id);
-  });
+  const categoryImages = IMAGES.filter((img) => img.categoryId === selectedCategory);
 
   useEffect(() => {
     if (isRunning && !hasWon && !hasLost && !isPreviewing) {
@@ -288,13 +284,12 @@ export default function App() {
     playNavSound();
     
     // Logic to ensure "New Puzzle" (image) on every entry
-    const allowed = AGE_GROUPS[difficulty].allowedImages;
     let pool;
     if (isRandomEnabled) {
-      pool = IMAGES.filter(img => allowed.includes(img.id));
+      pool = IMAGES;
     } else {
-      pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
-      if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+      pool = IMAGES.filter(img => img.categoryId === selectedCategory);
+      if (pool.length === 0) pool = IMAGES;
     }
     const randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
     
@@ -343,11 +338,10 @@ export default function App() {
     setSelectedImage(img);
   }, []);
 
-  const pickRandomImage = useCallback((catId, ageId) => {
-    const allowed = AGE_GROUPS[ageId].allowedImages;
-    let pool = IMAGES.filter(img => img.categoryId === catId && allowed.includes(img.id));
+  const pickRandomImage = useCallback((catId) => {
+    let pool = IMAGES.filter(img => img.categoryId === catId);
     if (pool.length === 0) {
-      pool = IMAGES.filter(img => allowed.includes(img.id));
+      pool = IMAGES;
     }
     if (pool.length > 0) {
       const randomImg = pool[Math.floor(Math.random() * pool.length)];
@@ -357,7 +351,7 @@ export default function App() {
 
   const handleDifficultyChange = useCallback((ageGroupId) => {
     setDifficulty(ageGroupId);
-    pickRandomImage(selectedCategory, ageGroupId);
+    pickRandomImage(selectedCategory);
   }, [selectedCategory, pickRandomImage]);
 
   const handleGameModeChange = (mode) => {
@@ -459,13 +453,12 @@ export default function App() {
     playRestartSound();
     
     // Pick different image
-    const allowed = AGE_GROUPS[difficulty].allowedImages;
     let pool;
     if (isRandomEnabled) {
-      pool = IMAGES.filter(img => allowed.includes(img.id));
+      pool = IMAGES;
     } else {
-      pool = IMAGES.filter(img => img.categoryId === selectedCategory && allowed.includes(img.id));
-      if (pool.length === 0) pool = IMAGES.filter(img => allowed.includes(img.id));
+      pool = IMAGES.filter(img => img.categoryId === selectedCategory);
+      if (pool.length === 0) pool = IMAGES;
     }
     
     let randomImg = pool[Math.floor(Math.random() * pool.length)] || selectedImage;
